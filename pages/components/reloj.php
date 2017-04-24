@@ -28,11 +28,26 @@ while ( $arr = $pen->fetch_array () ) {
 	$tmp = array (
 			$selected_date => $tiempo 
 	);
-	if ($tiempo < 7) {
+	if ($tiempo < 8.5) {
 		array_push ( $reg_pen, $tmp );
 		$registros ++;
 	}
 }
+
+$current_query = "select 
+DATE_FORMAT(fecha_inicio,'%T') hora,
+(select a.actividad from actividad a where a.id = r.id_actividad) actividad,
+(select a.categoria from actividad a where a.id = r.id_actividad) categoria,
+descripcion,
+tiempoReal
+from 
+registro_actividad r 
+where cedula = 1017226454 and DATE(fecha_inicio) = DATE(NOW()) and estado = 'F'
+order by fecha_inicio asc;";
+
+$reg_cur = $wish->conexion->query ( $current_query );
+
+
 
 ?>
 <!-- Cronometro -->
@@ -91,39 +106,56 @@ $initialDate = $row ['fecha_inicio'];
 			<ul class="nav nav-tabs pull-right">
 
 				<li class="pull-left header"><i class="fa fa-clock-o"></i>
-					Cronometro</li>
+					Registro de Actividades</li>
 			</ul>
 			
 					<?php
 					if ($registros == 0) {
 						?>
-			<div class="tab-content no-padding">
-
-
-				<!-- Cronometro -->
-				&nbsp; &nbsp; &nbsp; <input type="button" class="btn btn-danger"
-					id="inicio" value="Start &#9658;" onclick="inicio();"> &nbsp; <input
-					type="button" class="btn btn-danger" id="parar"
-					value="Stop &#8718;" onclick="parar();" disabled>
-			</div>
-			<div id="chronometer">
-				<form id="stopForm" action="index.php?page=004" method="POST">
-					<input type="hidden" name="initDate" id="initDate"> <input
-						type="hidden" name="endTime" id="endTime">
-				</form>
-
-
-
-				<div>
-					<div class="clock inactive z-depth-1">
-						<span id="Horas">00</span> <span id="Minutos">:00</span><span
-							id="Segundos">:00</span>
+			
+						<div class="pad">
+						<!-- Map will be created here -->
+						<h3 class="box-title">Registros del día de hoy</h3>
+						<div class="col-md-offset-4">
+							<a href="index.php?page=005" class="btn btn-app"> <i
+								class="fa fa-edit"></i> Registro de Actividad
+							</a> <a href="index.php?page=014" class="btn btn-app"> <i
+								class="fa fa-plane"></i> Registro de ausentismo
+							</a>
+						</div>
+						<table id="pendientes" class="table table-striped table-bordered"
+							>
+							
+							<thead>
+								<tr>
+									<th>Hora</th>
+									<th>Actividad</th>
+									<th>Categoria</th>
+									<th>Descripción</th>
+									<th>Duración</th>
+								</tr>
+							</thead>
+							<tbody>
+                               <?php
+						while ( $r = $reg_cur->fetch_object () ) {
+							
+								?>
+                                    <tr>
+                                    	<td><?php printf($r->hora);?></td>
+										<td><?php printf($r->actividad);?></td>
+										<td><?php printf($r->categoria);?></td>
+										<td><?php printf($r->descripcion);?></td>
+										<td><?php printf($r->tiempoReal);?></td>							
+									</tr>
+                                            <?php
+						}
+						?>
+                                        </tbody>
+						</table>
+						
 					</div>
-				</div>
-
-
-			</div>
-			<div id="resultado"></div>
+			
+			
 			<?php
 					} else {
 						?>
@@ -187,6 +219,9 @@ $initialDate = $row ['fecha_inicio'];
  			
 			<?php }?>
 		</div>
+
+
+
 
 		<script>
     

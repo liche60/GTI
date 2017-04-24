@@ -46,6 +46,7 @@ where a.id = r.id_actividad and
 r.cedula = $userinfo->user_id
 and r.id_contrato = p.codigo
 and MONTH(fecha_inicio) = MONTH(NOW())
+and YEAR(fecha_inicio) = YEAR(NOW())
 order by  r.fecha_inicio desc
 ";
 

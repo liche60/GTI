@@ -1,9 +1,9 @@
 <?php
 class conexion{
 	public $conexion;
-	private $server = "localhost";
+	private $server = "bitacora.arus.com.co";
 	private $usuario = "root";
-	private $pass = "";
+	private $pass = "pruebas48";
 	private $db = "gti";
 	public $pdo_conn;
 	public function __construct() {
@@ -254,7 +254,7 @@ class conexion{
 	}
 	// cantidad de actividades de mis analistas
 	function getProductividadColaboradores($lider) {
-		$query = "SELECT sum(a.tiempo_calculado)/count(*) FROM registro_actividad a,new_personas r WHERE a.cedula=r.cedula  and r.jefe=$lider and MONTH(fecha_inicio) = MONTH(NOW())";
+		$query = "SELECT sum(a.tiempo_calculado)/count(*) FROM registro_actividad a,new_personas r WHERE a.cedula=r.cedula  and r.jefe=$lider and MONTH(fecha_inicio) = MONTH(NOW()) and YEAR(fecha_inicio) = YEAR(NOW())";
 		$numeroactividades = $this->conexion->query ( $query );
 		return $numeroactividades;
 	}
@@ -272,14 +272,14 @@ class conexion{
 	}
 	// cantidad de actividades mes
 	function getActividadesMesAnalista($cedula) {
-		$query = "SELECT COUNT(*) FROM registro_actividad WHERE cedula='$cedula'and estado='F' and MONTH(fecha_inicio) = MONTH(NOW())";
+		$query = "SELECT COUNT(*) FROM registro_actividad WHERE cedula='$cedula'and estado='F' and MONTH(fecha_inicio) = MONTH(NOW()) and YEAR(fecha_inicio) = YEAR(NOW())";
 		$actividadesdelmes = $this->conexion->query ( $query );
 		return $actividadesdelmes;
 	}
 	
 	// productividad
 	function getProductividad($cedula) {
-		$query = " SELECT  round ((avg(a.tiempoReal)),1) productividad  FROM registro_actividad a,new_personas r WHERE a.cedula='$cedula' and MONTH(fecha_inicio) = MONTH(NOW())";
+		$query = " SELECT  round ((avg(a.tiempoReal)),1) productividad  FROM registro_actividad a,new_personas r WHERE a.cedula='$cedula' and MONTH(fecha_inicio) = MONTH(NOW()) and YEAR(fecha_inicio) = YEAR(NOW())";
 		$productividad = $this->conexion->query ( $query );
 		return $productividad;
 	}
