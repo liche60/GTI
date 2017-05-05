@@ -2,7 +2,6 @@
 
 $_PAGE_PERMISSIONS = array(
 	"1" => array(
-		"005" => false,
 		"006" => false,
 		"017" => false,
 		"018" => false,
@@ -27,7 +26,6 @@ $_PAGE_PERMISSIONS = array(
 		"002" => false,
 	),
 	"3" => array(
-			"005" => false,
 			"006" => false,
 			"017" => false,
 			"018" => false,
@@ -76,22 +74,12 @@ $_PAGE_CONFIG = array(
 				"small" => "Bitacora de Operación",
 				"menu" => "Bitacora de operación",
 				"submenu" => array(
-						"1" => "005",
 						"2" => "006",
 						"3" => "010",
 						"4" => "011",
 						"5" => "014"
 				)
 		),
-				"005" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Bitacora de operación",
-						"small" => "Actividades por demanda",
-						"menu" => "Actividades por demanda",
-						"link" => 'pages/bitacora_operacion/registro_demanda/body.php',
-						"menu_css_class" => "fa-pencil-square-o"
-				),
 				"006" => array(
 						"show" => true,
 						"isSubmenu" => true,

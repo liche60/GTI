@@ -117,7 +117,7 @@ $initialDate = $row ['fecha_inicio'];
 						<!-- Map will be created here -->
 						<h3 class="box-title">Registros del día de hoy</h3>
 						<div class="col-md-offset-4">
-							<a href="index.php?page=005" class="btn btn-app"> <i
+							<a href="index.php?page=004" class="btn btn-app"> <i
 								class="fa fa-edit"></i> Registro de Actividad
 							</a> <a href="index.php?page=014" class="btn btn-app"> <i
 								class="fa fa-plane"></i> Registro de ausentismo
@@ -206,8 +206,8 @@ $initialDate = $row ['fecha_inicio'];
                                         </tbody>
 						</table>
 						<div class="col-md-offset-4">
-							<a href="index.php?page=005" class="btn btn-app"> <i
-								class="fa fa-edit"></i> Registro por demnanda
+							<a href="index.php?page=004" class="btn btn-app"> <i
+								class="fa fa-edit"></i> Registro de Actividad
 							</a> <a href="index.php?page=014" class="btn btn-app"> <i
 								class="fa fa-plane"></i> Registro de ausentismo
 							</a>
