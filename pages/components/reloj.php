@@ -42,8 +42,8 @@ descripcion,
 tiempoReal
 from 
 registro_actividad r 
-where cedula = 1017226454 and DATE(fecha_inicio) = DATE(NOW()) and estado = 'F'
-order by fecha_inicio asc;";
+where cedula = $userinfo->user_id and DATE(fecha_inicio) = DATE(NOW()) and estado = 'F'
+order by fecha_inicio desc;";
 
 $reg_cur = $wish->conexion->query ( $current_query );
 
@@ -132,7 +132,7 @@ $initialDate = $row ['fecha_inicio'];
 									<th>Actividad</th>
 									<th>Categoria</th>
 									<th>Descripción</th>
-									<th>Duración</th>
+									<th>Duración (min)</th>
 								</tr>
 							</thead>
 							<tbody>

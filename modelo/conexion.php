@@ -254,7 +254,7 @@ class conexion{
 	}
 	// cantidad de actividades de mis analistas
 	function getProductividadColaboradores($lider) {
-		$query = "SELECT sum(a.tiempo_calculado)/count(*) FROM registro_actividad a,new_personas r WHERE a.cedula=r.cedula  and r.jefe=$lider and MONTH(fecha_inicio) = MONTH(NOW()) and YEAR(fecha_inicio) = YEAR(NOW())";
+		$query = "SELECT sum(a.tiempo_calculado)/count(*) FROM registro_actividad a,new_personas r WHERE a.cedula=r.cedula  and r.jefe=$lider and MONTH(fecha_inicio) = MONTH(NOW()) and YEAR(fecha_inicio) = YEAR(NOW()) AND a.estado='F'";
 		$numeroactividades = $this->conexion->query ( $query );
 		return $numeroactividades;
 	}
@@ -279,7 +279,7 @@ class conexion{
 	
 	// productividad
 	function getProductividad($cedula) {
-		$query = " SELECT  round ((avg(a.tiempoReal)),1) productividad  FROM registro_actividad a,new_personas r WHERE a.cedula='$cedula' and MONTH(fecha_inicio) = MONTH(NOW()) and YEAR(fecha_inicio) = YEAR(NOW())";
+		$query = " SELECT  round ((avg(a.tiempoReal)),1) productividad  FROM registro_actividad a,new_personas r WHERE a.cedula='$cedula' and MONTH(fecha_inicio) = MONTH(NOW()) and YEAR(fecha_inicio) = YEAR(NOW()) AND a.estado='F'";
 		$productividad = $this->conexion->query ( $query );
 		return $productividad;
 	}
@@ -296,7 +296,7 @@ class conexion{
 					select
 					'8' as id_actividad,
 					date_format(v.selected_date,'%Y-%m-%d 07:30:00') as fecha_inicio,
-					'F' as estado,
+					'A' as estado,
 					'510' as tiempoReal,
 					'$tipo - $comentario' as descripcion,
 					'$proyecto' as id_proyecto,
