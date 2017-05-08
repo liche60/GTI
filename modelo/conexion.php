@@ -366,6 +366,25 @@ class conexion{
 		 */
 	}
 	
+	
+	public function registroNewContacto($nombre, $celular, $correo, $tipo, $descripcion)
+	{
+		$query = "insert into new_contactos (nombre, celular, correo, tipo, descripcion) values ('$nombre', $celular, '$correo', '$tipo', '$descripcion')";
+		$consulta = $this->conexion->query ( $query );
+	}
+	
+	public function insertService($tipo, $nombre, $descripcion, $id_host, $accion, $tiempo)
+	{
+		$query = "insert into servicios (tipo, nombre, descripcion, id_host, accion_critica, tiempo_max_contacto) values ('$tipo', '$nombre', '$descripcion', $id_host, '$accion', $tiempo)";
+		$consulta = $this->conexion->query ( $query );
+	}
+	
+	
+	
+	
+
+	
+	
 }
 
 ?>

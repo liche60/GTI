@@ -10,6 +10,8 @@ $_PAGE_PERMISSIONS = array(
 		"013" => false,
 		"015" => false,
 		"016" => false,
+		"023" => false,
+		"024" => false,
 	),
 	"2" => array(
 		"011" => false,
@@ -24,6 +26,8 @@ $_PAGE_PERMISSIONS = array(
 		"003" => false,
 		"008" => false,
 		"002" => false,
+		"023" => false,
+		"024" => false,
 	),
 	"3" => array(
 			"006" => false,
@@ -37,6 +41,8 @@ $_PAGE_PERMISSIONS = array(
 			"014" => false,
 			"015" => false,
 			"016" => false,
+			"023" => false,
+			"024" => false,
 	),
 	"4" => array(
 		
@@ -48,11 +54,13 @@ $_PAGE_PERMISSIONS = array(
 			"013" => false,
 			"015" => false,
 			"016" => false,
+			"023" => false,
+			"024" => false,
 			
 	),
 );
 
-// Pagina Actual : 021
+// Pagina Actual : 024
 
 $_PAGE_CONFIG = array(
 		//000 siempre es la home
@@ -125,6 +133,8 @@ $_PAGE_CONFIG = array(
 				"menu" => "Gestión de eventos",
 				"submenu" => array(
 						"1" => "013",
+						"2" => "023",
+						"3" => "024",
 				)
 		),
 				"013" => array(
@@ -136,6 +146,28 @@ $_PAGE_CONFIG = array(
 						"link" => 'pages/gestion_eventos/nuevo_evento/body.php',
 						"menu_css_class" => "fa-plus"
 				),
+		
+				"023" => array(
+						"show" => true,
+						"isSubmenu" => true,
+						"big" => "Gestión de eventos",
+						"small" => "Servicio",
+						"menu" => "Servicio",
+						"link" => 'pages/gestion_eventos/nuevo_evento/servicio.php',
+						"menu_css_class" => "fa-plus"
+				),
+				
+				"024" => array(
+						"show" => true,
+						"isSubmenu" => true,
+						"big" => "Gestión de eventos",
+						"small" => "Nuevo Contacto",
+						"menu" => "Nuevo Contacto",
+						"link" => 'pages/gestion_eventos/nuevo_contacto/body.php',
+						"menu_css_class" => "fa-plus"
+				),
+		
+		
 		"015" => array(
 				"show" => true,
 				"isSubmenu" => false,
