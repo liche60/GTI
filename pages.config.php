@@ -12,6 +12,11 @@ $_PAGE_PERMISSIONS = array(
 		"016" => false,
 		"023" => false,
 		"024" => false,
+		"025" => false,
+		"026" => false,
+		"027" => false,
+		"028" => false,
+		"029" => false,
 	),
 	"2" => array(
 		"011" => false,
@@ -28,6 +33,11 @@ $_PAGE_PERMISSIONS = array(
 		"002" => false,
 		"023" => false,
 		"024" => false,
+		"025" => false,
+		"026" => false,
+		"027" => false,
+		"028" => false,
+		"029" => false,
 	),
 	"3" => array(
 			"006" => false,
@@ -43,6 +53,11 @@ $_PAGE_PERMISSIONS = array(
 			"016" => false,
 			"023" => false,
 			"024" => false,
+			"025" => false,
+			"026" => false,
+			"027" => false,
+			"028" => false,
+			"029" => false,
 	),
 	"4" => array(
 		
@@ -56,11 +71,16 @@ $_PAGE_PERMISSIONS = array(
 			"016" => false,
 			"023" => false,
 			"024" => false,
+			"025" => false,
+			"026" => false,
+			"027" => false,
+			"028" => false,
+			"029" => false,
 			
 	),
 );
 
-// Pagina Actual : 024
+// Pagina Actual : 029
 
 $_PAGE_CONFIG = array(
 		//000 siempre es la home
@@ -124,6 +144,11 @@ $_PAGE_CONFIG = array(
 						"link" => 'pages/bitacora_operacion/registro_ausentismo/body.php',
 						"menu_css_class" => "fa-plane"
 				),
+		
+		
+		
+		//	---------GESTIÓN DE EVENTOS--------------
+		
 		"012" => array(
 				"show" => true,
 				"isSubmenu" => false,
@@ -133,8 +158,13 @@ $_PAGE_CONFIG = array(
 				"menu" => "Gestión de eventos",
 				"submenu" => array(
 						"1" => "013",
-						"2" => "023",
+						//"2" => "023",
 						"3" => "024",
+						//"4" => "025",
+						"5" => "026",
+						"6" => "027",
+						"7" => "028",
+						//"8" => "029",
 				)
 		),
 				"013" => array(
@@ -164,6 +194,56 @@ $_PAGE_CONFIG = array(
 						"small" => "Nuevo Contacto",
 						"menu" => "Nuevo Contacto",
 						"link" => 'pages/gestion_eventos/nuevo_contacto/body.php',
+						"menu_css_class" => "fa-plus"
+				),
+		
+				"025" => array(
+						"show" => true,
+						"isSubmenu" => true,
+						"big" => "Gestión de eventos",
+						"small" => "Detalles",
+						"menu" => "Detalles",
+						"link" => 'pages/gestion_eventos/nuevo_evento/detalles.php',
+						"menu_css_class" => "fa-plus"
+				),
+		
+				"026" => array(
+						"show" => true,
+						"isSubmenu" => true,
+						"big" => "Gestión de eventos",
+						"small" => "Nuevo CI",
+						"menu" => "Nuevo CI",
+						"link" => 'pages/gestion_eventos/nuevo_evento/nuevo_ci.php',
+						"menu_css_class" => "fa-plus"
+				),
+				
+				"027" => array(
+						"show" => true,
+						"isSubmenu" => true,
+						"big" => "Gestión de eventos",
+						"small" => "Registro de incidentes",
+						"menu" => "Registro de incidentes",
+						"link" => 'pages/gestion_eventos/nuevo_evento/registro_incidentes.php',
+						"menu_css_class" => "fa-plus"
+				),
+		
+				"028" => array(
+						"show" => true,
+						"isSubmenu" => true,
+						"big" => "Gestión de eventos",
+						"small" => "Solución a incidentes",
+						"menu" => "Solución a incidentes",
+						"link" => 'pages/gestion_eventos/nuevo_evento/solucion_incidentes.php',
+						"menu_css_class" => "fa-plus"
+				),
+		
+				"029" => array(
+						"show" => false,
+						"isSubmenu" => true,
+						"big" => "Gestión de eventos",
+						"small" => "Registro Masivo",
+						"menu" => "Registro Masivo",
+						"link" => 'pages/gestion_eventos/nuevo_evento/registro_masivo.php',
 						"menu_css_class" => "fa-plus"
 				),
 		

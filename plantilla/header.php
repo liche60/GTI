@@ -38,6 +38,10 @@
   <!-- jQuery 2.2.3 -->
   <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
   
+  <!-- Multi select js -->
+  <script src="plugins/multiselect/jquery.lwMultiSelect.js"></script>
+  <!-- Multi select css -->
+  <link rel="stylesheet" href="plugins/multiselect/jquery.lwMultiSelect.css">
 
 
 

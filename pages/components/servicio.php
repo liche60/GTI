@@ -23,8 +23,8 @@ $cont = $_POST['contrato'];
 $oe= new conexion();
 $conn = $oe->conexion->query("SELECT id, nombre, id_host, descripcion FROM servicios where id_host='$id'");
 $ser = $oe->conexion->query("SELECT * FROM tipo_servicios");
-//echo $id ." - ";
-//echo $cont;
+echo $id ." -  <br>";
+echo $cont;
 ?>
 
 
@@ -84,7 +84,13 @@ $ser = $oe->conexion->query("SELECT * FROM tipo_servicios");
 	</div>
 </form>
 
+<form method="post" action="index.php?page=025">
+        <input type="hidden" id="valci" name="valci" value="<?php echo $id;?>">
+        <input type="hidden" id="contra" name="contra" value="<?php echo $cont;?>">
+        <button data-id="" id="btnval" name="btnval" type="submit" class="btn btn-info">Ver detalles</button>
+        </form>
 
+<!-- COMIENZO MODAL -->
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
@@ -105,10 +111,9 @@ $ser = $oe->conexion->query("SELECT * FROM tipo_servicios");
         <label>Tipo</label>
         <select  name="tipo" required class="form-control">
         <?php		
-       //
         while($row = $ser->fetch_assoc())
         {
-        	echo '<option value="'.$row['tipo'].'">'.$row['tipo'].'</option>';
+        	echo '<option value="'.$row['id'].'">'.$row['tipo'].'</option>';
         }
 		?>       
 		
@@ -120,7 +125,7 @@ $ser = $oe->conexion->query("SELECT * FROM tipo_servicios");
         <label>Descripción</label>
         <textarea class="form-control"  name="descripcion" cols="100" style="resize: none;"></textarea>   
         
-        <input type="hidden" name="id_host" value="<?php echo $id_host; ?>">
+        <input type="hidden" name="id_host" value="<?php echo $id; ?>">
         </div>
         </div>
         

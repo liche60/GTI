@@ -373,18 +373,70 @@ class conexion{
 		$consulta = $this->conexion->query ( $query );
 	}
 	
-	public function insertService($tipo, $nombre, $descripcion, $id_host, $accion, $tiempo)
+	public function nuevoservicio($tipo)
 	{
-		$query = "insert into servicios (tipo, nombre, descripcion, id_host, accion_critica, tiempo_max_contacto) values ('$tipo', '$nombre', '$descripcion', $id_host, '$accion', $tiempo)";
+		$query = "insert into tipo_servicios (tipo) values ('$tipo')";
 		$consulta = $this->conexion->query ( $query );
 	}
 	
+	public function deleteservicio($borrar)
+	{
+		$query = "delete from detalle_servicio where id_detalle=$borrar";
+		$consulta = $this->conexion->query ( $query );
+	}
 	
+	public function servicio_ci($id, $servicio, $dispo, $delay, $war, $cri, $tipo, $responsable, $check, $horario, $puerto, $accion)
+	{
+		$query = "insert into detalle_servicio (id_host, id_tipo_servicio, id_grupo, val_war, val_cri, id_tipo_umbral, disponibilidad, delay, tiempo_chequeo, horario, puerto, accion_critico)
+		values ('$id', '$servicio', '$responsable', '$war', '$cri', '$tipo', '$dispo', '$delay', '$check', '$horario', $puerto, '$accion')";
+		$consulta = $this->conexion->query ( $query );
+	}
 	
+	public function update_servicio_ci($id, $dispo, $delay, $check, $war, $cri, $tipo, $responsable, $horario, $puerto, $accion_critico)
+	{
+		$query = "update detalle_servicio set disponibilidad=$dispo, delay=$delay, tiempo_chequeo=$check, val_war='$war', val_cri='$cri', 
+		id_tipo_umbral=$tipo, id_grupo=$responsable, horario='$horario', puerto=$puerto, accion_critico='$accion_critico' where id_detalle=$id";
+		$consulta = $this->conexion->query ( $query );
+	}
 	
-
+	public function registro_masivo($id_evento, $id_host, $f_inicio, $tipo_evento, $causa_evento, $tipo_actividad, $horas_actividad, $descripcion)
+	{
+		$query = "insert into registro_masivo (id_evento, id_host, f_inicio, descripcion, horas_actividad, tipo_evento, causa_evento, tipo_actividad, responsable) values 
+				($id_evento, $id_host, '$f_inicio', '$descripcion', $horas_actividad, '$tipo_evento', '$causa_evento', '$tipo_actividad', 'Monitoreo')";
+		$consulta = $this->conexion->query ( $query );
+	}
+	
+	public function registrarIncidente($tipo_evento, $causa_evento, $tipo_actividad, $reporta, $fecha, $hrs_actividad, $ticket, $responsable, $estado, $id_host) {
+		
+		$query = "insert into incidentecop (tipo_evento, causa_evento, tipo_actividad, generado, fecha,"
+				. " horas, ticket, responsable, estado, id_host) values('".$tipo_evento."','".$causa_evento."',"
+						. "'".$tipo_actividad."','".$reporta."','".$fecha."','".$hrs_actividad."','".$ticket."','".$responsable."',"
+								. "'".$estado."','".$id_host."')";
+								$consulta= $this->conexion->query($query);
+	}
+	
+	public function insertarNuevoTiquet($ticket,$id,$descripcion,$tipo_incidente){
+		
+		$query= "insert into ticket (ticket,id_incidente,descripcion,tipo_incidente) values('".$ticket."','".$id."','".$descripcion."','".$tipo_incidente."')";
+		
+		$consulta=$this->conexion->query($query);
+		
+	}
+	
+	public  function cambiarEstadoIncidente($id){
+		
+		$query="update incidentecop set estado='S' where id=$id";
+		
+		$consulta=$this->conexion->query($query);
+	}
+	
+	public  function cambiarEstadoIncidenteMasivo($id_masivo){
+		
+		$query="update registro_masivo set estado='S' where id_evento=$id_masivo";
+		
+		$consulta=$this->conexion->query($query);
+	} 
 	
 	
 }
-
 ?>

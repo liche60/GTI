@@ -1,3 +1,4 @@
+
 <?php
 session_start ();
 if ($_SESSION ['authenticated'] == 1) {
@@ -18,7 +19,5 @@ $wish->cerrar();
 header("Location: ../../index.php");
 
 }
-
-
 
 ?>
