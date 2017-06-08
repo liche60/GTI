@@ -1,9 +1,9 @@
 <?php
 class conexion{
 	public $conexion;
-	private $server = "localhost";
+	private $server = "bitacora.arus.com.co";
 	private $usuario = "root";
-	private $pass = "";
+	private $pass = "pruebas48";
 	private $db = "gti";
 	public $pdo_conn;
 	public function __construct() {
@@ -55,10 +55,10 @@ class conexion{
 		echo $query;
 		$consulta = $this->conexion->query ( $query );
 	}*/
-	public function actualizarActividad($id_reg, $user_id, $id_actividad, $descripcion, $fecha_inicio, $tiempoReal, $numerotiquete, $id_contrato, $horaExtra, $estado) 
+	public function actualizarActividad($id_reg, $user_id, $id_actividad, $descripcion, $fecha_inicio, $fecha_fin, $tiempoReal, $numerotiquete, $id_contrato, $horaExtra, $estado) 
 
 	{
-		$query = "update registro_actividad set id_actividad=" . $id_actividad. ", fecha_inicio='$fecha_inicio', descripcion='" . $descripcion . "', id_contrato='" . $id_contrato . "', numerotiquete='" . $numerotiquete . "' , tiempoReal='" . $tiempoReal . "' where id=" . $id_reg . " and cedula=" . $user_id . " and estado='$estado' and horaExtra='$horaExtra' ;";
+		$query = "update registro_actividad set id_actividad=" . $id_actividad. ", fecha_inicio='$fecha_inicio', fecha_fin='$fecha_fin', descripcion='" . $descripcion . "', id_contrato='" . $id_contrato . "', numerotiquete='" . $numerotiquete . "' , tiempoReal='" . $tiempoReal . "' where id=" . $id_reg . " and cedula=" . $user_id . " and estado='$estado' and horaExtra='$horaExtra' ;";
 		
 		echo $query;
 		$consulta = $this->conexion->query ( $query );
@@ -94,8 +94,8 @@ class conexion{
 		$query = "UPDATE new_usuario set password='" . $cambiopass . "'WHERE cedula='" . $user_id . "'";
 		$consulta = $this->conexion->query ( $query );
 	}
-	public function registrarNuevaActividad($id_actividad, $user_id, $fecha_inicio, $tiempoReal, $numerotiquete, $descripcion, $id_contrato, $horaExtra, $estado) {
-		$query = "INSERT INTO registro_actividad (id_actividad,cedula,fecha_inicio,estado,tiempoReal,numerotiquete,descripcion,id_contrato,horaExtra) VALUES ('" . $id_actividad . "','" . $user_id . "','" . $fecha_inicio . "','".$estado."','" . $tiempoReal . "','" . $numerotiquete . "','" . $descripcion . "','" . $id_contrato . "','" . $horaExtra. "')";
+	public function registrarNuevaActividad($id_actividad, $user_id, $fecha_inicio, $fecha_fin, $tiempoReal, $numerotiquete, $descripcion, $id_contrato, $horaExtra, $estado) {
+		$query = "INSERT INTO registro_actividad (id_actividad,cedula,fecha_inicio, fecha_fin, estado,tiempoReal,numerotiquete,descripcion,id_contrato,horaExtra) VALUES ('" . $id_actividad . "','" . $user_id . "','" . $fecha_inicio . "','" . $fecha_fin . "','".$estado."','" . $tiempoReal . "','" . $numerotiquete . "','" . $descripcion . "','" . $id_contrato . "','" . $horaExtra. "')";
 		$consulta = $this->conexion->query ( $query );
 		
 	}

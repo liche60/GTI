@@ -31,7 +31,7 @@ $id = $_POST['sci'];
 $contrato = $_POST['contrato'];
 $ip = $_POST['ip'];
 
-$conn = $oe->conexion->query("select a.id_detalle, a.accion_critico, a.tiempo_chequeo, a.horario, a.puerto, e.nombre as CI, b.tipo as Servicio, a.disponibilidad,  a.delay, a.val_war as Warning, a.val_cri
+$conn = $oe->conexion->query("select a.id_detalle, a.accion_critico, a.tiempo_chequeo, a.horario, a.id_host, a.puerto, e.nombre as CI, b.tipo as Servicio, a.disponibilidad,  a.delay, a.val_war as Warning, a.val_cri
 as Critical,  d.nombre as Tipo_de_umbral, c.id_grupo, c.nombre as Responsable from detalle_servicio a, tipo_servicios b, grupo c, 
 tipo_umbral d, hosts e where a.id_host=e.id and a.id_tipo_servicio=b.id and a.id_grupo=c.id_grupo 
 and a.id_tipo_umbral=d.id_tipo_umbral and e.id='$id' order by a.id_detalle desc");
@@ -115,7 +115,9 @@ $nomc = $nom->fetch_assoc();
 		<tr style="text-align: center;">
 		
 				<td>
+					
 					<form method="post" action="index.php?page=027">
+					<input type="hidden" value="<?php echo $row['id_host'];?>" name="id_host">
 					<input type="hidden" value="<?php echo $ip;?>" name="ip">
 					<button value="<?php echo $row['id_detalle'];?>" name="id_detalle" class="btn btn-default">Enviar</button>
 				</form>

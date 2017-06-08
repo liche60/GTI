@@ -22,10 +22,23 @@ if ($_SESSION ['authenticated'] == 1) {
 	$wish = new conexion ();
 	
 	if($editar == 0){
-		$wish->registrarNuevaActividad ( $id_actividad, $user_id, $fecha_inicio, $tiempoReal, $numerotiquete, $descripcion, $id_contrato, $horaExtra, $estado );
+		
+		date_default_timezone_set ('America/Bogota');
+		$fecha=strftime(" %Y-%m-%d %H:%M:%S");
+		$fecha_fin = strtotime ( '+'.$tiempoReal.' minute' , strtotime ( $fecha ) ) ;
+		$fecha_fin= strftime( '%Y-%m-%d %H:%M:%S', $fecha_fin);
+		
+		
+		$wish->registrarNuevaActividad ( $id_actividad, $user_id, $fecha_inicio, $fecha_fin, $tiempoReal, $numerotiquete, $descripcion, $id_contrato, $horaExtra, $estado);
 	}else{
+		
+		date_default_timezone_set ('America/Bogota');
+		$fecha=strftime(" %Y-%m-%d %H:%M:%S");
+		$fecha_fin = strtotime ( '+'.$tiempoReal.' minute' , strtotime ( $fecha ) ) ;
+		$fecha_fin= strftime( '%Y-%m-%d %H:%M:%S', $fecha_fin);
+		
 		$id_reg = $_POST['id'];
-		$wish->actualizarActividad ($id_reg, $user_id, $id_actividad, $descripcion, $fecha_inicio, $tiempoReal, $numerotiquete, $id_contrato, $horaExtra, $estado);
+		$wish->actualizarActividad ($id_reg, $user_id, $id_actividad, $descripcion, $fecha_inicio, $fecha_fin, $tiempoReal, $numerotiquete, $id_contrato, $horaExtra, $estado);
 	}
 	
 	

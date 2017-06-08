@@ -3,7 +3,7 @@ $oe = new conexion();
 $usuario = new UserInfo();
 $id_detalle = $_POST['id_detalle'];
 //$cont = $_POST['contra'];
-//$idCI = $_POST["valci"];  //1
+$idCI = $_POST["id_host"];  //1
 $ip = $_POST["ip"];
 
 $conn = $oe->conexion->query("select a.id_detalle, b.nombre, c.tipo from detalle_servicio a, hosts b, tipo_servicios c where 
@@ -70,7 +70,7 @@ $row = $conn->fetch_assoc();
         
         <form method="post" action="pages/backend/nuevo_incidente.php">
             <div class="col-md-23">
-
+				<input name="id_host" type="hidden"  value="<?php echo $idCI?>" class="form-control" required>
                <input name="reporta" type="hidden" id="txtEstado" value="<?php echo $userinfo->user_name = $_SESSION['user_id'];?>" class="form-control" required>
 
                 <div class="col-md-6">
