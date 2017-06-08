@@ -80,6 +80,24 @@ $consulta5 = "SELECT fecha,tipo,proyecto,descripcion FROM new_novedades where
 		and proyecto like '%<filtro3>%'
         and tipo like '%<filtro4>%'";
 
+//Reporte mensual
+$consulta6 = "select `r`.`fecha_inicio` AS `fecha_inicio`,
+`r`.`tiempoReal` AS `tiempoReal`,
+a.actividad,
+a.plataforma,
+`a`.`categoria` AS `categoria`,
+r.id_contrato,
+(select np.nombre from new_proyectos np where np.codigo = r.id_contrato )as Contrato,
+`d`.`correo` AS `correo`,
+(select `ar`.`area` from `areas` `ar` where (`d`.`area` = `ar`.`id`)) AS `area`
+from
+((`registro_actividad` `r` left join `actividad` `a` on((`a`.`id` = `r`.`id_actividad`)))
+left join `new_usuario` `d` on((`d`.`cedula` = `r`.`cedula`))) where (`r`.`estado` = 'F')
+and (`r`.`fecha_inicio` > '<filtro1>' and `r`.`fecha_inicio` < '<filtro2>'   )
+and (d.area like '%<filtro3>%' )
+and (d.correo like '%<filtro4>%')
+order by `r`.`fecha_inicio` asc";
+
 
 $_REPORTS_CONFIG = array(
 		"ejemplo" => array(
@@ -248,6 +266,47 @@ $_REPORTS_CONFIG = array(
 								"requerido" => false
 						)
 				)
+		),
+		
+		"mensuales" => array(
+				"tipo" => "tabla",
+				"titulo" => "Reporte Mensual",
+				"query" => $consulta6,
+				"columnas" => array(
+						"fecha_inicio" => "Fecha inicio",
+						"actividad" => "Actividad",
+						"plataforma" => "Plataforma",
+						"categoria" => "Categoria",
+						"tiempoReal" => "Tiempo Real",
+						"correo" =>  "Correo",
+						"Contrato" => "Contrato",
+						"area" => "Area",
+						
+				),
+				"filtros" => array(
+						"filtro1" => array(
+								"nombre" => "Fecha Inicio",
+								"tipo" => "date",
+						),
+						"filtro2" => array(
+								"nombre" => "Fecha Fin",
+								"tipo" => "date"
+						),
+						
+						"filtro3" => array(
+								"nombre" => "Area",
+								"tipo" => "select",
+								"query_select" => "select id as value,area as display from areas",
+								"requerido" => false
+						),
+						"filtro4" => array(
+								"nombre" => "Correo",
+								"tipo" => "text",
+								"requerido" => false
+						),
+				)
 		)
+		
+		
 		
 );

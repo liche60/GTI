@@ -1,97 +1,97 @@
 <?php
 
 $_PAGE_PERMISSIONS = array(
-	"1" => array(
-		"006" => false,
-		"017" => false,
-		"018" => false,
-		"012" => false,
-		"014" => false,
-		"013" => false,
-		"015" => false,
-		"016" => false,
-		"023" => false,
-		"024" => false,
-		"025" => false,
-		"026" => false,
-		"027" => false,
-		"028" => false,
-		"029" => false,
-	),
-	"2" => array(
-		"011" => false,
-		"010" => false,
-		"017" => false,
-		"018" => false,
-		"012" => false,
-		"013" => false,
-		"015" => false,
-		"016" => false,
-		"001" => false,
-		"003" => false,
-		"008" => false,
-		"002" => false,
-		"023" => false,
-		"024" => false,
-		"025" => false,
-		"026" => false,
-		"027" => false,
-		"028" => false,
-		"029" => false,
-	),
-	"3" => array(
-			"006" => false,
-			"017" => false,
-			"018" => false,
-			"009" => false,
-			"011" => false,
-			"010" => false,
-			"012" => false,
-			"013" => false,
-			"014" => false,
-			"015" => false,
-			"016" => false,
-			"023" => false,
-			"024" => false,
-			"025" => false,
-			"026" => false,
-			"027" => false,
-			"028" => false,
-			"029" => false,
-	),
-	"4" => array(
-		
-	),
-	"5" => array(
-			"017" => false,
-			"018" => false,
-			"012" => false,
-			"013" => false,
-			"015" => false,
-			"016" => false,
-			"023" => false,
-			"024" => false,
-			"025" => false,
-			"026" => false,
-			"027" => false,
-			"028" => false,
-			"029" => false,
-			
-	),
+		"1" => array(
+				"006" => false,
+				"017" => false,
+				"018" => false,
+				"012" => false,
+				"014" => false,
+				"013" => false,
+				"015" => false,
+				"016" => false,
+				"023" => false,
+				"024" => false,
+				"025" => false,
+				"026" => false,
+				"027" => false,
+				"028" => false,
+				"029" => false,
+		),
+		"2" => array(
+				"011" => false,
+				"010" => false,
+				"017" => false,
+				"018" => false,
+				"012" => false,
+				"013" => false,
+				"015" => false,
+				"016" => false,
+				"001" => false,
+				"003" => false,
+				"008" => false,
+				"002" => false,
+				"023" => false,
+				"024" => false,
+				"025" => false,
+				"026" => false,
+				"027" => false,
+				"028" => false,
+				"029" => false,
+		),
+		"3" => array(
+				"006" => false,
+				"017" => false,
+				"018" => false,
+				"009" => false,
+				"011" => false,
+				"010" => false,
+				"012" => false,
+				"013" => false,
+				"014" => false,
+				"015" => false,
+				"016" => false,
+				"023" => false,
+				"024" => false,
+				"025" => false,
+				"026" => false,
+				"027" => false,
+				"028" => false,
+				"029" => false,
+		),
+		"4" => array(
+				
+		),
+		"5" => array(
+				"017" => false,
+				"018" => false,
+				"012" => false,
+				"013" => false,
+				"015" => false,
+				"016" => false,
+				"023" => false,
+				"024" => false,
+				"025" => false,
+				"026" => false,
+				"027" => false,
+				"028" => false,
+				"029" => false,
+				
+		),
 );
 
-// Pagina Actual : 029
+// Pagina Actual : 030
 
 $_PAGE_CONFIG = array(
 		//000 siempre es la home
 		"000" => array(
-			"show" => true,
-			"isSubmenu" => false,
-			"big" => "GTI",
-			"small" => "Tablero de control",
-			"menu" => "Tablero de control",
-			"menu_css_class" => "fa-dashboard",
-			"link" => 'pages/tablero/body.php'
+				"show" => true,
+				"isSubmenu" => false,
+				"big" => "GTI",
+				"small" => "Tablero de control",
+				"menu" => "Tablero de control",
+				"menu_css_class" => "fa-dashboard",
+				"link" => 'pages/tablero/body.php'
 		),
 		
 		"009" => array(
@@ -108,46 +108,46 @@ $_PAGE_CONFIG = array(
 						"5" => "014"
 				)
 		),
-				"006" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Bitacora de operación",
-						"small" => "Actividades del mes",
-						"menu" => "Actividades del mes",
-						"link" => 'pages/bitacora_operacion/actividades_mes/body.php',
-						"menu_css_class" => "fa-list"
-				),
-				"010" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Bitacora de operación",
-						"small" => "Pendientes aprobacion",
-						"menu" => "Pendientes aprobacion",
-						"link" => 'pages/bitacora_operacion/actividades_pendientes/body.php',
-						"menu_css_class" => "fa-edit"
-				),
-				"011" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Bitacora de operación",
-						"small" => "Asignacion de contratos",
-						"menu" => "Asignacion de contratos",
-						"link" => 'pages/bitacora_operacion/asignacion_contratos/body.php',
-						"menu_css_class" => "fa-edit"
-				),
-				"014" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Bitacora de operación",
-						"small" => "Registro de Ausentismo",
-						"menu" => "Registro de Ausentismo",
-						"link" => 'pages/bitacora_operacion/registro_ausentismo/body.php',
-						"menu_css_class" => "fa-plane"
-				),
+		"006" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Bitacora de operación",
+				"small" => "Actividades del mes",
+				"menu" => "Actividades del mes",
+				"link" => 'pages/bitacora_operacion/actividades_mes/body.php',
+				"menu_css_class" => "fa-list"
+		),
+		"010" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Bitacora de operación",
+				"small" => "Pendientes aprobacion",
+				"menu" => "Pendientes aprobacion",
+				"link" => 'pages/bitacora_operacion/actividades_pendientes/body.php',
+				"menu_css_class" => "fa-edit"
+		),
+		"011" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Bitacora de operación",
+				"small" => "Asignacion de contratos",
+				"menu" => "Asignacion de contratos",
+				"link" => 'pages/bitacora_operacion/asignacion_contratos/body.php',
+				"menu_css_class" => "fa-edit"
+		),
+		"014" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Bitacora de operación",
+				"small" => "Registro de Ausentismo",
+				"menu" => "Registro de Ausentismo",
+				"link" => 'pages/bitacora_operacion/registro_ausentismo/body.php',
+				"menu_css_class" => "fa-plane"
+		),
 		
 		
 		
-		//	---------GESTIÓN DE EVENTOS--------------
+		//	---------GESTIÃ“N DE EVENTOS--------------
 		
 		"012" => array(
 				"show" => true,
@@ -167,85 +167,85 @@ $_PAGE_CONFIG = array(
 						//"8" => "029",
 				)
 		),
-				"013" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Gestión de eventos",
-						"small" => "Nuevo evento",
-						"menu" => "Nuevo evento",
-						"link" => 'pages/gestion_eventos/nuevo_evento/body.php',
-						"menu_css_class" => "fa-plus"
-				),
+		"013" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Gestión de eventos",
+				"small" => "Nuevo evento",
+				"menu" => "Nuevo evento",
+				"link" => 'pages/gestion_eventos/nuevo_evento/body.php',
+				"menu_css_class" => "fa-plus"
+		),
 		
-				"023" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Gestión de eventos",
-						"small" => "Servicio",
-						"menu" => "Servicio",
-						"link" => 'pages/gestion_eventos/nuevo_evento/servicio.php',
-						"menu_css_class" => "fa-plus"
-				),
-				
-				"024" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Gestión de eventos",
-						"small" => "Nuevo Contacto",
-						"menu" => "Nuevo Contacto",
-						"link" => 'pages/gestion_eventos/nuevo_contacto/body.php',
-						"menu_css_class" => "fa-plus"
-				),
+		"023" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Gestión de eventos",
+				"small" => "Servicio",
+				"menu" => "Servicio",
+				"link" => 'pages/gestion_eventos/nuevo_evento/servicio.php',
+				"menu_css_class" => "fa-plus"
+		),
 		
-				"025" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Gestión de eventos",
-						"small" => "Detalles",
-						"menu" => "Detalles",
-						"link" => 'pages/gestion_eventos/nuevo_evento/detalles.php',
-						"menu_css_class" => "fa-plus"
-				),
+		"024" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Gestión de eventos",
+				"small" => "Nuevo Contacto",
+				"menu" => "Nuevo Contacto",
+				"link" => 'pages/gestion_eventos/nuevo_contacto/body.php',
+				"menu_css_class" => "fa-plus"
+		),
 		
-				"026" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Gestión de eventos",
-						"small" => "Nuevo CI",
-						"menu" => "Nuevo CI",
-						"link" => 'pages/gestion_eventos/nuevo_evento/nuevo_ci.php',
-						"menu_css_class" => "fa-plus"
-				),
-				
-				"027" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Gestión de eventos",
-						"small" => "Registro de incidentes",
-						"menu" => "Registro de incidentes",
-						"link" => 'pages/gestion_eventos/nuevo_evento/registro_incidentes.php',
-						"menu_css_class" => "fa-plus"
-				),
+		"025" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Gestión de eventos",
+				"small" => "Detalles",
+				"menu" => "Detalles",
+				"link" => 'pages/gestion_eventos/nuevo_evento/detalles.php',
+				"menu_css_class" => "fa-plus"
+		),
 		
-				"028" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Gestión de eventos",
-						"small" => "Solución a incidentes",
-						"menu" => "Solución a incidentes",
-						"link" => 'pages/gestion_eventos/nuevo_evento/solucion_incidentes.php',
-						"menu_css_class" => "fa-plus"
-				),
+		"026" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Gestión de eventos",
+				"small" => "Nuevo CI",
+				"menu" => "Nuevo CI",
+				"link" => 'pages/gestion_eventos/nuevo_evento/nuevo_ci.php',
+				"menu_css_class" => "fa-plus"
+		),
 		
-				"029" => array(
-						"show" => false,
-						"isSubmenu" => true,
-						"big" => "Gestión de eventos",
-						"small" => "Registro Masivo",
-						"menu" => "Registro Masivo",
-						"link" => 'pages/gestion_eventos/nuevo_evento/registro_masivo.php',
-						"menu_css_class" => "fa-plus"
-				),
+		"027" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Gestión de eventos",
+				"small" => "Registro de incidentes",
+				"menu" => "Registro de incidentes",
+				"link" => 'pages/gestion_eventos/nuevo_evento/registro_incidentes.php',
+				"menu_css_class" => "fa-plus"
+		),
+		
+		"028" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Gestión de eventos",
+				"small" => "Solución a incidentes",
+				"menu" => "Solución a incidentes",
+				"link" => 'pages/gestion_eventos/nuevo_evento/solucion_incidentes.php',
+				"menu_css_class" => "fa-plus"
+		),
+		
+		"029" => array(
+				"show" => false,
+				"isSubmenu" => true,
+				"big" => "Gestión de eventos",
+				"small" => "Registro Masivo",
+				"menu" => "Registro Masivo",
+				"link" => 'pages/gestion_eventos/nuevo_evento/registro_masivo.php',
+				"menu_css_class" => "fa-plus"
+		),
 		
 		
 		"015" => array(
@@ -259,15 +259,15 @@ $_PAGE_CONFIG = array(
 						"1" => "016",
 				)
 		),
-				"016" => array(
-						"show" => true,
-						"isSubmenu" => true,
-						"big" => "Gestión de configuracion",
-						"small" => "Editar CIs",
-						"menu" => "Editar CIs",
-						"link" => 'pages/gestion_configuracion/editar_cis/body.php',
-						"menu_css_class" => "fa-pencil-square-o"
-				),
+		"016" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Gestión de configuracion",
+				"small" => "Editar CIs",
+				"menu" => "Editar CIs",
+				"link" => 'pages/gestion_configuracion/editar_cis/body.php',
+				"menu_css_class" => "fa-pencil-square-o"
+		),
 		"017" => array(
 				"show" => true,
 				"isSubmenu" => false,
@@ -279,15 +279,15 @@ $_PAGE_CONFIG = array(
 						"1" => "018",
 				)
 		),
-			"018" => array(
-					"show" => true,
-					"isSubmenu" => true,
-					"big" => "Administracónn",
-					"small" => "Actualizar Usuarios",
-					"menu" => "Actualizar Usuarios",
-					"link" => 'pages/administracion/actualizar_usuarios/body.php',
-					"menu_css_class" => "fa-user-plus"
-			),
+		"018" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Administracónn",
+				"small" => "Actualizar Usuarios",
+				"menu" => "Actualizar Usuarios",
+				"link" => 'pages/administracion/actualizar_usuarios/body.php',
+				"menu_css_class" => "fa-user-plus"
+		),
 		"007" => array(
 				"show" => true,
 				"isSubmenu" => false,
@@ -310,7 +310,8 @@ $_PAGE_CONFIG = array(
 						"page3" => "019",
 						"page4" => "020",
 						"page5" => "021",
-						"page5" => "022"
+						"page6" => "022",
+						"page7" => "030",
 				)
 		),
 		"003" => array(
@@ -368,15 +369,44 @@ $_PAGE_CONFIG = array(
 				"menu_css_class" => "fa-file-pdf-o",
 				"link" => "pages/reportes/novedades/body.php"
 		),
-		"002" => array(
-			"show" => true,
-			"isSubmenu" => false, 
-			"big" => "GTI",
-			"small" => "Sugerencias",
-			"menu" => "Sugerencias",
-			"menu_css_class" => "fa-envelope",
-			"link" => 'pages/sugerencias/body.php'
+		
+		
+		
+		"023" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Reportes",
+				"small" => "Productividad",
+				"menu" => "Productividad",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/productividad/body.php"
 		),
+		
+		"030" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Reportes",
+				"small" => "Mensuales",
+				"menu" => "Mensuales",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/mensuales/body.php"
+		),
+		
+		
+		
+		"002" => array(
+				"show" => true,
+				"isSubmenu" => false,
+				"big" => "GTI",
+				"small" => "Sugerencias",
+				"menu" => "Sugerencias",
+				"menu_css_class" => "fa-envelope",
+				"link" => 'pages/sugerencias/body.php'
+		),
+		
+		
+		
+		
 		"004" => array(
 				"show" => false,
 				"isSubmenu" => false,

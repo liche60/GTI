@@ -3,30 +3,45 @@
     {
         window.location = "../../index.php";
     }
-    setTimeout("redireccionar()", 20);
+    setTimeout("redireccionar()", 20); 
 </script>
  
 <script type='text/javascript'>
     function redireccionar2()
     {
-        window.location = "../../index.php?page=026";
+        window.location = "../../index.php?page=028";
     }
     setTimeout("redireccionar()", 20);
 </script> 
+
+
+
 
 <?php
 session_start();
 if ($_SESSION ['authenticated'] == 1) {
     include("../../modelo/conexion.php");
 
-    $id = $_POST['id_incidente'];
     $ticket = $_POST['ticket'];
-    $descripcion = $_POST['descripcion'];
-    $tipo_incidente = $_POST['tipo_evento'];//recibe en valor del radio button
+    $id = $_POST['id_incidente'];
+    $id_masivo=$_POST['id_incidente_masivo'];
+    $tipo_incidente = $_POST['evento'];//recibe en valor del radio button
+    $tipo=$_POST['tipo'];
+    $num_rfc=$_POST['rfc'];
+    $fecha_cierre=$_POST['fecha_fin'];
+    $detalles = $_POST['detalles'];
 
-
+    echo $ticket."<br>";
+    echo $id."<br>";
+    echo $tipo_incidente."<br>";
+    echo $tipo."<br>";
+    echo $num_rfc."<br>";
+    echo $fecha_cierre."<br>";
+    echo $detalles."<br>";
+    
+    
     $con = new conexion;
-    $query = "select ticket from ticket where ticket='$ticket'";
+    $query = "select ticket from solucion_incidente where ticket='$ticket'";
     $consulta = $con->conexion->query($query);
     $num = $consulta->fetch_array();
 
@@ -37,7 +52,7 @@ if ($_SESSION ['authenticated'] == 1) {
             $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 
             $headers .= "From: Bitacora de operaciones <bitacora@arus.com.co>" . "\r\n";
-            mail("dgskdj@gmail.com", "Solución incidente", "Se se ha solucionado el incidente", $headers);
+            mail("dgskdj@gmail.com", "SoluciÃ³n incidente", "Se se ha solucionado el incidente", $headers);
             echo "<script> alert('Mensaje enviado') </script>";
             echo "<script> redireccionar1(); </script>";
         }
@@ -48,20 +63,23 @@ if ($_SESSION ['authenticated'] == 1) {
 
 
         if ($tipo_incidente == "individual") {
+        	$masivo="";
             $con->cambiarEstadoIncidente($id);
-            $con->insertarNuevoTiquet($ticket, $id, $descripcion, $tipo_incidente);
+            $con->insertarNuevoTiquet($ticket, $id,$id_masivo,$tipo, $num_rfc, $fecha_cierre,$detalles);
             $con->cerrar();
         }
         else {
-            $con->cambiarEstadoIncidenteMasivo($id);
-            $con->insertarNuevoTiquet($ticket, $id, $descripcion, $tipo_incidente);
+        	$individual="";
+            $con->cambiarEstadoIncidenteMasivo($id_masivo);
+            $con->insertarNuevoTiquet($ticket, $id,$id_masivo,$tipo, $num_rfc, $fecha_cierre,$detalles);
             $con->cerrar();
         }
  
         $oe = new notificarSolucion();
         $oe->enviar();
     } else {
-        echo "<script> alert('El número del ticket ya se encuentra') </script>";
+        echo "<script> alert('El nÃºmero del ticket ya se encuentra') </script>";
         echo "<script> redireccionar2(); </script>";
     }
-} 
+}
+?>
