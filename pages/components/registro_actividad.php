@@ -7,6 +7,12 @@
 $query = "select actividad from actividad";
 $res = $wish->conexion->query ( $query );
 
+
+setlocale (LC_TIME, 'es_ES.utf8','esp');
+date_default_timezone_set ('America/Bogota');
+$fecha=strftime("%Y-%m-%d %H:%M:%S");
+
+
 if ($userinfo->area == 23) {
 	$query = "select id from actividad where area=" . $userinfo->area . "";
 } else {
@@ -106,11 +112,11 @@ if (isset ( $_GET ['editar'] )) {
 								name="numerotiquete" class="form-control">
 						</div>
 
-
+<!-- fecha -->
 						<div class="form-group">
 							<i class="fa fa-calendar"></i> <label>Fecha y hora de inicio</label>
-							<input id="fecha_inicio" name="fecha_inicio" required value=""
-								type="datetime-local" class="form-control">
+							<input id="fecha_inicio" name="fecha_inicio" required value="<?php echo $fecha?>"
+								type="datetime" class="form-control" >
 						</div>
 						<div class="form-group">
 							<label>Tiempo Real (minutos)</label> <input id="tiempoReal"

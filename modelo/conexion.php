@@ -1,9 +1,9 @@
 <?php
 class conexion{
 	public $conexion;
-	private $server = "bitacora.arus.com.co";
+	private $server = "localhost";
 	private $usuario = "root";
-	private $pass = "pruebas48";
+	private $pass = "";
 	private $db = "gti";
 	public $pdo_conn;
 	public function __construct() {
@@ -55,10 +55,10 @@ class conexion{
 		echo $query;
 		$consulta = $this->conexion->query ( $query );
 	}*/
-	public function actualizarActividad($id_reg, $user_id, $id, $descripcion, $fecha_final, $tiempoReal, $numerotiquete, $id_contrato, $horaExtra, $estado) 
+	public function actualizarActividad($id_reg, $user_id, $id_actividad, $descripcion, $fecha_inicio, $tiempoReal, $numerotiquete, $id_contrato, $horaExtra, $estado) 
 
 	{
-		$query = "update registro_actividad set id_actividad=" . $id . ", descripcion='" . $descripcion . "', id_contrato='" . $id_contrato . "', numerotiquete='" . $numerotiquete . "' , tiempoReal='" . $tiempoReal . "' where id=" . $id_reg . " and cedula=" . $user_id . " and estado='$estado' and horaExtra='$horaExtra' ;";
+		$query = "update registro_actividad set id_actividad=" . $id_actividad. ", fecha_inicio='$fecha_inicio', descripcion='" . $descripcion . "', id_contrato='" . $id_contrato . "', numerotiquete='" . $numerotiquete . "' , tiempoReal='" . $tiempoReal . "' where id=" . $id_reg . " and cedula=" . $user_id . " and estado='$estado' and horaExtra='$horaExtra' ;";
 		
 		echo $query;
 		$consulta = $this->conexion->query ( $query );
@@ -406,13 +406,11 @@ class conexion{
 		$consulta = $this->conexion->query ( $query );
 	}
 	
-	public function registrarIncidente($tipo_evento, $causa_evento, $tipo_actividad, $reporta, $fecha, $hrs_actividad, $ticket, $responsable, $estado, $id_host) {
+	public function registrarIncidente($servicio, $tipo_evento, $causa_evento, $tipo_actividad, $reporta, $fecha, $hrs_actividad, $mesa, $responsable, $estado, $id_host) {
 		
-		$query = "insert into incidentecop (tipo_evento, causa_evento, tipo_actividad, generado, fecha,"
-				. " horas, ticket, responsable, estado, id_host) values('".$tipo_evento."','".$causa_evento."',"
-						. "'".$tipo_actividad."','".$reporta."','".$fecha."','".$hrs_actividad."','".$ticket."','".$responsable."',"
-								. "'".$estado."','".$id_host."')";
-								$consulta= $this->conexion->query($query);
+		$query = "insert into incidentecop (servicio_afectado, tipo_evento, causa_evento, tipo_actividad, generado, fecha, horas, responsable, estado, id_host, mesa) 
+				values('$servicio','$tipo_evento','$causa_evento','$tipo_actividad','$reporta','$fecha','$hrs_actividad','$responsable', '$estado','$id_host','$mesa')";
+		$consulta= $this->conexion->query($query);
 	}
 	
 	public function insertarNuevoTiquet($ticket,$id,$descripcion,$tipo_incidente){

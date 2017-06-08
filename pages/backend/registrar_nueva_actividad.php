@@ -25,7 +25,7 @@ if ($_SESSION ['authenticated'] == 1) {
 		$wish->registrarNuevaActividad ( $id_actividad, $user_id, $fecha_inicio, $tiempoReal, $numerotiquete, $descripcion, $id_contrato, $horaExtra, $estado );
 	}else{
 		$id_reg = $_POST['id'];
-		$wish->actualizarActividad ($id_reg,$user_id,$id,$descripcion,$fecha_final,$tiempoReal,$numerotiquete,$id_contrato,$horaExtra,$estado);
+		$wish->actualizarActividad ($id_reg, $user_id, $id_actividad, $descripcion, $fecha_inicio, $tiempoReal, $numerotiquete, $id_contrato, $horaExtra, $estado);
 	}
 	
 	

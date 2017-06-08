@@ -1,7 +1,6 @@
 <?php
 $oe = new conexion();
-$oe1 = new conexion();
-
+$usuario = new UserInfo();
 $id_detalle = $_POST['id_detalle'];
 //$cont = $_POST['contra'];
 //$idCI = $_POST["valci"];  //1
@@ -17,6 +16,44 @@ $row = $conn->fetch_assoc();
 
 ?> 
 
+<style>
+.input__row{
+ margin-top: 10px;  
+}
+/* Radio button */
+.radiobtn {
+ display: none;
+}
+.buttons {
+ margin-left: -40px;
+}
+
+.buttons li {
+ display: block;
+}
+.buttons li label{
+ padding-left: 30px;
+ position: relative;
+ left: -25px;
+}
+.buttons li span {
+ display: inline-block;
+ position: relative;
+ top: 5px;
+ border: 2px solid #ccc;
+ width: 18px;
+ height: 18px;
+ background: #fff;
+}
+.radiobtn:checked + span::before{
+ content: '';
+ border: 2px solid #fff;
+ position: absolute;
+ width: 14px;
+ height: 14px;
+ background-color: #c3e3fc;
+}
+</style>
 
 <div class="box box-info">
     <div class="box-body">
@@ -34,13 +71,13 @@ $row = $conn->fetch_assoc();
         <form method="post" action="pages/backend/nuevo_incidente.php">
             <div class="col-md-23">
 
-                <input type="hidden" id="id_host" name="id_host" value="<?php echo $idCI?>"> 
+               <input name="reporta" type="hidden" id="txtEstado" value="<?php echo $userinfo->user_name = $_SESSION['user_id'];?>" class="form-control" required>
 
                 <div class="col-md-6">
                     <div class="form-group">
 					
 					<label >Servicio afectado</label>
-        			<input name="" id="" class="form-control" value="<?php echo $row['tipo'];?>" readonly required> 
+        			<input name="servicio" class="form-control" value="<?php echo $row['tipo'];?>" readonly required> 
  
                         <label>Tipo de evento</label>
                         <select id="evento" required name="evento" class="form-control" >
@@ -56,16 +93,24 @@ $row = $conn->fetch_assoc();
                             <option>Capacidad</option>      
                         </select>
 
+                        <label>Minutos de actividad</label>
+                        <input type="number" name="hrs_actividad" id="txtHoraActividad" class="form-control" value="0" required readonly>
+                        
                         <label>Tipo de actividad</label>
-                        <select id="tipo_actividad" required name="tipo_actividad" class="form-control" >
-                            <option></option>  
-                            <option>No programada</option>                  
-                            <option>programada</option>
-                        </select>
-
-                        <label>Horas de actividad</label>
-                        <input name="hrs_actividad" id="txtHoraActividad" class="form-control" required> 
-
+                        <div class="input__row">
+                       <ul class="buttons">
+						   <li>
+						     <input id="radiobtn_1" class="radiobtn" name="tipo_actividad" type="radio" value="Programada" tabindex="1" required>
+						     <span></span>
+						     <label for="radiobtn_1" id="r1" >Programada</label>
+						     </li>
+						     <li>
+						     <input id="radiobtn_2" class="radiobtn" name="tipo_actividad" type="radio" value="No programada" tabindex="2" required>
+						     <span></span>
+						     <label for="radiobtn_2" id="r2">No programada</label>
+						   </li>
+						 </ul>
+						</div>
                     </div>
                 </div> 
             </div>  
@@ -73,15 +118,19 @@ $row = $conn->fetch_assoc();
                 <div class="form-group">
 
 
-                    <label>Ticket</label>
-                    <input name="ticket" id="ticket" class="form-control" required> 
+                    <label>Mesa</label>
+                    <select name="mesa" id="ticket" class="form-control" required>
+                    	<option></option>
+                    	<option>Maya</option>
+                    	<option>Marco</option>
+                    </select> 
 
 
                     <label>Responsable</label>
                     <input  name="responsable" id="txtResponsable" class="form-control">
   
                     <label>Persona que reporta</label><br>
-                    <input name="reporta" id="txtEstado" class="form-control" required> 
+                    <input value="<?php echo $userinfo->user_name = ucwords(strtolower($_SESSION['user_name']));?>" class="form-control" required disabled> 
 
 
                     <label>Fecha y hora de inicio </label>
@@ -89,8 +138,7 @@ $row = $conn->fetch_assoc();
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input id="fecha_inicio" name="fecha_inicio" required value=""
-                               type="datetime-local" class="form-control" required>		
+                        <input id="fecha_inicio" name="fecha_inicio" type="datetime-local" class="form-control" required>		
                     </div>
                 </div>
             </div>
@@ -99,3 +147,19 @@ $row = $conn->fetch_assoc();
         </form>
     </div>
 </div>
+
+<script>
+//Script para Habilitar y Deshabilitar
+$("#radiobtn_1").on("click", function(){
+  var x = document.getElementById("txtHoraActividad");
+  
+  $('#txtHoraActividad').removeAttr("readOnly");
+});  
+
+$("#radiobtn_2").on("click", function(){
+  var x = document.getElementById("txtHoraActividad");
+
+  $('#txtHoraActividad').attr('readOnly','readOnly ');
+  $('#txtHoraActividad').val('0');
+}); 
+</script>
