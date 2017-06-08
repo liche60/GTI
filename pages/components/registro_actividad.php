@@ -144,6 +144,7 @@ if (isset ( $_GET ['editar'] )) {
 		$id_contrato = $row_editar->id_contrato;
 		$tiempoReal = $row_editar->tiempoReal;
 		$horaExtra = $row_editar->horaExtra;
+		$fecha_inicio = $row_editar->fecha_inicio;
 		?>
 		
 							                                     document.getElementById("id_actividad").value="<?php echo $id_actividad;  ?>";
@@ -152,6 +153,7 @@ if (isset ( $_GET ['editar'] )) {
 							                                     document.getElementById("descripcion").value="<?php echo $descripcion;  ?>";
 							                                     document.getElementById("<?php echo $id_contrato; ?>").selected = true;
 							                                     document.getElementById("tiempoReal").value="<?php echo $tiempoReal;  ?>";
+							                                     document.getElementById("fecha_inicio").value="<?php echo $fecha_inicio;  ?>";
 							                                     if($horaExtra == 'Si'){
 							                                     	document.getElementById("horaExtra").checked = true;;
 							                                     }
