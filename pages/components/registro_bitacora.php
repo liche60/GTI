@@ -35,7 +35,7 @@ while ( $arr = $pen->fetch_array () ) {
 }
 
 $current_query = "select 
-DATE_FORMAT(fecha_inicio,'%T') hora,
+DATE_FORMAT(fecha_inicio,'%T') hora, id,
 (select a.actividad from actividad a where a.id = r.id_actividad) actividad,
 (select a.categoria from actividad a where a.id = r.id_actividad) categoria,
 descripcion,
@@ -133,6 +133,7 @@ $initialDate = $row ['fecha_inicio'];
 									<th>Categoria</th>
 									<th>Descripción</th>
 									<th>Duración (min)</th>
+									<th>Editar</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -145,7 +146,9 @@ $initialDate = $row ['fecha_inicio'];
 										<td><?php printf($r->actividad);?></td>
 										<td><?php printf($r->categoria);?></td>
 										<td><?php printf($r->descripcion);?></td>
-										<td><?php printf($r->tiempoReal);?></td>							
+										<td><?php printf($r->tiempoReal);?></td>
+										<td> <a href="index.php?page=004&editar=<?php printf($r->id);?>">
+                                        <input type="image" src="dist/img/edit.svg"> </a></td>
 									</tr>
                                             <?php
 						}
