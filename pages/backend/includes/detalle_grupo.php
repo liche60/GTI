@@ -6,17 +6,12 @@ if ($_SESSION ['authenticated'] == 1) {
 	$con = new conexion;
 	$oe=$_POST['id_escala'];
 
-	if($oe!=4)
-	{
-		$query = $con->conexion->query("SELECT a.*, b.nombre FROM sub_grupo a, grupo b where a.id_grupo=b.id_grupo
-		and b.id_grupo=$oe order by nivel;");
-	}
 	
-	else 
-	{
-		$query = $con->conexion->query("SELECT a.*, b.nombre FROM sub_grupo a, grupo b where a.id_grupo=b.id_grupo and b.id_grupo=3
-		union SELECT a.*, b.nombre FROM sub_grupo a, grupo b where a.id_grupo=b.id_grupo and b.id_grupo=1;");
-	}
+		$query = $con->conexion->query("SELECT b.nombre, b.nivel, b.celular, b.correo, b.metodo, b.horario, c.nombre 
+										FROM escalamiento a, sub_grupo b, grupo c where a.id_persona=b.id and b.id_grupo=c.id_grupo 
+										and a.id_detalle=$oe order by nivel;");
+	
+	
 
 	echo"
 	<table class='table table-bordered table-striped table-hover'>
@@ -34,13 +29,13 @@ if ($_SESSION ['authenticated'] == 1) {
 	{
 		echo"
 			 <tr>
+			    <td>$row2[0]</td>
 			    <td>$row2[1]</td>
 			    <td>$row2[2]</td>
 			    <td>$row2[3]</td>
-			    <td>$row2[4]</td>
-			    <td>$row2[8]</td>
-				<td>$row2[6]</td>
-				<td>$row2[7]</td>
+			    <td>$row2[6]</td>
+				<td>$row2[4]</td>
+				<td>$row2[5]</td>
 			</tr>";
 	}	
 	echo "</table>";

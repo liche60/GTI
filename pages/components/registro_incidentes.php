@@ -1,4 +1,10 @@
 <?php
+
+setlocale (LC_TIME, 'es_ES.utf8','esp');
+date_default_timezone_set ('America/Bogota');
+$fecha=strftime("%Y-%m-%d %H:%M:%S");
+
+
 $oe = new conexion();
 $usuario = new UserInfo();
 $id_detalle = $_POST['id_detalle'];
@@ -119,7 +125,7 @@ $row = $conn->fetch_assoc();
 
 
                     <label>Mesa</label>
-                    <select name="mesa" id="ticket" class="form-control" required>
+                    <select name="mesa"  class="form-control" required>
                     	<option></option>
                     	<option>Maya</option>
                     	<option>Marco</option>
@@ -138,7 +144,7 @@ $row = $conn->fetch_assoc();
                         <div class="input-group-addon">
                             <i class="fa fa-calendar"></i>
                         </div>
-                        <input id="fecha_inicio" name="fecha_inicio" type="datetime-local" class="form-control" required>		
+                        <input id="fecha_inicio" name="fecha_inicio"  class="form-control" value="<?php echo $fecha;?>" required>		
                     </div>
                 </div>
             </div>

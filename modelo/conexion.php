@@ -1,9 +1,9 @@
 <?php
 class conexion{
 	public $conexion;
-	private $server = "bitacora.arus.com.co";
+	private $server = "localhost";
 	private $usuario = "root";
-	private $pass = "pruebas48";
+	private $pass = "";
 	private $db = "gti";
 	public $pdo_conn;
 	public function __construct() {

@@ -33,7 +33,7 @@ if ($_SESSION ['authenticated'] == 1) {
 	}else{
 		
 		date_default_timezone_set ('America/Bogota');
-		$fecha=strftime(" %Y-%m-%d %H:%M:%S");
+		$fecha=strftime($fecha_inicio);
 		$fecha_fin = strtotime ( '+'.$tiempoReal.' minute' , strtotime ( $fecha ) ) ;
 		$fecha_fin= strftime( '%Y-%m-%d %H:%M:%S', $fecha_fin);
 		

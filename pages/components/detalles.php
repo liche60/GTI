@@ -37,6 +37,7 @@ tipo_umbral d, hosts e where a.id_host=e.id and a.id_tipo_servicio=b.id and a.id
 and a.id_tipo_umbral=d.id_tipo_umbral and e.id='$id' order by a.id_detalle desc");
 
 $ser = $oe->conexion->query("SELECT * FROM tipo_servicios");
+$escala = $oe->conexion->query("SELECT * FROM sub_grupo");
 
 $cont = $oe->conexion->query("SELECT nombre FROM new_proyectos where codigo='$contrato'");
 $nom = $oe->conexion->query("SELECT nombre FROM hosts where id='$id'");
@@ -152,7 +153,7 @@ $nomc = $nom->fetch_assoc();
 				</td>
 				
 				<td>
-				<form onsubmit="MostrarConsulta('<?php echo $row['id_grupo'];?>'); return false">
+				<form onsubmit="MostrarConsulta('<?php echo $row['id_detalle'];?>'); return false">
 					<button data-target="#modalescala" data-toggle="modal" class="btn btn-default" ><?php echo $row['Responsable'];?></button>
 				</form>
 				</td>
@@ -240,11 +241,18 @@ $nomc = $nom->fetch_assoc();
 		
 		<td style="width:10%">
 			<select class="w3-input" name="responsable" required>
-				<option value="" disabled selected>Respo.</option>
+			<option value="" disabled selected>Responsable</option>
+			<?php		
+		while($row = $escala->fetch_assoc())
+			{
+			?>
+				<!--  <option value="" disabled selected>Respo.</option>
 				<option value="1"> app </option>
 				<option value="2"> bd </option>
-				<option value="3"> linux </option>
-				<option value="4"> app y linux </option>
+				<option value="3"> linux </option>-->
+				<option value="4"> <?php echo $row['nombre'];?> </option>	
+				
+				<?php }?>
 			</select>
 		</td>
 		
@@ -600,6 +608,10 @@ function MostrarConsulta(datos){
 	    	    $('.accion').tooltip();   
 	    	});
 	    
+    </script>
+    
+    <script>
+        $('select').multipleSelect();
     </script>
     
 

@@ -25,6 +25,9 @@ if ($_SESSION ['authenticated'] == 1) {
 	{
 		
 		$con->servicio_ci($id, $servicio, $dispo, $delay, $war, $cri, $tipo, $responsable, $check, $horario, $puerto, $accion);
+		
+		$con->insertEscalamiento($id_detalle, $id_persona);
+		
 		echo "<script> alert('Mensaje enviado') </script>";
 	}
 	
