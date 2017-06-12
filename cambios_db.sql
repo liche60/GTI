@@ -218,4 +218,35 @@ order by `r`.`estado` desc;
 --Se crea nueva columna en la tabla registro actividad,es para el registro de horas extras 2017/03/29
 ALTER TABLE `registro_actividad` ADD `horaExtra` VARCHAR(5) NOT NULL AFTER `cedula`;
 
+--Se crea Tabla para guardar las fechas de fiesta desde junio hasta diciembre 2017 2017/06/12
+CREATE TABLE `festivo` (
+  `id_festivo` int(10) NOT NULL,
+  `fecha` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO `festivo` (`id_festivo`, `fecha`) VALUES
+(1, '2017-01-09'),
+(2, '2017-03-20'),
+(3, '2017-04-13'),
+(4, '2017-04-14'),
+(5, '2017-05-01'),
+(6, '2017-05-29'),
+(7, '2017-06-19'),
+(8, '2017-06-26'),
+(9, '2017-07-03'),
+(10, '2017-07-20'),
+(11, '2017-08-07'),
+(12, '2017-08-21'),
+(13, '2017-10-16'),
+(14, '2017-11-06'),
+(15, '2017-11-13'),
+(16, '2017-12-08'),
+(17, '2017-12-25');
+
+ALTER TABLE `festivo`
+ADD PRIMARY KEY (`id_festivo`);
+
+
+
+
 

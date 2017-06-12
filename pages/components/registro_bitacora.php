@@ -1,6 +1,15 @@
 <?php
-$ctrl = $wish->getFechaControlUser($userinfo->user_id);
+// Para los festivos
+$dias=array();
+$conn = $wish->conexion->query("SELECT fecha FROM festivo ");
+while ($row=$conn->fetch_assoc())
+{
+	$dias[]=$row['fecha'];
+}
 
+
+
+$ctrl = $wish->getFechaControlUser($userinfo->user_id);
 $pending_query = "select 
 v.selected_date, 
 (select  (sum(tiempoReal)/60) as registro 
@@ -17,7 +26,24 @@ from
  (select 0 i union select 1 union select 2 union select 3 union select 4 union select 5 union select 6 union select 7 union select 8 union select 9) t4) v
 where v.selected_date between '$ctrl' and NOW() - INTERVAL 1 DAY
 and DATE_FORMAT(v.selected_date,'%w') <> 0 
-and DATE_FORMAT(v.selected_date,'%w') <> 6";
+and DATE_FORMAT(v.selected_date,'%w') <> 6
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[0]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[1]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[2]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[3]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[4]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[5]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[6]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[7]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[8]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[9]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[10]' 
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[11]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[12]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[13]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[14]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[15]'
+and DATE_FORMAT(v.selected_date,'%Y-%m-%d') <> '$dias[16]'";
 
 $pen = $wish->conexion->query ( $pending_query );
 $registros = 0;
