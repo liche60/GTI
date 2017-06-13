@@ -14,6 +14,11 @@ if ($_SESSION ['authenticated'] == 1) {
 	$id_contrato = $_POST ['id_contrato'];
 	$horaExtra = $_POST ['horaExtra'];
 	$estado = 'F';
+	
+	$descripcion = str_replace("'", '\\\'', $descripcion );
+	
+	
+	
 	if($horaExtra == 'Si'){
 		$estado = 'P';
 	}else{
