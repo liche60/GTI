@@ -1,9 +1,9 @@
 <?php
 class conexion{
 	public $conexion;
-	private $server = "localhost";
+	private $server = "bitacora.arus.com.co";
 	private $usuario = "root";
-	private $pass = "";
+	private $pass = "pruebas48";
 	private $db = "gti";
 	public $pdo_conn;
 	public function __construct() {
@@ -388,7 +388,7 @@ class conexion{
 	public function servicio_ci($id, $servicio, $dispo, $delay, $war, $cri, $tipo, $responsable, $check, $horario, $puerto, $accion)
 	{
 		$query = "insert into detalle_servicio (id_host, id_tipo_servicio, id_grupo, val_war, val_cri, id_tipo_umbral, disponibilidad, delay, tiempo_chequeo, horario, puerto, accion_critico)
-		values ('$id', '$servicio', '$responsable', '$war', '$cri', '$tipo', '$dispo', '$delay', '$check', '$horario', $puerto, '$accion')";
+		values ('$id', '$servicio', '$responsable', '$war', '$cri', '$tipo', '$dispo', '$delay', '$check', '$horario', '$puerto', '$accion')";
 		$consulta = $this->conexion->query ( $query );
 	}
 	

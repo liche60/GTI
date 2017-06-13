@@ -40,7 +40,7 @@
 					</div>
 
 					<div class="form-group">
-						<label>Fecha y hora inicio (Este dia no estabas en la compañía)</label>
+						<label>Fecha inicio (Este dia no estabas en la compañía)</label>
 						<div class="input-group">
 							<div class="input-group-addon">
 								<i class="fa fa-calendar"></i>
@@ -52,7 +52,7 @@
 
 
 					<div class="form-group">
-						<label>Fecha y hora fin (Este dia regresaste a la compañía)</label>
+						<label>Fecha fin (Este dia regresaste a la compañía)</label>
 						<div class="input-group">
 							<div class="input-group-addon">
 								<i class="fa fa-calendar"></i>

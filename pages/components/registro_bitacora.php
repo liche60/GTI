@@ -221,7 +221,7 @@ $initialDate = $row ['fecha_inicio'];
                                <?php
 						foreach ( $reg_pen as $r ) {
 							foreach ( $r as $key => $value ) {
-								$falta = 8 - $value;
+								$falta = 8.5 - $value;
 								?>
                                     <tr>
 									<td><?php printf($key);?></td>
