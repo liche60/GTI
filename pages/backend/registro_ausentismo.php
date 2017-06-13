@@ -12,6 +12,8 @@ $com  =$_POST['comentario'];
 $user_id  =$_POST['user_id'];
 $proyecto  =$_POST['proyecto'];
 
+$com = str_replace("'", '\\\'', $com );
+
 $wish = new conexion; 
 $wish->registrarAusentismo($user_id, $proyecto, $fini, $ffin, $ausentismo, $com);
 $wish->cerrar(); 
