@@ -1,5 +1,12 @@
 
 <style>
+
+.resaltar{background-color:#A9A9F5;}
+.bor
+{
+	display:none;
+}
+
 #event
 {
 	font-size: 20px;
@@ -45,6 +52,22 @@
  height: 14px;
  background-color: #c3e3fc;
 }
+
+#buscador
+{
+		padding: 5px;
+	    display: block;
+	    border: none;
+	    border-bottom: 1px solid #ccc;
+	    width: 20%;
+}
+@media (max-width: 1150px)
+	{
+		.lwms-main .lwms-left, .lwms-main .lwms-right, lwms-filterhead
+		{
+			width: 160px;
+		}		
+	}
 </style>
 <?php
 
@@ -55,7 +78,7 @@ $fecha=strftime("%Y-%m-%d %H:%M:%S");
 
 $oe = new conexion();
 $contrato=$_POST['conmasivo'];
-$ci = $oe->conexion->query("select id, nombre from hosts where id_contrato='$contrato'");
+$ci = $oe->conexion->query("select id, nombre, ip from hosts where id_contrato='$contrato'");
 $query2 = $oe->conexion->query("SELECT id_evento FROM registro_masivo ORDER BY id_evento desc LIMIT 1");
 $row2 = $query2->fetch_assoc();
 ?>
@@ -68,14 +91,15 @@ $row2 = $query2->fetch_assoc();
 <form method="post" action="pages/backend/registro_masivo.php" >
 	<div class="col-md-6">
 	<div class="form-group">
-<p> Buscar: Ctrl + f </p>
+	<div class="row">
+<p> Buscar: <input name="buscador" id="buscador" class="form-control" type="text"> </p>
 
 
     <select id="cis" name="cis[]" multiple>
     <?php 
     while($row=$ci->fetch_assoc())
     {
-    	echo '<option value="'.$row['id'].'">'.$row['nombre'].'</option>';
+    	echo '<option value="'.$row['id'].'">'.$row['nombre']." ---> " . $row['ip'].'</option>';
     }
     ?>
     </select>
@@ -89,7 +113,7 @@ $row2 = $query2->fetch_assoc();
 
 	</div>
 	</div>
-	
+	</div>
 	<div class="col-md-6">
 	<div class="form-group">
 	<p id="event"><strong>Evento: </strong><?php echo $row2['id_evento']+1;?></p>
@@ -153,8 +177,22 @@ $row2 = $query2->fetch_assoc();
 </div>
 
 <script>
+    $(document).ready(function () {
+        (function ($) {
+            $('#buscador').keyup(function () {
+                var rex = new RegExp($(this).val(), 'i');
+                $('#lista li').hide();
+                $('#lista li').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+            })
+        }(jQuery));
+    });
+
+
+
 $('#cis').lwMultiSelect({
-  	addAllText:"Seleccionar Todos",
+  	addAllText:"Seleccionar",
     removeAllText:"Removerlos",
     selectedLabel:"CI Seleccionados",
 });

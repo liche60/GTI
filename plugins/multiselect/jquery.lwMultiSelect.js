@@ -58,7 +58,7 @@
       }
       this.$leftHead = $(tmphtml).appendTo(this.$leftDiv);
       this.$rightHead = $('<div class="lwms-filterhead"><span class="lwms-filcount"></span> '+this.options.selectedLabel+'</div>').appendTo(this.$rightDiv);      
-      this.$availList = $('<ul class="lwms-list lwms-available"></ul>').appendTo(this.$leftDiv);
+      this.$availList = $('<ul class="lwms-list lwms-available" id="lista"></ul>').appendTo(this.$leftDiv);
       this.$selectedList = $('<ul class="lwms-list"></ul>').appendTo(this.$rightDiv);
       this.$counter = this.$mainContainer.find('.lwms-filcount');
       

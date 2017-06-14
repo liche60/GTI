@@ -158,11 +158,11 @@ $nomc = $nom->fetch_assoc();
 				</form>
 				</td>
 				<!-- ESTE ES LA COLUMNA DE LOS HORARIOS DE NOTIFICACIÓN POR SERVICIO PARA PONER EL COMENTARIO -->
-				<td style="width:10%">
+				<td>
 					<?php echo $row['horario'];?>
 				</td>
 			
-			<td style="width:10%">
+			<td>
 				<?php echo $row['puerto'];?>
 			</td>
 				
@@ -195,9 +195,10 @@ $nomc = $nom->fetch_assoc();
 <form name="formulario" action="" onSubmit="enviarservicio(); return false" >
 <table id="tabla" class="table table-bordered table-hover table-striped">
 	<tr>
-		<td style="width:10%">
-			<select class="w3-input" name="servicio" style="width:95%" required>
-				<?php		
+		<td>
+			<select class="w3-input" name="servicio" style="width:95px" required>
+			<option value="" disabled selected> Servicio </option>
+				<?php
 		        while($row = $ser->fetch_assoc())
 		        {
 		        	echo '<option value="'.$row['id'].'">'.$row['tipo'].'</option>';
@@ -207,31 +208,31 @@ $nomc = $nom->fetch_assoc();
 		</td>
 		
 		<td style="width:10%">
-			<select class="w3-input" name="dispo" required>
-				<option value="" disabled selected>Dispon.</option>
+			<select class="w3-input" name="dispo" >
+				<option value="-"  selected>Dispon.</option>
 				<option value="0"> Down </option>
 				<option value="1"> Up </option>
 			</select>
 		</td>
 		
-		<td style="width:10%">
-			<input name="delay" placeholder="dela" class="w3-input war" type="text" style="width:75%" required>
+		<td >
+			<input name="delay" placeholder="delay" class="w3-input war" type="text" style="width:75px" required>
 		</td>
 		
-		<td style="width:10%">
-			<input name="check" placeholder="chequeo" class="w3-input war" type="text" style="width:75%" required>
+		<td>
+			<input name="check" placeholder="chequeo" class="w3-input war" type="text" style="width:75px" required>
 		</td>
 		
-		<td style="width:10%">
-			<input name="war" placeholder="war" class="w3-input war" type="text" style="width:75%" required>
+		<td >
+			<input name="war" placeholder="warning" class="w3-input war" type="text" style="width:75px" required>
 		</td>
 		
-		<td style="width:10%">
-			<input name="cri" placeholder="cri" class="w3-input war" type="text" style="width:75%" required>
+		<td >
+			<input name="cri" placeholder="critical" class="w3-input war" type="text" style="width:75px" required>
 		</td>
 		
-		<td style="width:10%">
-			<select class="w3-input" name="tipo" required>
+		<td >
+			<select class="w3-input" name="tipo" >
 				<option value="" disabled selected>T. Umbral</option>
 				<option value="1"> Porcentaje </option>
 				<option value="2"> sesiones </option>
@@ -239,33 +240,29 @@ $nomc = $nom->fetch_assoc();
 			</select>
 		</td>
 		
-		<td style="width:10%">
+		<td >
 			<select class="w3-input" name="responsable" required>
 			<option value="" disabled selected>Responsable</option>
 			<?php		
 		while($row = $escala->fetch_assoc())
 			{
 			?>
-				<!--  <option value="" disabled selected>Respo.</option>
-				<option value="1"> app </option>
-				<option value="2"> bd </option>
-				<option value="3"> linux </option>-->
 				<option value="4"> <?php echo $row['nombre'];?> </option>	
-				
 				<?php }?>
 			</select>
 		</td>
 		
 		<td style="width:10%">
-			<select class="w3-input" name="horario" style="width:85%" required>
+			<select class="w3-input" name="horario" required>
 				<option value="" disabled selected> Horario notifi </option>
 				<option value="7x24">7x24</option>
-				<option value="6:00 am - 6:00 pm">6:00 am - 6:00 pm</option>
+				<option value="5x12">5x12</option>
+				<option value="habil">Hábil</option>
 			</select>
 		</td>
 		
 		<td style="width:10%">
-			<input name="puerto" placeholder="puerto" class="w3-input war" type="text" style="width:75%" required>
+			<input name="puerto" value="" placeholder="puerto" class="w3-input war" type="number" style="width:75px">
 		</td>
 		
 		<td style="width:2%">
@@ -274,7 +271,7 @@ $nomc = $nom->fetch_assoc();
 	</tr>
 	<tr>
 		<td>
-			<textarea name="accion" rows="1" placeholder="acción crítica" class="w3-input war" style="width:75%" required></textarea>
+			<textarea name="accion" rows="1"  placeholder="acción crítica" class="w3-input war" style="width:100px" required></textarea>
 		</td>
 	</tr>
 </table>
@@ -361,7 +358,7 @@ $nomc = $nom->fetch_assoc();
        	<label>Critical</label>
        	<input id="Ucri" name="Ucri"  class="w3-input war" type="text" required>
        	<label>Puerto</label>
-       	<input id="Upuerto" name="Upuerto" class="w3-input war" type="text" required>
+       	<input id="Upuerto" name="Upuerto" class="w3-input war" type="text">
        	<label>Acción Crítica</label>
        	<textarea id="Uaccion" name="Uaccion" class="w3-input war" required></textarea>
        	</div>
@@ -372,7 +369,7 @@ $nomc = $nom->fetch_assoc();
        	
        		<label>Disponibilidad</label><br>
        	<select id="Udispo" name="Udispo" class="w3-input war" style="width: 70%;" required>
-       			<option value=""></option>
+       			<option value="-" disabled selected>Dispon.</option>
 				<option value="0"> Down </option>
 				<option value="1"> Up </option>
 			</select><br><br>
@@ -396,8 +393,9 @@ $nomc = $nom->fetch_assoc();
        	<label>Horario</label><br>
       <select id="Uhorario" name="Uhorario" class="w3-input war" style="width:70%" required>
 				<option value=""></option>
-				<option value="6:00 am - 6:00 pm">6:00 am - 6:00 pm</option>
 				<option value="7x24">7x24</option>
+				<option value="5x12">5x12</option>
+				<option value="habil">Hábil</option>
 			</select><br><br>
        	
        	<input type="hidden" id="id_detalles" name="id_detalles">
@@ -405,7 +403,7 @@ $nomc = $nom->fetch_assoc();
        	</div>
 				
 		<button type="submit" class="btn btn-success">Aceptar</button>
-		<button type="button" class="btn btn-danger pull-right " data-dismiss="modal" aria-hidden="true">Cancelar</button>
+		<button type="button" class="btn btn-danger pull-right" data-dismiss="modal" aria-hidden="true">Cancelar</button>
 		</form> 
        
 		</div>							

@@ -1,7 +1,7 @@
 <?php
 class conexion{
 	public $conexion;
-	private $server = "bitacora.arus.com.co";
+	private $server = "bitacora.com.co";
 	private $usuario = "root";
 	private $pass = "pruebas48";
 	private $db = "gti";
