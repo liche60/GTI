@@ -2,6 +2,10 @@
 // Para los festivos
 $dias=array();
 $conn = $wish->conexion->query("SELECT fecha FROM festivo ");
+$horas = $wish->conexion->query("select sum(tiempoReal) as total from registro_actividad r 
+								where cedula = $userinfo->user_id and DATE(fecha_inicio) = DATE(NOW()) and estado = 'F';");
+$total=$horas->fetch_row();
+$falta=510-$total[0];
 while ($row=$conn->fetch_assoc())
 {
 	$dias[]=$row['fecha'];
@@ -179,7 +183,14 @@ $initialDate = $row ['fecha_inicio'];
                                             <?php
 						}
 						?>
-                                        </tbody>
+                                        
+                             <tr>
+                             	<td>
+                             		<label>Minutos Restantes</label>
+                             	</td>
+                             	<td> <?php echo $falta;?></td>
+                             </tr>
+                             </tbody>
 						</table>
 						
 					</div>
