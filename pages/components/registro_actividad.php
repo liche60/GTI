@@ -39,7 +39,6 @@ if (isset ( $_GET ['editar'] )) {
 	$query = "select * from registro_actividad where id = " . $id_editar . "";
 	$editar_res = $wish->conexion->query ( $query );
 }
-
 ?>
 
 <!-- Main content -->
@@ -48,6 +47,7 @@ if (isset ( $_GET ['editar'] )) {
 		<div class="box-body">
 			<form action="pages/backend/registrar_nueva_actividad.php"
 				method="POST" onsubmit="return validacion(this)">
+				
 				<div class="row">
 					<div class="col-md-6">
 						<div class="form-group">
@@ -62,7 +62,7 @@ if (isset ( $_GET ['editar'] )) {
 							<label>Plataforma</label> <input id="plataforma" type="text"
 								class="form-control" disabled required>
 						</div>
-
+						<input type="hidden" id="areaa" name="areaa" value="<?php echo $userinfo->area;?>">
 						<!-- /.form-group -->
 						<div class="form-group">
 							<label>Contrato</label> <select id="id_contrato"
