@@ -1,7 +1,7 @@
 <?php
 class conexion{
 	public $conexion;
-	private $server = "bitacora.com.co";
+	private $server = "bitacora.arus.com.co";
 	private $usuario = "root";
 	private $pass = "pruebas48";
 	private $db = "gti";
@@ -402,8 +402,14 @@ class conexion{
 	public function registro_masivo($id_evento, $id_host, $f_inicio, $tipo_evento, $causa_evento, $tipo_actividad, $horas_actividad, $descripcion)
 	{
 		$query = "insert into registro_masivo (id_evento, id_host, f_inicio, descripcion, horas_actividad, tipo_evento, causa_evento, tipo_actividad, responsable) values 
-				($id_evento, $id_host, '$f_inicio', '$descripcion', $horas_actividad, '$tipo_evento', '$causa_evento', '$tipo_actividad', 'Monitoreo')";
+				($id_evento, $id_host, '$f_inicio', '$descripcion', $horas_actividad, '$tipo_evento', '$causa_evento', '$tipo_actividad', 'compuredesgcnoc@arus.com.co')";
 		$consulta = $this->conexion->query ( $query );
+	}
+	
+	public function insertEscalamiento($id_detalle, $responsable)
+	{
+		$query="insert into escalamiento (id_detalle, id_persona) values ($id_detalle, $responsable)";
+		$consulta = $this->conexion->query($query);
 	}
 	
 	public function registrarIncidente($servicio, $tipo_evento, $causa_evento, $tipo_actividad, $reporta, $fecha, $hrs_actividad, $mesa, $responsable, $estado, $id_host) {

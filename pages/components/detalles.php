@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="plugins/select2/select2.min.css"/>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css"/>
+
 <style>
 	.select2-container--default .select2-selection--single, .w3-input
 	{
@@ -7,23 +9,8 @@
 	    border: none;
 	    border-bottom: 1px solid #ccc;
 	}
+
 </style>
-
-<script>
-
-
-function buscar() {
-    var textoBusqueda = $("input#busqueda").val();
- 
-     if (textoBusqueda != "") {
-        $.post("pages/backend/includes/detalles.php", {valorBusqueda: textoBusqueda}, function(mensaje) {
-            $("#resultadoBusqueda").html(mensaje);
-         }); 
-     } else { 
-        $("#resultadoBusqueda").html('');
-        };
-};
-</script>
 
 <?php 
 $oe= new conexion();
@@ -154,7 +141,7 @@ $nomc = $nom->fetch_assoc();
 				
 				<td>
 				<form onsubmit="MostrarConsulta('<?php echo $row['id_detalle'];?>'); return false">
-					<button data-target="#modalescala" data-toggle="modal" class="btn btn-default" ><?php echo $row['Responsable'];?></button>
+					<button data-target="#modalescala" data-toggle="modal" class="btn btn-default" >Escala</button>
 				</form>
 				</td>
 				<!-- ESTE ES LA COLUMNA DE LOS HORARIOS DE NOTIFICACIÓN POR SERVICIO PARA PONER EL COMENTARIO -->
@@ -209,7 +196,7 @@ $nomc = $nom->fetch_assoc();
 		
 		<td style="width:10%">
 			<select class="w3-input" name="dispo" >
-				<option value="-"  selected>Dispon.</option>
+				<option value="-" selected>Dispon.</option>
 				<option value="0"> Down </option>
 				<option value="1"> Up </option>
 			</select>
@@ -241,8 +228,8 @@ $nomc = $nom->fetch_assoc();
 		</td>
 		
 		<td >
-			<select class="w3-input" name="responsable" required>
-			<option value="" disabled selected>Responsable</option>
+			<select class="w3-input" id="responsable" name="responsable" multiple required>
+			<option value="" disabled >Responsable</option>
 			<?php		
 		while($row = $escala->fetch_assoc())
 			{
@@ -445,6 +432,9 @@ $nomc = $nom->fetch_assoc();
 	<!-- FIN DE MODAL -->
 	
 	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+	
+	
 	<script type="text/javascript">
 function objetoAjax()
 {
@@ -558,7 +548,7 @@ function MostrarConsulta(datos){
 <script>
 /*$('.butt').click(function(){            
 	window.setTimeout('location.reload()');
-});  */  
+});  */
 
 //Script para Habilitar y Deshabilitar
 /*$("#os").on("click", function(){
@@ -581,8 +571,11 @@ function MostrarConsulta(datos){
 });*/
 </script>
 
- <script src="plugins/select2/select2.full.min.js"></script>
+ 
     <script>
+
+    $('select').selectpicker();
+    
 	     $(function (){
 	    	$("select").select2()
 	     });
@@ -605,12 +598,18 @@ function MostrarConsulta(datos){
 	     $(document).ready(function(){
 	    	    $('.accion').tooltip();   
 	    	});
-	    
+
+	     $("select").pqSelect({
+	    	 multiplePlaceholder: 'Select Countries',    
+	    	    checkbox: true //adds checkbox to options    
+	    	}).on("change", function(evt){
+	    	    var val = $(this).val();
+	    	    $("#selected_option1")
+	    	        .text("Selected option: "+val);
+	    	}).pqSelect( 'open' );
     </script>
     
-    <script>
-        $('select').multipleSelect();
-    </script>
+   
     
 
 

@@ -26,7 +26,11 @@ if ($_SESSION ['authenticated'] == 1) {
 		
 		$con->servicio_ci($id, $servicio, $dispo, $delay, $war, $cri, $tipo, $responsable, $check, $horario, $puerto, $accion);
 		
-		$con->insertEscalamiento($id_detalle, $id_persona);
+		$query2=$con->conexion->query("select id_detalle from detalle_servicio order by 1 desc");
+		$row=$query2->fetch_row();
+		$id_detalle=$row[0];
+		
+		$con->insertEscalamiento($id_detalle, $responsable);
 		
 		echo "<script> alert('Mensaje enviado') </script>";
 	}
