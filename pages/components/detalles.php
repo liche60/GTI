@@ -1,5 +1,5 @@
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css"/>
+<link rel="stylesheet" href="plugins/select2/select2.min.css"/>
+<link rel="stylesheet" href="plugins/multiselect/multipleSelect.css">
 
 <style>
 	.select2-container--default .select2-selection--single, .w3-input
@@ -9,7 +9,20 @@
 	    border: none;
 	    border-bottom: 1px solid #ccc;
 	}
-
+	
+	.ms-options ms-active
+	{
+		min-height: 100px; 
+		max-height: 100px;
+	}
+	
+	.ms-drop.bottom
+	{
+		width: 310px;
+		
+	}
+	
+	
 </style>
 
 <?php 
@@ -19,12 +32,12 @@ $contrato = $_POST['contrato'];
 $ip = $_POST['ip'];
 
 $conn = $oe->conexion->query("select a.id_detalle, a.accion_critico, a.tiempo_chequeo, a.horario, a.id_host, a.puerto, e.nombre as CI, b.tipo as Servicio, a.disponibilidad,  a.delay, a.val_war as Warning, a.val_cri
-as Critical,  d.nombre as Tipo_de_umbral, c.id_grupo, c.nombre as Responsable from detalle_servicio a, tipo_servicios b, grupo c, 
-tipo_umbral d, hosts e where a.id_host=e.id and a.id_tipo_servicio=b.id and a.id_grupo=c.id_grupo 
-and a.id_tipo_umbral=d.id_tipo_umbral and e.id='$id' order by a.id_detalle desc");
+								as Critical,  d.nombre as Tipo_de_umbral from detalle_servicio a, tipo_servicios b, tipo_umbral d,
+								 hosts e where a.id_host=e.id and a.id_tipo_servicio=b.id and a.id_tipo_umbral=d.id_tipo_umbral and
+								 e.id='$id' order by a.id_detalle desc");
 
 $ser = $oe->conexion->query("SELECT * FROM tipo_servicios");
-$escala = $oe->conexion->query("SELECT * FROM sub_grupo");
+$escala = $oe->conexion->query("select a.nombre, a.cedula, b.contacto from new_personas a, sub_grupo b where a.cedula=b.cedula;");
 
 $cont = $oe->conexion->query("SELECT nombre FROM new_proyectos where codigo='$contrato'");
 $nom = $oe->conexion->query("SELECT nombre FROM hosts where id='$id'");
@@ -48,10 +61,7 @@ $nomc = $nom->fetch_assoc();
 	<table id="tabla" class="table table-bordered table-hover table-striped">
 		<tr style="text-align: center;">
 		
-			<td style="width:16%">
-				<h4>REPORTAR<br>INCIDENTE</h4>
-			</td>
-			
+						
 			<td style="width:16%">
 				<h4>SERVICIOS</h4>
 			</td>
@@ -102,14 +112,7 @@ $nomc = $nom->fetch_assoc();
 			?>
 		<tr style="text-align: center;">
 		
-				<td>
-					
-					<form method="post" action="index.php?page=027">
-					<input type="hidden" value="<?php echo $row['id_host'];?>" name="id_host">
-					<input type="hidden" value="<?php echo $ip;?>" name="ip">
-					<button value="<?php echo $row['id_detalle'];?>" name="id_detalle" class="btn btn-default">Enviar</button>
-				</form>
-				</td>
+				
 				
 				<td style="text-align: left;">
 					<label class="accion" title="Acción Crítica: <?php echo $row['accion_critico'];?>"> <?php echo $row['Servicio'];?> </label>
@@ -179,23 +182,23 @@ $nomc = $nom->fetch_assoc();
 
 <div style=" width: 100.5%;  overflow-y: scroll;">
 
-<form name="formulario" action="" onSubmit="enviarservicio(); return false" >
+<form name="formulario" id="formulario" action="" onSubmit="enviarservicio(); return false" >
 <table id="tabla" class="table table-bordered table-hover table-striped">
 	<tr>
 		<td>
-			<select class="w3-input" name="servicio" style="width:95px" required>
+			<select class="w3-input select2" name="servicio" style="width:95px" required>
 			<option value="" disabled selected> Servicio </option>
 				<?php
-		        while($row = $ser->fetch_assoc())
+		        while($rowser = $ser->fetch_assoc())
 		        {
-		        	echo '<option value="'.$row['id'].'">'.$row['tipo'].'</option>';
+		        	echo '<option value="'.$rowser['id'].'">'.$rowser['tipo'].'</option>';
 		        }
 				?>       
 				</select>
 		</td>
 		
 		<td style="width:10%">
-			<select class="w3-input" name="dispo" >
+			<select class="w3-input select2" name="dispo" >
 				<option value="-" selected>Dispon.</option>
 				<option value="0"> Down </option>
 				<option value="1"> Up </option>
@@ -219,28 +222,27 @@ $nomc = $nom->fetch_assoc();
 		</td>
 		
 		<td >
-			<select class="w3-input" name="tipo" >
+			<select class="w3-input select2" name="tipo" >
 				<option value="" disabled selected>T. Umbral</option>
 				<option value="1"> Porcentaje </option>
 				<option value="2"> sesiones </option>
 				<option value="3"> segundos </option>
 			</select>
 		</td>
-		
+
 		<td >
-			<select class="w3-input" id="responsable" name="responsable" multiple required>
-			<option value="" disabled >Responsable</option>
+			<select  id="responsable" name="responsable[]" class="respon" style="width:100px" multiple required>
 			<?php		
-		while($row = $escala->fetch_assoc())
+			while($rowesc = $escala->fetch_assoc())
 			{
 			?>
-				<option value="4"> <?php echo $row['nombre'];?> </option>	
-				<?php }?>
+				<option value="<?php echo $rowesc['cedula'];?>"> <?php echo $rowesc['nombre']. "---".$rowesc['contacto'];?> </option>	
+				<?php }  mysqli_data_seek($escala, 0); // -> esta línea es para resetear el puntero y reutilizar la consulta para otro fetch?> 
 			</select>
 		</td>
 		
 		<td style="width:10%">
-			<select class="w3-input" name="horario" required>
+			<select class="w3-input select2" name="horario" required>
 				<option value="" disabled selected> Horario notifi </option>
 				<option value="7x24">7x24</option>
 				<option value="5x12">5x12</option>
@@ -370,13 +372,19 @@ $nomc = $nom->fetch_assoc();
 			</select><br><br>
 			
        	<label>Responsable</label><br>
-       	<select id="Urespo" name="Urespo"  class="w3-input war" style="width: 70%;" required>
-       			<option value=""></option>
-				<option value="1"> app </option>
-				<option value="2"> bd </option>
-				<option value="3"> linux </option>
-				<option value="4"> app - linux </option>
-			</select><br><br>
+       	<select id="Urespo" name="Urespo"  class="respon" style="width:100px;" multiple required>
+       	<!-- OPTIONS -->
+       	
+       	<?php		
+			while($rowesc2 = $escala->fetch_assoc())
+			{
+			?>
+				<option value="<?php echo $rowesc2['cedula'];?>"> <?php echo $rowesc2['nombre']. "---".$rowesc2['contacto'];?> </option>	
+				<?php }?>
+       	
+			</select>
+			
+		<br><br>
        	<label>Horario</label><br>
       <select id="Uhorario" name="Uhorario" class="w3-input war" style="width:70%" required>
 				<option value=""></option>
@@ -406,7 +414,7 @@ $nomc = $nom->fetch_assoc();
 	<!-- INICIO DE MODAL ESCALAMIENTO -->
 	<div class="modal fade" id="modalescala" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
-		<div style="width: 120%; border-radius:10px;" class="modal-content">
+		<div style="width: 130%; border-radius:10px;" id="modalesc" class="modal-content">
 		<div class="modal-header">
 		<button type="button" class="btn btn-default pull-right" data-dismiss="modal" aria-hidden="true">&times;</button>
 		</div>
@@ -432,7 +440,8 @@ $nomc = $nom->fetch_assoc();
 	<!-- FIN DE MODAL -->
 	
 	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
+	<script src="plugins/multiselect/multipleSelect.js"></script>
+	
 	
 	
 	<script type="text/javascript">
@@ -503,25 +512,17 @@ function updateservicio()
 
 function enviarservicio()
 {
-	ids = document.formulario.ids.value;
-	servicio = document.formulario.servicio.value;
-	dispo = document.formulario.dispo.value;
-	delay = document.formulario.delay.value;
-	war = document.formulario.war.value;
-	cri = document.formulario.cri.value;
-	tipo = document.formulario.tipo.value;
-	responsable = document.formulario.responsable.value;
-	check = document.formulario.check.value;
-	horario = document.formulario.horario.value;
-	puerto = document.formulario.puerto.value;
-	accion = document.formulario.accion.value;
+
+	$.ajax({
+        
+		type:  'POST',
+		
+		url:   'pages/backend/servicio_ci.php',
+		
+        data: $("#formulario").serialize(),
+});
 	
-	ajax = objetoAjax();
-	ajax.open("POST", "pages/backend/servicio_ci.php", true); 
-	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
-	ajax.send("&ids="+ids+"&servicio="+servicio+"&dispo="+dispo+"&delay="+delay+"&war="+war+"&cri="+cri+"&tipo="+tipo+"&responsable="+responsable+"&check="+check+"&horario="+horario+"&puerto="+puerto+"&accion="+accion)
 	window.setTimeout('location.reload()');
-	//alert("El Servicio se ha registrado al CI:  <?php //echo $nomc['nombre'];?> //");
 }
 
 function MostrarConsulta(datos){
@@ -571,14 +572,17 @@ function MostrarConsulta(datos){
 });*/
 </script>
 
- 
+ <script src="plugins/select2/select2.full.min.js"></script>
     <script>
 
-    $('select').selectpicker();
-    
-	     $(function (){
-	    	$("select").select2()
-	     });
+    $(function (){
+    	$(".select2").select2();
+     });
+
+    $(".respon").multipleSelect({
+        placeholder: "responsable",
+        filter: true,
+    });
 
 	     function upd(id_detalle, delay, check, war, cri, puerto)
 	     {
@@ -598,15 +602,6 @@ function MostrarConsulta(datos){
 	     $(document).ready(function(){
 	    	    $('.accion').tooltip();   
 	    	});
-
-	     $("select").pqSelect({
-	    	 multiplePlaceholder: 'Select Countries',    
-	    	    checkbox: true //adds checkbox to options    
-	    	}).on("change", function(evt){
-	    	    var val = $(this).val();
-	    	    $("#selected_option1")
-	    	        .text("Selected option: "+val);
-	    	}).pqSelect( 'open' );
     </script>
     
    

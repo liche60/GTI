@@ -17,7 +17,7 @@ if ($_SESSION ['authenticated'] == 1) {
 	
 	$descripcion = str_replace("'", '\\\'', $descripcion );
 	
-	
+	echo $fecha_inicio;
 	
 	if($horaExtra == 'Si'){
 		$estado = 'P';
@@ -53,7 +53,7 @@ if ($_SESSION ['authenticated'] == 1) {
 	
 	$wish->cerrar ();
 	
-	header ( "Location: ../../index.php" );
+	//header ( "Location: ../../index.php" );
 }
 
 ?>

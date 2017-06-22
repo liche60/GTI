@@ -78,7 +78,6 @@ order by fecha_inicio desc;";
 $reg_cur = $wish->conexion->query ( $current_query );
 
 
-
 ?>
 <!-- Cronometro -->
 
@@ -236,8 +235,8 @@ $initialDate = $row ['fecha_inicio'];
 								?>
                                     <tr>
 									<td><?php printf($key);?></td>
-									<td><?php printf($value);?></td>
-									<td><?php printf($falta);?></td>
+									<td><?php printf(round($value,2));?></td>
+									<td><?php printf(round($falta,2));?></td>
 								</tr>
                                             <?php
 							}

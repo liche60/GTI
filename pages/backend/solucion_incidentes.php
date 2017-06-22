@@ -21,19 +21,25 @@
 session_start();
 if ($_SESSION ['authenticated'] == 1) {
     include("../../modelo/conexion.php");
+    
+   
+    
 
     $ticket = $_POST['ticket'];
-    $id = $_POST['id_incidente'];
-    $id_masivo=$_POST['id_incidente_masivo'];
-    $tipo_incidente = $_POST['evento'];//recibe en valor del radio button
-    $tipo=$_POST['tipo'];
+    $ids = $_POST['id_evento'];
+    $tipo = $_POST['evento'];//recibe en valor del radio button
+    //$tipo=$_POST['tipo'];
     $num_rfc=$_POST['rfc'];
     $fecha_cierre=$_POST['fecha_fin'];
     $detalles = $_POST['detalles'];
+    
+    $algo=explode("-", $ids);
+    
+    
+    $id=$algo[0];
 
     echo $ticket."<br>";
     echo $id."<br>";
-    echo $tipo_incidente."<br>";
     echo $tipo."<br>";
     echo $num_rfc."<br>";
     echo $fecha_cierre."<br>";
@@ -52,9 +58,9 @@ if ($_SESSION ['authenticated'] == 1) {
             $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 
             $headers .= "From: Bitacora de operaciones <bitacora@arus.com.co>" . "\r\n";
-            mail("dgskdj@gmail.com", "SoluciÃ³n incidente", "Se se ha solucionado el incidente", $headers);
+            $this_mail = mail("dgskdj@gmail.com", "SoluciÃ³n incidente", "Se se ha solucionado el incidente", $headers);
             echo "<script> alert('Mensaje enviado') </script>";
-            echo "<script> redireccionar1(); </script>";
+            //echo "<script> redireccionar1(); </script>";
         }
 
     }
@@ -62,16 +68,16 @@ if ($_SESSION ['authenticated'] == 1) {
     if ($num == 0) {
 
 
-        if ($tipo_incidente == "individual") {
+        if ($tipo == "individual") {
         	$masivo="";
             $con->cambiarEstadoIncidente($id);
-            $con->insertarNuevoTiquet($ticket, $id,$id_masivo,$tipo, $num_rfc, $fecha_cierre,$detalles);
+            $con->insertarNuevoTiquet($ticket, $id, $tipo, $num_rfc, $fecha_cierre, $detalles);
             $con->cerrar();
         }
         else {
         	$individual="";
-            $con->cambiarEstadoIncidenteMasivo($id_masivo);
-            $con->insertarNuevoTiquet($ticket, $id,$id_masivo,$tipo, $num_rfc, $fecha_cierre,$detalles);
+            $con->cambiarEstadoIncidenteMasivo($id);
+            $con->insertarNuevoTiquet($ticket, $id, $tipo, $num_rfc, $fecha_cierre, $detalles);
             $con->cerrar();
         }
  
@@ -79,7 +85,7 @@ if ($_SESSION ['authenticated'] == 1) {
         $oe->enviar();
     } else {
         echo "<script> alert('El nÃºmero del ticket ya se encuentra') </script>";
-        echo "<script> redireccionar2(); </script>";
+        //echo "<script> redireccionar2(); </script>";
     }
 }
 ?>

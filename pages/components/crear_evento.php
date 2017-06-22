@@ -99,7 +99,7 @@
         <div class="form-group">
         
         <label>IP</label>        
-        <input id="ip" class="form-control" name="ip" style="width: 100%;" readonly>
+        <input id="ip" class="form-control" name="ip" style="width: 100%;" readonly required>
         
        <!-- <label>Ambiente</label>
         <select id="ambiente" class="form-control"  style="width: 100%;" disabled></select>
@@ -108,7 +108,7 @@
         <select id="ho" class="form-control"  style="width: 100%;" disabled></select> -->
         
         <label> Tipo </label>
-       	<input  id="tipo_ci"class="form-control " name="tipo_ci" readonly>        
+       	<input  id="tipo_ci"class="form-control " name="tipo_ci" readonly required>        
         
         </div>
            

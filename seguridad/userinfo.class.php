@@ -9,6 +9,7 @@ class UserInfo  {
 	public $lider_id;
 	public $cargo;
 	public $proyecto;
+	public $correo_user;
 	
 }
 

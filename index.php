@@ -12,6 +12,7 @@ $user_id = $_SESSION['user_id'];
 $rol = $_SESSION['rol'];
 $user_name = ucwords(strtolower($_SESSION['user_name']));
 $lider_id = $_SESSION['lider_id'];
+$correo_user = $_SESSION['correo'];
 
 $userinfo = new UserInfo;
 $userinfo->user_id = $_SESSION['user_id'];
@@ -21,6 +22,7 @@ $userinfo->area = $_SESSION['area'];
 $userinfo->rol =$_SESSION['rol'];
 $userinfo->proyecto =$_SESSION['proyecto'];
 $userinfo->cargo =ucwords(strtolower($_SESSION['cargo']));
+$userinfo->correo_user =$_SESSION['correo'];
 
 
 
