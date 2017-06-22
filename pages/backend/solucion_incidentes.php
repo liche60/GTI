@@ -60,7 +60,7 @@ if ($_SESSION ['authenticated'] == 1) {
             $headers .= "From: Bitacora de operaciones <bitacora@arus.com.co>" . "\r\n";
             $this_mail = mail("dgskdj@gmail.com", "SoluciÃ³n incidente", "Se se ha solucionado el incidente", $headers);
             echo "<script> alert('Mensaje enviado') </script>";
-            //echo "<script> redireccionar1(); </script>";
+            echo "<script> redireccionar1(); </script>";
         }
 
     }
@@ -84,8 +84,8 @@ if ($_SESSION ['authenticated'] == 1) {
         $oe = new notificarSolucion();
         $oe->enviar();
     } else {
-        echo "<script> alert('El nÃºmero del ticket ya se encuentra') </script>";
-        //echo "<script> redireccionar2(); </script>";
+        echo "<script> alert('El número del ticket ya se encuentra') </script>";
+        echo "<script> redireccionar2(); </script>";
     }
 }
 ?>

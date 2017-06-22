@@ -402,8 +402,8 @@ class conexion{
 	
 	public function registro_masivo($id_evento, $id_host, $f_inicio, $tipo_evento, $causa_evento, $tipo_actividad, $horas_actividad, $descripcion)
 	{
-		$query = "insert into registro_masivo (id_evento, id_host, f_inicio, descripcion, horas_actividad, tipo_evento, causa_evento, tipo_actividad, responsable) values 
-				($id_evento, $id_host, '$f_inicio', '$descripcion', $horas_actividad, '$tipo_evento', '$causa_evento', '$tipo_actividad', 'compuredesgcnoc@arus.com.co')";
+		$query = "insert into registro_masivo (id_evento, id_host, f_inicio, descripcion, horas_actividad, tipo_evento, causa_evento, tipo_actividad, responsable, estado) values 
+				($id_evento, $id_host, '$f_inicio', '$descripcion', $horas_actividad, '$tipo_evento', '$causa_evento', '$tipo_actividad', 'compuredesgcnoc@arus.com.co', 'P')";
 		$consulta = $this->conexion->query ( $query );
 	}
 	
@@ -422,7 +422,7 @@ class conexion{
 	
 	public function insertarNuevoTiquet($ticket, $id, $tipo, $num_rfc, $fecha_cierre, $detalles) {
 		
-		$query= "insert into solucion_incidente (ticket, id_evento, tipo, num_rfc, fecha_cierre, detalles) values ($ticket, $id, '$tipo', '$num_rfc', '$fecha_cierre', '$detalles'";
+		$query= "INSERT INTO solucion_incidente (ticket, id_evento, tipo, num_rfc, fecha_cierre, detalles) values('$ticket', '$id', '$tipo', '$num_rfc', '$fecha_cierre', '$detalles')";
 		
 		$consulta=$this->conexion->query($query);
 		
