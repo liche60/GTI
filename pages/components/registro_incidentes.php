@@ -9,16 +9,23 @@ $oe = new conexion();
 $usuario = new UserInfo();
 $id_detalle = $_POST['id_detalle'];
 //$cont = $_POST['contra'];
-$idCI = $_POST["id_host"];  //1
-$ip = $_POST["ip"];
+$id_persona=$_POST['otro'];
 
-$conn = $oe->conexion->query("select a.id_detalle, b.nombre, c.tipo from detalle_servicio a, hosts b, tipo_servicios c where 
+// Aprovechar el ID DETALLE para sacar el HOST y la IP Para el envío del correo 
+
+
+
+$conn = $oe->conexion->query("select a.id_detalle, b.nombre, b.ip, b.id, c.tipo from detalle_servicio a, hosts b, tipo_servicios c where 
 a.id_host=b.id and a.id_tipo_servicio=c.id and id_detalle='$id_detalle'");
 $num_evento = $oe->conexion->query("SELECT (max(id)+1) as Numero_de_evento FROM incidentecop");
+$query=$oe->conexion->query("select nombre from new_personas where cedula=$id_persona");
 
 $evento = $num_evento->fetch_assoc();
 $row = $conn->fetch_assoc();
+$info=$query->fetch_assoc();
 
+echo $id_persona ." - " . $id_detalle ."<br>";
+echo $row['id'] ." - " . $row['ip'];
 
 ?> 
 
@@ -59,6 +66,15 @@ $row = $conn->fetch_assoc();
  height: 14px;
  background-color: #c3e3fc;
 }
+
+	#event
+{
+	font-size: 20px;
+	padding: 1px 15px;
+	color: blue;
+	text-align: right;
+	font-family: calibri;
+}
 </style>
 
 <div class="box box-info">
@@ -70,13 +86,12 @@ $row = $conn->fetch_assoc();
             </div> 
         </div>      
  
-        <label style="color: green;">EVENTO NÚMERO: </label>
-        <label><?php echo $evento['Numero_de_evento']; ?>  </label><br><BR>
+        <p id="event"><strong>Evento: </strong><?php echo $evento['Numero_de_evento'];?></p>
 
         
         <form method="post" action="pages/backend/nuevo_incidente.php">
             <div class="col-md-23">
-				<input name="id_host" type="hidden"  value="<?php echo $idCI?>" class="form-control" required>
+				<input name="id_host" type="hidden"  value="<?php echo $row['id'];?>" class="form-control" required>
                <input name="reporta" type="hidden" id="txtEstado" value="<?php echo $userinfo->user_name = $_SESSION['user_id'];?>" class="form-control" required>
 
                 <div class="col-md-6">
@@ -129,11 +144,13 @@ $row = $conn->fetch_assoc();
                     	<option></option>
                     	<option>Maya</option>
                     	<option>Marco</option>
+                    	<option value="serviciogco@arus.com.co">servicio gco</option>
                     </select> 
 
 
                     <label>Responsable</label>
-                    <input  name="responsable" id="txtResponsable" class="form-control">
+                    <input  name="corresponsable" value="<?php echo $info['nombre'];?>" id="txtResponsable" class="form-control" readonly>
+                    <input type="hidden" name="idresponsable" value="<?php echo $id_persona;?>" id="txtResponsable" class="form-control" readonly>
   
                     <label>Persona que reporta</label><br>
                     <input value="<?php echo $userinfo->user_name = ucwords(strtolower($_SESSION['user_name']));?>" class="form-control" required disabled> 

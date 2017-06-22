@@ -165,6 +165,7 @@ $_PAGE_CONFIG = array(
 						//"6" => "027",
 						"7" => "028",
 						//"8" => "029",
+						"9" => '031',
 				)
 		),
 		"013" => array(
@@ -244,6 +245,16 @@ $_PAGE_CONFIG = array(
 				"small" => "Registro Masivo",
 				"menu" => "Registro Masivo",
 				"link" => 'pages/gestion_eventos/nuevo_evento/registro_masivo.php',
+				"menu_css_class" => "fa-plus"
+		),
+		
+		"031" => array(
+				"show" => false,
+				"isSubmenu" => true,
+				"big" => "Gestión de eventos",
+				"small" => "Buscar evento",
+				"menu" => "Buscar evento",
+				"link" => 'pages/gestion_eventos/nuevo_evento/buscar_evento.php',
 				"menu_css_class" => "fa-plus"
 		),
 		

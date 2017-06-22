@@ -40,6 +40,7 @@ class conexion{
 			$_SESSION ['proyecto'] = $proyecto;
 			$_SESSION ['cargo'] = $cargo;
 			$_SESSION ['area'] = $area;
+			$_SESSION ['correo'] = $correo;
 		}
 		echo "index.php";
 	}
@@ -385,10 +386,10 @@ class conexion{
 		$consulta = $this->conexion->query ( $query );
 	}
 	
-	public function servicio_ci($id, $servicio, $dispo, $delay, $war, $cri, $tipo, $responsable, $check, $horario, $puerto, $accion)
+	public function servicio_ci($id, $servicio, $dispo, $delay, $war, $cri, $tipo, $check, $horario, $puerto, $accion)
 	{
-		$query = "insert into detalle_servicio (id_host, id_tipo_servicio, id_grupo, val_war, val_cri, id_tipo_umbral, disponibilidad, delay, tiempo_chequeo, horario, puerto, accion_critico)
-		values ('$id', '$servicio', '$responsable', '$war', '$cri', '$tipo', '$dispo', '$delay', '$check', '$horario', '$puerto', '$accion')";
+		$query = "insert into detalle_servicio (id_host, id_tipo_servicio, val_war, val_cri, id_tipo_umbral, disponibilidad, delay, tiempo_chequeo, horario, puerto, accion_critico)
+		values ('$id', '$servicio', '$war', '$cri', '$tipo', '$dispo', '$delay', '$check', '$horario', '$puerto', '$accion')";
 		$consulta = $this->conexion->query ( $query );
 	}
 	
@@ -419,9 +420,9 @@ class conexion{
 		$consulta= $this->conexion->query($query);
 	}
 	
-	public function insertarNuevoTiquet($ticket,$id,$descripcion,$tipo_incidente){
+	public function insertarNuevoTiquet($ticket, $id, $tipo, $num_rfc, $fecha_cierre, $detalles) {
 		
-		$query= "insert into ticket (ticket,id_incidente,descripcion,tipo_incidente) values('".$ticket."','".$id."','".$descripcion."','".$tipo_incidente."')";
+		$query= "insert into solucion_incidente (ticket, id_evento, tipo, num_rfc, fecha_cierre, detalles) values ($ticket, $id, '$tipo', '$num_rfc', '$fecha_cierre', '$detalles'";
 		
 		$consulta=$this->conexion->query($query);
 		
@@ -441,6 +442,20 @@ class conexion{
 		$consulta=$this->conexion->query($query);
 	} 
 	
+	// cantidad de eventos abiertos
+	function getEventosAbiertos($cedula) {
+		$query = "SELECT COUNT(*) FROM incidentecop  WHERE estado='P' and responsable='$cedula'" ;
+		$eventos = $this->conexion->query ( $query );
+		return $eventos;
+	}
+	
+	// cantidad de eventos masivos abiertos
+	function getEventosMasivosAbiertos(){
+		$query ="SELECT count(distinct id_evento)  FROM registro_masivo WHERE estado='P'";
+		$eventos_masivos=$this->conexion->query($query);
+		return $eventos_masivos;
+		
+	}
 	
 }
 ?>
