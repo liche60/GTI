@@ -23,7 +23,7 @@ $query = $con->conexion->query("SELECT a.nombre, a.correo, a.celular, b.area,  c
 <div style=' width: 101.5%; height:320px; overflow: scroll;'>
 	<table class='table table-bordered table-striped table-hover'>
 		<tr>
-			<th style='width:30%;'>Reportar<br>Incidente</th>
+			<th style='width:30%;'>Reportar</th>
 			<th style='width:30%;'>Nombre</th>
 			<th style='width:10%;'>Contacto</th>
 			<th style='width:30%;'>Número</th>
@@ -47,7 +47,7 @@ $query = $con->conexion->query("SELECT a.nombre, a.correo, a.celular, b.area,  c
 				<td>Pen</td>
 			</tr>";
 	}	
-			echo "<tr><td><button value='$oe' name='id_detalle' class='btn btn-default'>Registrar<br> Incidente</button></td></tr>";
+			echo "<tr><td><button value='$oe' name='id_detalle' class='btn btn-default'>Registrar</button></td></tr>";
 	echo "
 			
 			</form></table></div>";

@@ -1,10 +1,12 @@
-
+<link rel="stylesheet" href="plugins/select2/select2.min.css"/>
 <style>
 
-.resaltar{background-color:#A9A9F5;}
-.bor
+.select2-container--default .select2-selection--single
 {
-	display:none;
+	border-radius: 0;
+    border-color: #d2d6de;
+    width: 100%;
+    height: 34px;
 }
 
 #event
@@ -80,12 +82,17 @@ $oe = new conexion();
 $contrato=$_POST['conmasivo'];
 $ci = $oe->conexion->query("select id, nombre, ip from hosts where id_contrato='$contrato'");
 $query2 = $oe->conexion->query("SELECT id_evento FROM registro_masivo ORDER BY id_evento desc LIMIT 1");
+$escala = $oe->conexion->query("SELECT distinct a.nombre, a.correo, a.celular, b.area, c.id, c.contacto, a.cedula FROM new_personas a,
+								areas b, sub_grupo c, new_usuario d WHERE c.cedula=a.cedula and a.cedula=d.cedula 
+								and b.id=d.area and d.area in (9, 10, 11, 12) order by 4 asc");
 $row2 = $query2->fetch_assoc();
 ?>
 
 <div class="box box-info">
 <div class="box-header with-border">
 <div class="w3-containerbox-body">
+
+
 
 <!-- FORM -->
 <form method="post" action="pages/backend/registro_masivo.php" >
@@ -109,7 +116,21 @@ $row2 = $query2->fetch_assoc();
 	<textarea class="form-control" name="desc"></textarea>
 	
 	<label>Responsable</label><br>
-    <input value="Monitoreo NOC" class="form-control" required disabled>
+	<select class="form-control" required name="respo" id="responsable" style="width: 100%;">
+	<option value="" disabled selected> Seleccione un responsable </option>
+	 <?php 
+	 while ($row3 = $escala->fetch_row())
+    {
+    	echo '<option value="'.$row3[1]."-".$row3[6].'">'.ucwords(strtolower($row3[0]))." ---> " . $row3[3].'</option>';
+    }mysqli_data_seek($escala, 0);
+    ?>
+	<!-- 	<option value="prueba1">APP</option>
+		<option value="prueba2">BD</option>
+		<option value="prueba3">NOC</option>
+		<option value="prueba4">SOC</option>
+	 -->
+		
+	</select>
 
 	</div>
 	</div>
@@ -117,6 +138,16 @@ $row2 = $query2->fetch_assoc();
 	<div class="col-md-6">
 	<div class="form-group">
 	<p id="event"><strong>Evento: </strong><?php echo $row2['id_evento']+1;?></p>
+	
+	
+	<label>Mesa</label>
+      <select name="mesa"  class="form-control" required>
+      <option value="" disabled selected> Seleccione una mesa  </option>
+	      <option value="Maya">Maya</option>
+	      <option value="Marco">Marco</option>
+	      <option value="serviciogco@arus.com.co">servicio gco</option>
+	   </select> 
+	
 	
 	<div class="form-group">
 		<label>Fecha Inicio</label>
@@ -133,15 +164,15 @@ $row2 = $query2->fetch_assoc();
 	<label>Causa del Evento</label>
 	<select class="form-control" name="c_evento">
 		<option></option>
-		<option>Disponibilidad</option>
-		<option>Capacidad</option>
+		<option value="disponibilidad">Disponibilidad</option>
+		<option value="capacidad">Capacidad</option>
 	</select>
 	
 	<label>Tipo de Actividad</label>
 	<select class="form-control" name="t_actividad">
 		<option></option>
-		<option>Critical</option>
-		<option>Warning</option>
+		<option value="critival">Critical</option>
+		<option value="warning">Warning</option>
 	</select>
 	
 	<label>Minutos de actividad</label>
@@ -169,13 +200,71 @@ $row2 = $query2->fetch_assoc();
 	
 	<input type="hidden" name="event" value="<?php echo $row2['id_evento']+1;?>">
 	<button type="submit" class="btn btn-success">Enviar</button>
+	<button id="btnesc" type="button" class="btn btn-info pull-center">Escala</button>
 	<a href="index.php"><button type="button" class="btn btn-danger pull-right" >Cancelar</button></a>
 </form>
 
+
+
 </div>
 </div>
 </div>
 
+<!-- INICIO DE MODAL ESCALAMIENTO -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div style="width: 135%; border-radius:10px;" class="modal-content">
+		<div class="modal-header">
+		<button type="button" class="btn btn-default pull-right" data-dismiss="modal" aria-hidden="true">&times;</button>
+		</div>
+		<div class="modal-body">
+		<div class="col-md-13">
+		<div class="box box-info">
+        
+        <label style="font-size: 22px;">Escalamiento</label> <br><br>
+        
+       <?php 
+       	
+       echo"
+			<div style=' width: 101.5%; height:320px; overflow: scroll;'>
+			<table class='table table-bordered table-striped table-hover'>
+		<tr>
+			<th style='width:30%;'>Nombre</th>
+			<th style='width:10%;'>Contacto</th>
+			<th style='width:30%;'>Número</th>
+			<th style='width:30%;'>Correo</th>
+			<th style='width:15%;'>Area</th>
+		</tr>";
+
+		while ($row3 = $escala->fetch_row())
+		{
+			echo"
+				 <tr>
+				 <td>".ucwords(strtolower($row3[0]))."</td>
+				    <td>$row3[5]</td>
+				    <td>$row3[2]</td>
+				    <td>$row3[1]</td>
+				    <td>$row3[3]</td>
+				</tr>";
+		}
+		echo "</table></div>"
+       ?>
+		
+		</div>							
+		 </div>
+		  </div>
+		    </div>
+			</div>
+		</div>
+	<!-- FIN DE MODAL -->
+
+
+<script src="plugins/select2/select2.full.min.js"></script>
+    <script>
+	     $(function () {
+	    $("#responsable").select2();
+	     });
+    </script>
 <script>
     $(document).ready(function () {
         (function ($) {
@@ -214,6 +303,10 @@ $("#radiobtn_2").on("click", function(){
   $('#txtHoraActividad').attr('readOnly','readOnly ');
   $('#txtHoraActividad').val('0');
 }); 
+
+$("#btnesc").on("click", function(){
+		$("#myModal").modal('show');
+		});
 </script>
 
 

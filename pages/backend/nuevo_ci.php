@@ -14,12 +14,20 @@ $ambiente=$_POST['ambiente'];
 $tipo_dispositivo=$_POST['tipo_dispositivo'];
 
 
+echo $ip;
+echo $nombre_ci;
+echo $id_contrato;
+echo $horario_operativo;
+echo $ambiente;
+echo $tipo_dispositivo;
+
+
 $wish=new conexion();
 $wish->crearCI($ip, $nombre_ci, $id_contrato, $horario_operativo, $ambiente, $tipo_dispositivo);
 $wish->cerrar(); 
 
 header("Location: ../../index.php");
- 
+  
 }
 
 ?>

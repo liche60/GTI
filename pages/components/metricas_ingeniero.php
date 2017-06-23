@@ -10,7 +10,7 @@
 
 $actividadesdelmes = $wish->getActividadesMesAnalista($userinfo->user_id);
 $eventosAbiertos=$wish->getEventosAbiertos($userinfo->user_id);
-$eventosMasivosAbiertos=$wish->getEventosMasivosAbiertos();
+$eventosMasivosAbiertos=$wish->getEventosMasivosAbiertos($userinfo->user_id);
 $productividad = $wish->getProductividad($userinfo->user_id);
  
 
@@ -26,12 +26,17 @@ $productividad = $wish->getProductividad($userinfo->user_id);
 			</div> 
 			
 			<div class="content">
-				<div class="text">Eventos cerrados</div><br>
+				<div class="text">Eventos Masivos</div><br>
 				<div class="number">
 					<a href="index.php?page=028">
 					<span class="count"><?php
 					
-					?></span>
+					
+					while ( $row2 = $eventosMasivosAbiertos->fetch_array ( MYSQLI_NUM ) ) {
+						echo $row2[0] . "<br/>\n";
+					}
+					
+					?><br></span>
 					</a>
 				</div>
 			</div>      
@@ -48,24 +53,18 @@ $productividad = $wish->getProductividad($userinfo->user_id);
 			</div> 
 			
 			<div class="content">
-				<div class="text">Eventos abiertos</div><br>
+				<div class="text">Eventos </div><br>
 				<div class="number">
 					<a href="index.php?page=028">
 					<span class="count"><?php
-					if($userinfo->correo=$_SESSION['correo'] == 'compuredescgcnoc@arus.com.co'){
 						
 						
-						while ( $row2 = $eventosMasivosAbiertos->fetch_array ( MYSQLI_NUM ) ) {
-							echo $row2[0] . "<br/>\n";
-						}
-						}
-					else{
+						
 						
 					     
 							while ( $row1 = $eventosAbiertos->fetch_array ( MYSQLI_NUM ) ) {
 								echo $row1[0] . "<br/>\n";
 						}
-					}
 					
 					?></span>
 					</a>

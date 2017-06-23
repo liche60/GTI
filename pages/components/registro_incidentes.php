@@ -24,9 +24,6 @@ $evento = $num_evento->fetch_assoc();
 $row = $conn->fetch_assoc();
 $info=$query->fetch_assoc();
 
-echo $id_persona ." - " . $id_detalle ."<br>";
-echo $row['id'] ." - " . $row['ip'];
-
 ?> 
 
 <style>
@@ -79,10 +76,10 @@ echo $row['id'] ." - " . $row['ip'];
 
 <div class="box box-info">
     <div class="box-body">
-        <h3 class="box-title">Registro de incidentes</h3>
+        <h3 class="box-title">Registro</h3>
         <!-- Barra de progreso -->
         <div class="progress progress-sm active">
-            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 40%">                  
+            <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 95%">                  
             </div> 
         </div>      
  

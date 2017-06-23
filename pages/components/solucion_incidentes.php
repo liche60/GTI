@@ -113,15 +113,6 @@ textarea.foo {
 }
 </style>
 
-<style>
-.select2-container--default .select2-selection--single
-{
-	border-radius: 0;
-    border-color: #d2d6de;
-    width: 100%;
-    height: 34px;
-}
-</style>
 
 <!-- style radio buttons -->
 
@@ -182,7 +173,9 @@ textarea.foo {
 <br>
 <?php
 $oe = new conexion ();
-
+$escala = $oe->conexion->query("SELECT distinct a.nombre, a.correo, a.celular, b.area, c.id, c.contacto, a.cedula FROM new_personas a,
+								areas b, sub_grupo c, new_usuario d WHERE c.cedula=a.cedula and a.cedula=d.cedula
+								and b.id=d.area and d.area in (9, 10, 11, 12) order by 4 asc");
 $query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo where estado='P'" );
 ?>
 
@@ -202,16 +195,12 @@ $query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo
 					<div class="input__row"> 
 						<ul class="buttons">
 							<li>
-							<?php if($userinfo->correo_user != 'compuredescgcnoc@arus.com.co'){?>
 							<input id="mostrar_evento" onclick="indivi('individual',<?php echo $userinfo->user_id?>);" class="radiobtn" name="evento" type="radio" value="individual" tabindex="1"> <span></span> <label
 								for="mostrar_evento"  id="r1">Evento</label>
-							<?php }?>
 							
 							
-							<?php if($userinfo->correo_user == 'compuredescgcnoc@arus.com.co'){?>
 								<input id="mostrar_evento_masivo" onclick="indivi('masivo');" class="radiobtn" name="evento" type="radio" value="masivo" tabindex="2"> <span></span> <label
 								for="mostrar_evento_masivo" id="r2">Evento masivo</label></li>
-							<?php }?>
 						</ul>
 					</div>
 
@@ -222,7 +211,7 @@ $query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo
                             
                    <label>NÚMERO DEL TICKET</label>
 
-					<input type="number" name="ticket" class="form-control" required style="max-width: 600px;"> 
+					<input type="text" name="ticket" class="form-control" required style="max-width: 600px;"> 
 					<label>TIPO</label> 
 					
 						<select class="form-control" id="tipo" name="tipo" required="required" style="width: 100%;">
@@ -244,11 +233,36 @@ $query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo
 
 						</ul>
 
-
-
+					
+					<hr>
+	<div class="col-md-6" style="width: 100%;">
+		<div class="form-group" >
+			<div class="input-group">
+			
+			<select class="form-control" id="responsable" style="width: 100%;">
+						<option value="" disabled selected> Cambiar el responsable </option>
+							<?php 
+							 while ($row3 = $escala->fetch_row())
+						    {
+						    	echo '<option value="'.$row3[6].'">'.ucwords(strtolower($row3[0]))." ---> " . $row3[3].'</option>';
+						    }
+    					?>
+					</select>
+					
+				
+				<div class="input-group-addon" style=" padding: 0px;">
+						<button id="btnenviar" class="btn btn-primary pull-right" style="height: 32px; padding: 7px;" type="button" title="Agregar">Enviar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+					
+					
+					
+					
+					
+					
 					</div>
-
-
 				</div>
 			</div>
 
@@ -261,6 +275,7 @@ $query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo
 					
 					<label id="info_evento"
 						class="foo"  style="width: 50%;"> 
+						
 					</label> <br>
 					
 					<br> <br> <label>FECHA Y HORA DE CIERRE DEL EVENTO</label><br> 
@@ -280,14 +295,14 @@ $query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo
 				<a href="index.php"><button type="button" class="btn btn-danger">Cancelar</button></a>
 				<button type="submit" class="btn btn-success pull-right">Registrar
 					evento</button>
+					<hr>
 			</div>
-
-
+			
 		</form>
+		
 	</div>
 
 </div> 
-
 
      <script src="plugins/select2/select2.full.min.js"></script>
     <script>
@@ -297,6 +312,15 @@ $query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo
     </script>
 
 <script>
+
+$("#btnenviar").on("click", function(){
+
+	var x=$("#responsable").val();
+	var y=$("#evento").val();
+	window.location.href = 'pages/backend/rotar_escala.php?valor='+x+'&even='+y+'';
+
+	});
+
 /*
 
            $(document).ready(function () {

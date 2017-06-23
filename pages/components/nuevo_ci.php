@@ -1,8 +1,6 @@
 
 <?php
-$oe1 = new conexion();
-$oe2 = new conexion();
-$oe3 = new conexion();
+$oe = new conexion();
 ?>
 
 
@@ -50,7 +48,7 @@ $oe3 = new conexion();
                                     
                                  <option value="0"></option>
                                 <?php
-                                $conn1 = $oe1->conexion->query("SELECT codigo, nombre FROM new_proyectos ");
+                                $conn1 = $oe->conexion->query("SELECT codigo, nombre FROM new_proyectos ");
 
                                 while ($row = $conn1->fetch_assoc()) {
                                     echo '<option value="' . $row['codigo'] . '">' . $row['nombre'] . '</option>';
@@ -70,7 +68,7 @@ $oe3 = new conexion();
                                 <option value="0"></option>
 
                                 <?php
-                                $conn2 = $oe2->conexion->query("SELECT id, nombre FROM horarios_operativos ");
+                                $conn2 = $oe->conexion->query("SELECT id, nombre FROM horarios_operativos ");
 
                                 while ($row = $conn2->fetch_assoc()) {
                                     echo '<option value="' . $row['nombre'] . '">' . $row['nombre'] . '</option>';
@@ -93,7 +91,7 @@ $oe3 = new conexion();
                                 <option value="0"></option>
 
                                 <?php
-                                $conn3 = $oe3->conexion->query("SELECT id, tipo FROM tipo_dispositivo ");
+                                $conn3 = $oe->conexion->query("SELECT id, tipo FROM tipo_dispositivo ");
 
                                 while ($row = $conn3->fetch_assoc()) {
                                     echo '<option value="' . $row['id'] . '">' . $row['tipo'] . '</option>';
@@ -112,5 +110,9 @@ $oe3 = new conexion();
 </div>
 </div>
 
-
-<?php
+<script src="plugins/select2/select2.full.min.js"></script>
+    <script>
+	     $(function () {
+	    $("select").select2();
+	     });
+    </script>

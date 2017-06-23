@@ -32,6 +32,7 @@ if ($_SESSION ['authenticated'] == 1) {
     $num_rfc=$_POST['rfc'];
     $fecha_cierre=$_POST['fecha_fin'];
     $detalles = $_POST['detalles'];
+    $usuario=$_POST['btnus'];
     
     $algo=explode("-", $ids);
     
@@ -43,7 +44,7 @@ if ($_SESSION ['authenticated'] == 1) {
     echo $tipo."<br>";
     echo $num_rfc."<br>";
     echo $fecha_cierre."<br>";
-    echo $detalles."<br>";
+    echo $detalles."<br>".$usuario;
     
     
     $con = new conexion;

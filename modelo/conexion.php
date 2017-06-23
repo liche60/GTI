@@ -380,30 +380,38 @@ class conexion{
 		$consulta = $this->conexion->query ( $query );
 	}
 	
-	public function deleteservicio($borrar)
-	{
-		$query = "delete from detalle_servicio where id_detalle=$borrar";
-		$consulta = $this->conexion->query ( $query );
-	}
 	
 	public function servicio_ci($id, $servicio, $dispo, $delay, $war, $cri, $tipo, $check, $horario, $puerto, $accion)
 	{
-		$query = "insert into detalle_servicio (id_host, id_tipo_servicio, val_war, val_cri, id_tipo_umbral, disponibilidad, delay, tiempo_chequeo, horario, puerto, accion_critico)
-		values ('$id', '$servicio', '$war', '$cri', '$tipo', '$dispo', '$delay', '$check', '$horario', '$puerto', '$accion')";
+		$query = "insert into detalle_servicio (id_host, id_tipo_servicio, val_war, val_cri, id_tipo_umbral, disponibilidad, delay, tiempo_chequeo, horario, puerto, accion_critico,estado)
+		values ('$id', '$servicio', '$war', '$cri', '$tipo', '$dispo', '$delay', '$check', '$horario', '$puerto', '$accion','A')";
 		$consulta = $this->conexion->query ( $query );
 	}
 	
-	public function update_servicio_ci($id, $dispo, $delay, $check, $war, $cri, $tipo, $responsable, $horario, $puerto, $accion_critico)
+	public function deleteservicio($borrar)
 	{
-		$query = "update detalle_servicio set disponibilidad=$dispo, delay=$delay, tiempo_chequeo=$check, val_war='$war', val_cri='$cri', 
-		id_tipo_umbral=$tipo, id_grupo=$responsable, horario='$horario', puerto=$puerto, accion_critico='$accion_critico' where id_detalle=$id";
+		$query = "update detalle_servicio set estado='I' where id_detalle=$borrar";
 		$consulta = $this->conexion->query ( $query );
 	}
 	
-	public function registro_masivo($id_evento, $id_host, $f_inicio, $tipo_evento, $causa_evento, $tipo_actividad, $horas_actividad, $descripcion)
+	public function crearCI( $ip,$nombre_ci,$id_contrato,$horario_operativo,$ambiente, $tipo_dispositivo )
 	{
-		$query = "insert into registro_masivo (id_evento, id_host, f_inicio, descripcion, horas_actividad, tipo_evento, causa_evento, tipo_actividad, responsable, estado) values 
-				($id_evento, $id_host, '$f_inicio', '$descripcion', $horas_actividad, '$tipo_evento', '$causa_evento', '$tipo_actividad', 'compuredesgcnoc@arus.com.co', 'P')";
+		$query = "insert into hosts (ip, nombre, id_contrato, horario_operativo, ambiente, tipo)
+		values('$ip','$nombre_ci','$id_contrato','$horario_operativo','$ambiente','$tipo_dispositivo')";
+		$consulta=$this->conexion->query($query);
+	}
+	
+	public function update_servicio_ci($id, $dispo, $delay, $check, $war, $cri, $tipo, $horario, $puerto, $accion_critico)
+	{
+		$query = "update detalle_servicio set disponibilidad=$dispo, delay=$delay, tiempo_chequeo=$check, val_war='$war', val_cri='$cri',
+		id_tipo_umbral=$tipo, horario='$horario', puerto=$puerto, accion_critico='$accion_critico' where id_detalle=$id";
+		$consulta = $this->conexion->query ( $query );
+	}
+	
+	public function registro_masivo($id_evento, $id_host, $f_inicio, $tipo_evento, $causa_evento, $tipo_actividad, $horas_actividad, $descripcion, $mesa, $respo)
+	{
+		$query = "insert into registro_masivo (id_evento, id_host, f_inicio, descripcion, horas_actividad, tipo_evento, causa_evento, tipo_actividad, responsable, mesa, estado) values 
+				($id_evento, $id_host, '$f_inicio', '$descripcion', $horas_actividad, '$tipo_evento', '$causa_evento', '$tipo_actividad', '$respo', '$mesa', 'P')";
 		$consulta = $this->conexion->query ( $query );
 	}
 	
@@ -450,11 +458,17 @@ class conexion{
 	}
 	
 	// cantidad de eventos masivos abiertos
-	function getEventosMasivosAbiertos(){
-		$query ="SELECT count(distinct id_evento)  FROM registro_masivo WHERE estado='P'";
+	function getEventosMasivosAbiertos($cedula){
+		$query ="SELECT count(distinct id_evento)  FROM registro_masivo WHERE estado='P' and responsable='$cedula'";
 		$eventos_masivos=$this->conexion->query($query);
 		return $eventos_masivos;
 		
+	}
+	
+	public function rotarescala($cedula, $id_evento)
+	{
+		$query="update registro_masivo set responsable=$cedula where id_evento=$id_evento";
+		$consulta = $this->conexion->query($query);
 	}
 	
 }
