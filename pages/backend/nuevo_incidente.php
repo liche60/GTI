@@ -25,6 +25,7 @@ $correo_responsable=$_POST['corresponsable'];
 $estado='P';
 $nombre_host=$_POST['nombre_host'];
 $ip=$_POST['ip'];
+$id_host=$_POST['id_host'];
  
 //el estado lo mando directo
 

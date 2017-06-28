@@ -17,7 +17,7 @@ $id_persona=$_POST['otro'];
 
 
 
-$conn = $oe->conexion->query("select a.id_detalle, b.nombre, b.ip, b.id, c.tipo, c.id as id_tipo from detalle_servicio a, hosts b, tipo_servicios c where 
+$conn = $oe->conexion->query("select a.id_detalle, b.nombre, b.ip, b.id as id_host, c.tipo, c.id as id_tipo from detalle_servicio a, hosts b, tipo_servicios c where 
 a.id_host=b.id and a.id_tipo_servicio=c.id and id_detalle='$id_detalle'");
 
 $num_evento = $oe->conexion->query("SELECT (max(id)+1) as Numero_de_evento FROM incidentecop");
@@ -93,6 +93,7 @@ $info=$query->fetch_assoc();
             <div class="col-md-23">
 				<input name="nombre_host" type="hidden"  value="<?php echo $row['nombre'];?>" class="form-control" required>
 				<input name="ip" type="hidden"  value="<?php echo $row['ip'];?>" class="form-control" required>
+				<input name="id_host" type="text"  value="<?php echo $row['id_host'];?>" class="form-control" required>
                <input name="reporta" type="hidden" id="txtEstado" value="<?php echo $userinfo->user_name = $_SESSION['user_id'];?>" class="form-control" required>
 
                 <div class="col-md-6">

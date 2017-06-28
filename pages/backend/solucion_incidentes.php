@@ -39,13 +39,6 @@ if ($_SESSION ['authenticated'] == 1) {
     
     $id=$algo[0];
 
-    echo $ticket."<br>";
-    echo $id."<br>";
-    echo $tipo."<br>";
-    echo $num_rfc."<br>";
-    echo $fecha_cierre."<br>";
-    echo $detalles."<br>".$usuario;
-    
     
     $con = new conexion;
     $query = "select ticket from solucion_incidente where ticket='$ticket'";

@@ -17,6 +17,7 @@ include("../../modelo/conexion.php");
 		$mesa=$_POST['mesa'];
 		$descripcion=$_POST['desc'];
 		$responsable=$_POST['respo'];
+		$contrato=$_POST['contrato'];
 		
 		$algo=explode("-", $responsable);
 		
@@ -31,6 +32,11 @@ include("../../modelo/conexion.php");
 			$con->registro_masivo($id_evento, $id_host, $f_inicio, $tipo_evento, $causa_evento, $tipo_actividad, $horas_actividad, $descripcion, $mesa, $respo);
 		}
 		$con->cerrar();
+		
+		
+		$headers .= "From: Bitacora de operaciones <bitacora@arus.com.co>" . "\r\n";
+		$this_mail = mail("dgskdj@gmail.com, jhon.montoya@arus.com.co", "Se ha generado  un Incidente Masivo", "Contrato: $contrato", $headers);
+		
 		
 		header("Location: ../../index.php");
 	

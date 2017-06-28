@@ -85,6 +85,8 @@ $query2 = $oe->conexion->query("SELECT id_evento FROM registro_masivo ORDER BY i
 $escala = $oe->conexion->query("SELECT distinct a.nombre, a.correo, a.celular, b.area, c.id, c.contacto, a.cedula FROM new_personas a,
 								areas b, sub_grupo c, new_usuario d WHERE c.cedula=a.cedula and a.cedula=d.cedula 
 								and b.id=d.area and d.area in (9, 10, 11, 12) order by 4 asc");
+$conn = $oe->conexion->query("SELECT nombre FROM new_proyectos where codigo='$contrato'");
+$row4=$conn->fetch_row();
 $row2 = $query2->fetch_assoc();
 ?>
 
@@ -131,7 +133,7 @@ $row2 = $query2->fetch_assoc();
 	 -->
 		
 	</select>
-
+	
 	</div>
 	</div>
 	</div>
@@ -197,7 +199,7 @@ $row2 = $query2->fetch_assoc();
 	</div>
 	</div>
 	
-	
+	<input type="hidden" name="contrato" value="<?php echo $row4[0];?>">
 	<input type="hidden" name="event" value="<?php echo $row2['id_evento']+1;?>">
 	<button type="submit" class="btn btn-success">Enviar</button>
 	<button id="btnesc" type="button" class="btn btn-info pull-center">Escala</button>
