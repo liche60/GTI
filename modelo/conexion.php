@@ -403,9 +403,15 @@ class conexion{
 	
 	public function update_servicio_ci($id, $dispo, $delay, $check, $war, $cri, $tipo, $horario, $puerto, $accion_critico)
 	{
-		$query = "update detalle_servicio set disponibilidad=$dispo, delay=$delay, tiempo_chequeo=$check, val_war='$war', val_cri='$cri',
-		id_tipo_umbral=$tipo, horario='$horario', puerto=$puerto, accion_critico='$accion_critico' where id_detalle=$id";
+		$query = "update detalle_servicio set disponibilidad='$dispo', delay=$delay, tiempo_chequeo=$check, val_war='$war', val_cri='$cri',
+		id_tipo_umbral=$tipo, horario='$horario', puerto='$puerto', accion_critico='$accion_critico' where id_detalle=$id";
 		$consulta = $this->conexion->query ( $query );
+	}
+	
+	public function deleteEscalamiento($id)
+	{
+		$query="delete from escalamiento where id_detalle=$id";
+		$consulta=$this->conexion->query($query);
 	}
 	
 	public function registro_masivo($id_evento, $id_host, $f_inicio, $tipo_evento, $causa_evento, $tipo_actividad, $horas_actividad, $descripcion, $mesa, $respo)

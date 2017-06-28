@@ -176,30 +176,34 @@ $oe = new conexion ();
 $escala = $oe->conexion->query("SELECT distinct a.nombre, a.correo, a.celular, b.area, c.id, c.contacto, a.cedula FROM new_personas a,
 								areas b, sub_grupo c, new_usuario d WHERE c.cedula=a.cedula and a.cedula=d.cedula
 								and b.id=d.area and d.area in (9, 10, 11, 12) order by 4 asc");
-$query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo where estado='P'" );
+
+//$query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo where estado='P'" );
 ?>
 
 
 <div class="box box-info">
+<form method="post" action="pages/backend/solucion_incidentes.php">
 	<div class="box-body">
 		<h3 class="box-title">Solución de incidentes</h3>
 		<br> 
 		<!-- Barra de progreso -->
 
-		<form method="post" action="pages/backend/solucion_incidentes.php">
+		
 			<div class="col-md-5">
+			
 				<div class="form-group">
 
 					<LABEL>TIPO DE EVENTO</LABEL><br> 
 
-					<div class="input__row"> 
+					<div class="input__row">
+					 
 						<ul class="buttons">
 							<li>
 							<input id="mostrar_evento" onclick="indivi('individual',<?php echo $userinfo->user_id?>);" class="radiobtn" name="evento" type="radio" value="individual" tabindex="1"> <span></span> <label
 								for="mostrar_evento"  id="r1">Evento</label>
 							
 							
-								<input id="mostrar_evento_masivo" onclick="indivi('masivo');" class="radiobtn" name="evento" type="radio" value="masivo" tabindex="2"> <span></span> <label
+								<input id="mostrar_evento_masivo" onclick="indivi('masivo',<?php echo $userinfo->user_id?>);" class="radiobtn" name="evento" type="radio" value="masivo" tabindex="2"> <span></span> <label
 								for="mostrar_evento_masivo" id="r2">Evento masivo</label></li>
 						</ul>
 					</div>
@@ -239,7 +243,7 @@ $query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo
 		<div class="form-group" >
 			<div class="input-group">
 			
-			<select class="form-control" id="responsable" style="width: 100%;">
+			<select class="form-control" disabled id="responsable" style="width: 100%;">
 						<option value="" disabled selected> Cambiar el responsable </option>
 							<?php 
 							 while ($row3 = $escala->fetch_row())
@@ -251,7 +255,7 @@ $query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo
 					
 				
 				<div class="input-group-addon" style=" padding: 0px;">
-						<button id="btnenviar" class="btn btn-primary pull-right" style="height: 32px; padding: 7px;" type="button" title="Agregar">Enviar</button>
+						<button id="btnenviar" disabled class="btn btn-primary pull-right" style="height: 32px; padding: 7px;" type="button" title="Agregar">Enviar</button>
 				</div>
 			</div>
 		</div>
@@ -292,16 +296,16 @@ $query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo
 
 
 				</div>
-				<a href="index.php"><button type="button" class="btn btn-danger">Cancelar</button></a>
-				<button type="submit" class="btn btn-success pull-right">Registrar
-					evento</button>
-					<hr>
+				
 			</div>
 			
-		</form>
 		
 	</div>
-
+<a href="index.php"><button type="button" style="margin: 25px;" class="btn btn-danger">Cancelar</button></a>
+				<button type="submit" style="margin: 25px;" class="btn btn-success pull-right">Registrar
+					evento</button>
+					<hr>
+		</form>
 </div> 
 
      <script src="plugins/select2/select2.full.min.js"></script>
@@ -312,15 +316,13 @@ $query1 = $oe->conexion->query ( "SELECT distinct id_evento FROM registro_masivo
     </script>
 
 <script>
-
 $("#btnenviar").on("click", function(){
 
 	var x=$("#responsable").val();
 	var y=$("#evento").val();
-	window.location.href = 'pages/backend/rotar_escala.php?valor='+x+'&even='+y+'';
+	window.location.href = 'pages/backend/rotar_escala.php?valor='+x+'&id_even='+y+'';
 
 	});
-
 /*
 
            $(document).ready(function () {
@@ -345,20 +347,21 @@ $("#btnenviar").on("click", function(){
 
 <!--SCRIPT PARA HABILITAR Y DESHABLITAR-->
 <script>
-$("#cambio_si").on("click", function(){
-  var x = document.getElementById("rfc");
+$("#mostrar_evento").on("click", function(){
+  //var x = document.getElementById("responsable");
+
+  $('#responsable').attr('disabled','disabled');
+  $('#btnenviar').attr('disabled','disabled');
   
-  $('#rfc').removeAttr("readOnly");
+  
 });  
 
-$("#cambio_no").on("click", function(){
-  var x = document.getElementById("rfc");
+$("#mostrar_evento_masivo").on("click", function(){
+  var x = document.getElementById("responsable");
 
-  $('#rfc').attr('readOnly','readOnly ');
-
+  $('#responsable').removeAttr('disabled');
+  $('#btnenviar').removeAttr('disabled');
 }); 
-
-
 </script>
 
 <!--SCRIPT PARA HABILITAR Y DESHABLITAR-->

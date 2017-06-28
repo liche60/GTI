@@ -24,26 +24,36 @@ if ($_SESSION ['authenticated'] == 1) {
     
     
     $cedula=$_GET['valor'];
-    $event=$_GET['even'];
+    $event=$_GET['id_even'];
     
     $algo=explode("-", $event);    
     $id_evento=$algo[0];
+    $tipo_event=$algo[1];
     
-    
-    if($cedula=="null" || $id_evento=="null")
+    if($tipo_event=="mas")
     {
-    	echo "<script> alert('No has elegido valores') </script>";
-    	echo "<script> redireccionar2(); </script>";
+    
+	    
+	    if($cedula=="null" || $id_evento=="null")
+	    {
+	    	echo "<script> alert('No has elegido valores') </script>";
+	    	echo "<script> redireccionar2(); </script>";
+	    }
+	    
+	    else 
+	    {
+	    	$con->rotarescala($cedula, $id_evento);
+	    	echo "<script> alert('Cambio exitoso') </script>";
+	    	echo "<script> redireccionar1(); </script>";
+	    }
+    
     }
     
     else 
     {
-    	$con->rotarescala($cedula, $id_evento);
-    	echo "<script> alert('Cambio exitoso') </script>";
-    	echo "<script> redireccionar1(); </script>";
+    	echo "<script> alert('Solo Eventos Masivos') </script>";
+    	echo "<script> redireccionar2(); </script>";
     }
-    
-    
     
 }
 ?>

@@ -38,7 +38,7 @@ $query = $con->conexion->query("SELECT a.nombre, a.correo, a.celular, b.area,  c
 		echo"
 			 <tr>
 				<td><input required type='radio' value='".$row2[6]."' name='otro'></td>
-			    <td>$row2[0]</td>
+			    <td>".ucwords(strtolower($row2[0]))."</td>
 			    <td>$row2[4]</td>
 			    <td>$row2[2]</td>
 			    <td>$row2[1]</td>

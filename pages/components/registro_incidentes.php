@@ -15,8 +15,11 @@ $id_persona=$_POST['otro'];
 
 
 
-$conn = $oe->conexion->query("select a.id_detalle, b.nombre, b.ip, b.id, c.tipo from detalle_servicio a, hosts b, tipo_servicios c where 
+
+
+$conn = $oe->conexion->query("select a.id_detalle, b.nombre, b.ip, b.id, c.tipo, c.id as id_tipo from detalle_servicio a, hosts b, tipo_servicios c where 
 a.id_host=b.id and a.id_tipo_servicio=c.id and id_detalle='$id_detalle'");
+
 $num_evento = $oe->conexion->query("SELECT (max(id)+1) as Numero_de_evento FROM incidentecop");
 $query=$oe->conexion->query("select nombre from new_personas where cedula=$id_persona");
 
@@ -88,14 +91,16 @@ $info=$query->fetch_assoc();
         
         <form method="post" action="pages/backend/nuevo_incidente.php">
             <div class="col-md-23">
-				<input name="id_host" type="hidden"  value="<?php echo $row['id'];?>" class="form-control" required>
+				<input name="nombre_host" type="hidden"  value="<?php echo $row['nombre'];?>" class="form-control" required>
+				<input name="ip" type="hidden"  value="<?php echo $row['ip'];?>" class="form-control" required>
                <input name="reporta" type="hidden" id="txtEstado" value="<?php echo $userinfo->user_name = $_SESSION['user_id'];?>" class="form-control" required>
 
                 <div class="col-md-6">
                     <div class="form-group">
 					
 					<label >Servicio afectado</label>
-        			<input name="servicio" class="form-control" value="<?php echo $row['tipo'];?>" readonly required> 
+					<input class="form-control" value="<?php echo $row['tipo'];?>" readonly required>
+        			<input type="hidden" name="servicio" class="form-control" value="<?php echo $row['id_tipo'];?>" readonly required> 
  
                         <label>Tipo de evento</label>
                         <select id="evento" required name="evento" class="form-control" >
@@ -150,7 +155,7 @@ $info=$query->fetch_assoc();
                     <input type="hidden" name="idresponsable" value="<?php echo $id_persona;?>" id="txtResponsable" class="form-control" readonly>
   
                     <label>Persona que reporta</label><br>
-                    <input value="<?php echo $userinfo->user_name = ucwords(strtolower($_SESSION['user_name']));?>" class="form-control" required disabled> 
+                    <input name="nombre_reporta" value="<?php echo $userinfo->user_name = ucwords(strtolower($_SESSION['user_name']));?>" class="form-control" required readonly> 
 
 
                     <label>Fecha y hora de inicio </label>

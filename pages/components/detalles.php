@@ -26,15 +26,17 @@
 </style>
 
 <?php 
+
+error_reporting(E_ALL ^ E_NOTICE);
 $oe= new conexion();
 $id = $_POST['sci'];
 $contrato = $_POST['contrato'];
 $ip = $_POST['ip'];
 
-$conn = $oe->conexion->query("select a.id_detalle, a.accion_critico, a.tiempo_chequeo, a.horario, a.id_host, a.puerto, e.nombre as CI, b.tipo as Servicio, a.disponibilidad,  a.delay, a.val_war as Warning, a.val_cri
+$conn = $oe->conexion->query("select a.id_detalle, a.accion_critico, a.tiempo_chequeo, a.horario, a.id_host, a.puerto, a.accion_critico, e.nombre as CI, b.tipo as Servicio, a.disponibilidad,  a.delay, a.val_war as Warning, a.val_cri
 								as Critical,  d.nombre as Tipo_de_umbral from detalle_servicio a, tipo_servicios b, tipo_umbral d,
 								 hosts e where a.id_host=e.id and a.id_tipo_servicio=b.id and a.id_tipo_umbral=d.id_tipo_umbral and
-								 e.id='$id' order by a.id_detalle desc");
+								 e.id='$id' and a.estado='A' order by a.id_detalle desc");
 
 $ser = $oe->conexion->query("SELECT * FROM tipo_servicios");
 $escala = $oe->conexion->query("select a.nombre, a.cedula, b.contacto from new_personas a, sub_grupo b where a.cedula=b.cedula;");
@@ -43,6 +45,7 @@ $cont = $oe->conexion->query("SELECT nombre FROM new_proyectos where codigo='$co
 $nom = $oe->conexion->query("SELECT nombre FROM hosts where id='$id'");
 $contra = $cont->fetch_assoc();
 $nomc = $nom->fetch_assoc();
+
 ?>
 
 
@@ -159,7 +162,7 @@ $nomc = $nom->fetch_assoc();
 				<td>
 					<div class="col-md-4" style="padding-right: 23px;">
 					<div class="form-group">
-						<a href="#" data-target="#modalactualizar" data-toggle="modal" onclick="upd(<?php echo $row['id_detalle'];?>, <?php echo $row['delay'];?>, <?php echo $row['tiempo_chequeo'];?>, '<?php echo $row['Warning'];?>', '<?php echo $row['Critical'];?>', <?php echo $row['puerto'];?>);">
+						<a href="#" data-target="#modalactualizar" data-toggle="modal" onclick="upd('<?php echo $row['accion_critico'];?>',<?php echo $row['id_detalle'];?>, <?php echo $row['delay'];?>, <?php echo $row['tiempo_chequeo'];?>, '<?php echo $row['Warning'];?>', '<?php echo $row['Critical'];?>', <?php echo $row['puerto'];?>,'<?php echo $row['Servicio'];?>');">
 						<button id="upda" type="submit" title="actualizar" class="btn btn-default"><i class="fa fa-refresh"></i></button>
 						</a>					
 					</div>
@@ -224,9 +227,9 @@ $nomc = $nom->fetch_assoc();
 		<td >
 			<select class="w3-input select2" name="tipo" >
 				<option value="" disabled selected>T. Umbral</option>
-				<option value="1"> Porcentaje </option>
-				<option value="2"> sesiones </option>
-				<option value="3"> segundos </option>
+				<option value="1-Porcentaje"> Porcentaje </option>
+				<option value="2-sesiones"> sesiones </option>
+				<option value="3-segundos"> segundos </option>
 			</select>
 		</td>
 
@@ -265,6 +268,8 @@ $nomc = $nom->fetch_assoc();
 	</tr>
 </table>
 <input type="hidden" value="<?php echo $id;?>" name="ids">
+<input type="hidden" value="<?php echo $nomc['nombre'];?>" name="nombre_host">
+<input type="hidden" value="<?php echo $ip;?>" name="ip">
 </form>
 
 
@@ -333,7 +338,7 @@ $nomc = $nom->fetch_assoc();
         
         <label style="font-size: 22px;">Actualizar</label> <br><br>
         
-        <form name="formupd" action="" onSubmit="updateservicio(); return false" >
+        <form id="formupd" name="formupd" action="" onSubmit="updateservicio(); return false" >
       	
       	<div class="col-md-6">
        	<div class="form-group">
@@ -362,17 +367,17 @@ $nomc = $nom->fetch_assoc();
 				<option value="0"> Down </option>
 				<option value="1"> Up </option>
 			</select><br><br>
-       	     	
+       	     	<input id="Uservicio" name="Uservicio"  type="hidden" >
        	<label>Tipo Umbral</label><br>
        	<select id="Utipo_umbral" name="Utipo_umbral"  class="w3-input war" style="width: 70%;" required>
        			<option value=""></option>
-				<option value="1"> Porcentaje </option>
-				<option value="2"> sesiones </option>
-				<option value="3"> segundos </option>
+				<option value="1-Porcentaje"> Porcentaje </option>
+				<option value="2-sesiones"> sesiones </option>
+				<option value="3-segundos"> segundos </option>
 			</select><br><br>
 			
        	<label>Responsable</label><br>
-       	<select id="Urespo" name="Urespo"  class="respon" style="width:100px;" multiple required>
+       	<select id="Urespo" name="Urespo[]"  class="respon" style="width:100px;" multiple required>
        	<!-- OPTIONS -->
        	
        	<?php		
@@ -490,23 +495,16 @@ function enviarDato()
 
 function updateservicio()
 {
-	ids = document.formupd.id_detalles.value;
-	//servicio = document.formupd.servicio.value;
-	dispo = document.formupd.Udispo.value;
-	delay = document.formupd.Udelay.value;
-	check = document.formupd.Ucheck.value;
-	war = document.formupd.Uwar.value;
-	cri = document.formupd.Ucri.value;
-	tipo = document.formupd.Utipo_umbral.value;
-	responsable = document.formupd.Urespo.value;
-	horario = document.formupd.Uhorario.value;
-	puerto = document.formupd.Upuerto.value;
-	accion = document.formupd.Uaccion.value;
+
+	$.ajax({
+	       
+	type:  'POST',
 	
-	ajax = objetoAjax();
-	ajax.open("POST", "pages/backend/includes/actualizar_servicio.php", true); 
-	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
-	ajax.send("&id_detalles="+ids+"&Udispo="+dispo+"&Udelay="+delay+"&Ucheck="+check+"&Uwar="+war+"&Ucri="+cri+"&Utipo_umbral="+tipo+"&Urespo="+responsable+"&Uhorario="+horario+"&Upuerto="+puerto+"&Uaccion="+accion)
+	url:   'pages/backend/includes/actualizar_servicio.php',
+	
+	       data: $("#formupd").serialize(),
+	});
+	
 	window.setTimeout('location.reload()');
 }
 
@@ -584,7 +582,7 @@ function MostrarConsulta(datos){
         filter: true,
     });
 
-	     function upd(id_detalle, delay, check, war, cri, puerto)
+	     function upd(accion, id_detalle, delay, check, war, cri, puerto, servicio)
 	     {
 	     	$('#id_detalles').val(id_detalle);
             $("#Udelay").val(delay);
@@ -592,6 +590,8 @@ function MostrarConsulta(datos){
             $("#Uwar").val(war);
             $("#Ucri").val(cri);
             $("#Upuerto").val(puerto);
+            $("#Uaccion").val(accion);
+            $("#Uservicio").val(servicio);
 	     }
 
 	     function elim(id_detalle)

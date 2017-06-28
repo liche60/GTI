@@ -54,7 +54,6 @@ $oe = new conexion();
                                     echo '<option value="' . $row['codigo'] . '">' . $row['nombre'] . '</option>';
                                 }
                                  
-                                $oe1->cerrar();
                                 ?> 
                             </select>    
                         </div>
@@ -74,7 +73,6 @@ $oe = new conexion();
                                     echo '<option value="' . $row['nombre'] . '">' . $row['nombre'] . '</option>';
                                 }
 
-                                $oe2->cerrar();
                                 ?>
                             </select> 
 
@@ -97,7 +95,7 @@ $oe = new conexion();
                                     echo '<option value="' . $row['id'] . '">' . $row['tipo'] . '</option>';
                                 }
 
-                                $oe3->cerrar();
+                                $oe->cerrar();
                                 ?> 
                             </select>  
 

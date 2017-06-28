@@ -24,7 +24,7 @@ if ($valor=='individual')
 
 else 
 {
-	$query = $oe->conexion->query ( "SELECT distinct id_evento  FROM registro_masivo where estado='P'" );
+	$query = $oe->conexion->query ( "SELECT distinct id_evento  FROM registro_masivo where estado='P' and responsable=$cedula" );
 	
 	echo '<option value="" disabled selected> Seleccione ID de incidente Masivo </option>';
 	while($row = $query->fetch_assoc ())
