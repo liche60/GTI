@@ -162,7 +162,7 @@ $nomc = $nom->fetch_assoc();
 				<td>
 					<div class="col-md-4" style="padding-right: 23px;">
 					<div class="form-group">
-						<a href="#" data-target="#modalactualizar" data-toggle="modal" onclick="upd('<?php echo $row['accion_critico'];?>',<?php echo $row['id_detalle'];?>, <?php echo $row['delay'];?>, <?php echo $row['tiempo_chequeo'];?>, '<?php echo $row['Warning'];?>', '<?php echo $row['Critical'];?>', <?php echo $row['puerto'];?>,'<?php echo $row['Servicio'];?>');">
+						<a href="#" data-target="#modalactualizar" data-toggle="modal" onclick="upd('<?php echo $row['Servicio'];?>','<?php echo $row['accion_critico'];?>',<?php echo $row['id_detalle'];?>, <?php echo $row['delay'];?>, <?php echo $row['tiempo_chequeo'];?>, '<?php echo $row['Warning'];?>', '<?php echo $row['Critical'];?>', <?php echo $row['puerto'];?>);">
 						<button id="upda" type="submit" title="actualizar" class="btn btn-default"><i class="fa fa-refresh"></i></button>
 						</a>					
 					</div>
@@ -367,7 +367,7 @@ $nomc = $nom->fetch_assoc();
 				<option value="0"> Down </option>
 				<option value="1"> Up </option>
 			</select><br><br>
-       	     	<input id="Uservicio" name="Uservicio"  type="hidden" >
+       	     	<input id="Uservicio" name="Uservicio"  type="text" >
        	<label>Tipo Umbral</label><br>
        	<select id="Utipo_umbral" name="Utipo_umbral"  class="w3-input war" style="width: 70%;" required>
        			<option value=""></option>
@@ -582,7 +582,7 @@ function MostrarConsulta(datos){
         filter: true,
     });
 
-	     function upd(accion, id_detalle, delay, check, war, cri, puerto, servicio)
+	     function upd(servicio, accion, id_detalle, delay, check, war, cri, puerto)
 	     {
 	     	$('#id_detalles').val(id_detalle);
             $("#Udelay").val(delay);
