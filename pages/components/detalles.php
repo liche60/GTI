@@ -217,11 +217,11 @@ $nomc = $nom->fetch_assoc();
 		</td>
 		
 		<td >
-			<input name="war" placeholder="warning" class="w3-input war" type="text" style="width:75px" required>
+			<input name="war" placeholder="warning" class="w3-input war" type="text" style="width:75px" >
 		</td>
 		
 		<td >
-			<input name="cri" placeholder="critical" class="w3-input war" type="text" style="width:75px" required>
+			<input name="cri" placeholder="critical" class="w3-input war" type="text" style="width:75px" >
 		</td>
 		
 		<td >
@@ -348,9 +348,9 @@ $nomc = $nom->fetch_assoc();
        	<label>Tiempo de chequeo (min)</label>
        	<input id="Ucheck" name="Ucheck"  class="w3-input war" type="text" required>
        	<label>Warning</label>
-       	<input id="Uwar" name="Uwar"  class="w3-input war" type="text" required>
+       	<input id="Uwar" name="Uwar"  class="w3-input war" type="text" >
        	<label>Critical</label>
-       	<input id="Ucri" name="Ucri"  class="w3-input war" type="text" required>
+       	<input id="Ucri" name="Ucri"  class="w3-input war" type="text" >
        	<label>Puerto</label>
        	<input id="Upuerto" name="Upuerto" class="w3-input war" type="text">
        	<label>Acción Crítica</label>

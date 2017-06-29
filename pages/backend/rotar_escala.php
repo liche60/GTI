@@ -43,6 +43,11 @@ if ($_SESSION ['authenticated'] == 1) {
 	    else 
 	    {
 	    	$con->rotarescala($cedula, $id_evento);
+	    	$headers = "MIME-Version: 1.0\r\n";
+	    	$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
+	    	
+	    	$headers .= "From: Bitacora de operaciones <bitacora@arus.com.co>" . "\r\n";
+	    	$this_mail = mail("dgskdj@gmail.com", "Se le ha transferido un servicio masivo", "Se ha Tansferido el Evento masivo  ", $headers);
 	    	echo "<script> alert('Cambio exitoso') </script>";
 	    	echo "<script> redireccionar1(); </script>";
 	    }

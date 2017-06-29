@@ -45,22 +45,9 @@ if ($_SESSION ['authenticated'] == 1) {
     $consulta = $con->conexion->query($query);
     $num = $consulta->fetch_array();
 
-    class notificarSolucion {
-
-        function enviar() {
-            $headers = "MIME-Version: 1.0\r\n";
-            $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
-
-            $headers .= "From: Bitacora de operaciones <bitacora@arus.com.co>" . "\r\n";
-            $this_mail = mail("dgskdj@gmail.com", "SoluciÃ³n incidente", "Se se ha solucionado el incidente", $headers);
-            echo "<script> alert('Mensaje enviado') </script>";
-            echo "<script> redireccionar1(); </script>";
-        }
-
-    }
+    
 
     if ($num == 0) {
-
 
         if ($tipo == "individual") {
         	$masivo="";
@@ -75,11 +62,11 @@ if ($_SESSION ['authenticated'] == 1) {
             $con->cerrar();
         }
  
-        $oe = new notificarSolucion();
-        $oe->enviar();
     } else {
         echo "<script> alert('El número del ticket ya se encuentra') </script>";
         echo "<script> redireccionar2(); </script>";
     }
+    
+    echo "<script> redireccionar1(); </script>";
 }
 ?>

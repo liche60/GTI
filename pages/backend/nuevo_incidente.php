@@ -13,6 +13,7 @@ include("../../modelo/conexion.php");
 
 $servicio=$_POST['servicio'];
 $tipo_evento=$_POST['evento'];
+$id_evento=$_POST['id_evento'];
 $causa_evento=$_POST['causa_evento'];
 $tipo_actividad=$_POST['tipo_actividad'];
 $reporta=$_POST['reporta'];
@@ -37,7 +38,7 @@ $headers = "MIME-Version: 1.0\r\n";
 $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 
 $headers .= "From: Bitacora de operaciones <bitacora@arus.com.co>" . "\r\n";
-$this_mail = mail("dgskdj@gmail.com", "Se ha generado un incidente", "Host: $nombre_host<br> IP: $ip<br> Servicio afectado: $servicio <br> Tipo Evento: $tipo_evento<br> 
+$this_mail = mail("dgskdj@gmail.com", "Se ha generado un incidente", "Evento: $id_evento<br> Host: $nombre_host<br> IP: $ip<br> Servicio afectado: $servicio <br> Tipo Evento: $tipo_evento<br> 
 					Causa Evento: $causa_evento<br> Minutos de Actividad: $hrs_actividad<br> Tipo Actividad: $tipo_actividad<br> 
 					Persona que Reporta: $nombre_reporta<br> Fecha y Hora: $fecha", $headers);
 echo "<script> alert('Mensaje enviado') </script>";
