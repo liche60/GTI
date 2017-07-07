@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="plugins/select2/select2.min.css"/>
 <link rel="stylesheet" href="plugins/multiselect/multipleSelect.css">
 
+
 <style>
 	.select2-container--default .select2-selection--single, .w3-input
 	{
@@ -367,7 +368,7 @@ $nomc = $nom->fetch_assoc();
 				<option value="0"> Down </option>
 				<option value="1"> Up </option>
 			</select><br><br>
-       	     	<input id="Uservicio" name="Uservicio"  type="text" >
+       	     	<input id="Uservicio" name="Uservicio"  type="hidden" >
        	<label>Tipo Umbral</label><br>
        	<select id="Utipo_umbral" name="Utipo_umbral"  class="w3-input war" style="width: 70%;" required>
        			<option value=""></option>
@@ -477,20 +478,25 @@ function elimser()
 	ajax.open("POST", "pages/backend/borrar_servicio.php", true); 
 	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
 	ajax.send("&borrar="+borrar)
-	alert('Servicio Eliminado');
-	window.setTimeout('location.reload()');
+	alertify.alert("<b>Servicio Eliminado", function () {
+    	  window.setTimeout('location.reload()');
+    });
 }
 
 function enviarDato()
 {
-	tipo = document.formula.tipo.value;
+	/*tipo = document.formula.tipo.value;
 	
 	ajax = objetoAjax();
 	ajax.open("POST", "pages/backend/nuevo_servicio.php", true); 
 	ajax.setRequestHeader("Content-Type","application/x-www-form-urlencoded"); 
-	ajax.send("&tipo="+tipo)
-	alert('Registro exitoso');
-	window.setTimeout('location.reload()');
+	ajax.send("&tipo="+tipo)*/
+
+
+    alertify.alert("<b>Registro exitoso", function () {
+    	  window.setTimeout('location.reload()');
+    });
+	   
 }
 
 function updateservicio()

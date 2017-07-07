@@ -471,9 +471,9 @@ class conexion{
 		
 	}
 	
-	public function rotarescala($cedula, $id_evento)
+	public function rotarescala($cedula, $id_evento, $nota)
 	{
-		$query="update registro_masivo set responsable=$cedula where id_evento=$id_evento";
+		$query="update registro_masivo set responsable=$cedula, descripcion='$nota' where id_evento=$id_evento";
 		$consulta = $this->conexion->query($query);
 	}
 	

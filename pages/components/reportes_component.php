@@ -58,8 +58,8 @@ include 'pages/components/reportes_filtros.php';
             	
             
 				<div class="box-body">
-					<table id="dataTable-<?php echo $report;?>"
-						class="table table-bordered table-striped">
+				<div style=" width: 100.5%; height:400px; overflow-y: scroll;">
+					<table id="dataTable-<?php echo $report;?>" class="table table-bordered table-striped">
 						<thead>
 							<tr>
 							                <?php
@@ -99,6 +99,7 @@ include 'pages/components/reportes_filtros.php';
 							                </tbody>
 
 					</table>
+					</div>
 				</div>
 				<?php
 																	

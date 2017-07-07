@@ -253,11 +253,17 @@ $escala = $oe->conexion->query("SELECT distinct a.nombre, a.correo, a.celular, b
     					?>
 					</select>
 					
+					
+				<div class="input-group-addon " style=" padding: 0px;">
+						<button id="ver" data-toggle="modal" data-target="#myModal" class="btn btn-info pull-left" style="height: 32px; padding: 7px;" type="button" title="Ver Información">Info</button>
+				</div>	
+				
+				<input type="hidden" id="usuario" name="usuario" value="<?php echo $userinfo->user_name;?>">
 				
 				<div class="input-group-addon" style=" padding: 0px;">
-						<button id="btnenviar" disabled class="btn btn-primary pull-right" style="height: 32px; padding: 7px;" type="button" title="Agregar">Enviar</button>
+						<button id="btnenviar" disabled class="btn btn-primary pull-right" style="height: 32px; padding: 7px;" type="button" title="Transferir">Enviar</button>
 				</div>
-			</div>
+			</div><textarea class="form-control" placeholder="Para Transferir el evento debe revisar la información" disabled id="nota" name="nota" required></textarea>
 		</div>
 	</div>
 					
@@ -308,6 +314,40 @@ $escala = $oe->conexion->query("SELECT distinct a.nombre, a.correo, a.celular, b
 		</form>
 </div> 
 
+
+<!-- INICIO DE MODAL  -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+		<div style=" border-radius:10px;" id="modalesc" class="modal-content">
+		<div class="modal-header">
+		<button type="button" class="btn btn-default pull-right" data-dismiss="modal" aria-hidden="true">&times;</button>
+		</div>
+		<div class="modal-body">
+		<div class="col-md-13">
+		<div class="box box-info">
+		<div class="box-body">
+        
+        <label style="font-size: 20px;">Transferencia de un Evento Masivo</label> <br><br>
+        
+        <div id="resultado">
+        
+        	<p>Para transferir un evento masivo a otra persona debe poner el descarte que se hizo y el por qué lo transfiere, 
+        	También....
+        	</p>
+		</div> 
+		<!-- <button type="button" class="btn btn-danger pull-right butt" data-dismiss="modal" aria-hidden="true">Cerrar</button> -->
+		
+		</div>							
+		 </div>
+		  </div>
+		    </div>
+			<div class="modal-footer"></div>
+			</div>
+		</div>
+	</div>
+	<!-- FIN DE MODAL -->
+
+
      <script src="plugins/select2/select2.full.min.js"></script>
     <script>
 	     $(function () {
@@ -318,9 +358,12 @@ $escala = $oe->conexion->query("SELECT distinct a.nombre, a.correo, a.celular, b
 <script>
 $("#btnenviar").on("click", function(){
 
+	var w=$("#usuario").val();
 	var x=$("#responsable").val();
 	var y=$("#evento").val();
-	window.location.href = 'pages/backend/rotar_escala.php?valor='+x+'&id_even='+y+'';
+	var z=$("#nota").val();
+	
+	window.location.href = 'pages/backend/rotar_escala.php?valor='+x+'&id_even='+y+'&nota='+z+'&usuario='+w+'';
 
 	});
 /*
@@ -352,15 +395,20 @@ $("#mostrar_evento").on("click", function(){
 
   $('#responsable').attr('disabled','disabled');
   $('#btnenviar').attr('disabled','disabled');
-  
-  
+  $('#nota').attr('disabled','disabled');
 });  
+
+$("#ver").on("click", function(){
+
+	  $('#btnenviar').removeAttr('disabled');
+	}); 
 
 $("#mostrar_evento_masivo").on("click", function(){
   var x = document.getElementById("responsable");
 
   $('#responsable').removeAttr('disabled');
-  $('#btnenviar').removeAttr('disabled');
+  //$('#btnenviar').removeAttr('disabled');
+  $('#nota').removeAttr('disabled');
 }); 
 </script>
 

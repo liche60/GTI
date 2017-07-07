@@ -1,5 +1,10 @@
 <?php
 
+if(!isset($_POST['id_detalle']))
+{
+	echo "<script> alert('no hay valores') </script>";
+}
+
 setlocale (LC_TIME, 'es_ES.utf8','esp');
 date_default_timezone_set ('America/Bogota');
 $fecha=strftime("%Y-%m-%d %H:%M:%S");

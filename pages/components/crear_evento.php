@@ -42,8 +42,6 @@
         	
     	  var id = $(this).val();
     	  
-    	 //var opt = $('option[value="'+$(this).val()+'"]');
-     	 //var id = opt.attr('id');
          $.get("pages/backend/includes/ip.php", { info_id: id}, function(data){
          $("#ip").val(data);
        });
@@ -52,10 +50,24 @@
      $("#ci").change(function () {
         	
     	  var id = $(this).val();
-    	 //var opt = $('option[value="'+$(this).val()+'"]');
-     	 //var id = opt.attr('id');
          $.get("pages/backend/includes/tipo_ci.php", { info_id: id}, function(data){
          $("#tipo_ci").val(data);
+       });
+     })
+
+     $("#ci").change(function () {
+        	
+    	  var id = $(this).val();
+         $.get("pages/backend/includes/ambiente.php", { info_id: id}, function(data){
+         $("#ambiente").val(data);
+       });
+     })
+
+     $("#ci").change(function () {
+        	
+    	  var id = $(this).val();
+         $.get("pages/backend/includes/horario.php", { info_id: id}, function(data){
+         $("#ho").val(data);
        });
      })
      
@@ -86,6 +98,9 @@
 
         <label>Selecciona CI</label> 
         <select id="ci" required name="sci" class="form-control"  style=" width: 100%;"></select>
+        
+        <label>IP</label>        
+        <input id="ip" class="form-control" name="ip" style="width: 100%;" readonly required>
 		
 		<!-- 
         <label>Sistema Operativo</label>
@@ -98,14 +113,13 @@
         <div class="col-md-6">
         <div class="form-group">
         
-        <label>IP</label>        
-        <input id="ip" class="form-control" name="ip" style="width: 100%;" readonly required>
         
-       <!-- <label>Ambiente</label>
-        <select id="ambiente" class="form-control"  style="width: 100%;" disabled></select>
         
-         label>Horario Notificación</label>
-        <select id="ho" class="form-control"  style="width: 100%;" disabled></select> -->
+        <label>Ambiente</label>
+        <input id="ambiente" class="form-control"  style="width: 100%;" disabled>
+        
+         <label>Horario Notificación</label>
+        <input id="ho" class="form-control"  style="width: 100%;" disabled>
         
         <label> Tipo </label>
        	<input  id="tipo_ci"class="form-control " name="tipo_ci" readonly required>        

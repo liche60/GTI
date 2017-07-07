@@ -25,14 +25,27 @@ if ($_SESSION ['authenticated'] == 1) {
     
     $cedula=$_GET['valor'];
     $event=$_GET['id_even'];
+    $nota=$_GET['nota'];
+    $usuario=$_GET['usuario'];
+    
+    if($event=="null")
+    {
+    	echo "<script> alert('No has elegido valores') </script>";
+    	echo "<script> redireccionar2(); </script>";
+    }
     
     $algo=explode("-", $event);    
     $id_evento=$algo[0];
     $tipo_event=$algo[1];
     
+    $con = new conexion;
+    $consulta = $con->conexion->query ( "select descripcion from registro_masivo where id_evento=$id_evento");
+    $row=$consulta->fetch_array();
+    
+    $nota = $row[0] ."<br>".$nota." ($usuario)";  
+    
     if($tipo_event=="mas")
     {
-    
 	    
 	    if($cedula=="null" || $id_evento=="null")
 	    {
@@ -42,12 +55,13 @@ if ($_SESSION ['authenticated'] == 1) {
 	    
 	    else 
 	    {
-	    	$con->rotarescala($cedula, $id_evento);
+	    	$con->rotarescala($cedula, $id_evento, $nota );
 	    	$headers = "MIME-Version: 1.0\r\n";
 	    	$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 	    	
 	    	$headers .= "From: Bitacora de operaciones <bitacora@arus.com.co>" . "\r\n";
-	    	$this_mail = mail("dgskdj@gmail.com", "Se le ha transferido un servicio masivo", "Se ha Tansferido el Evento masivo  ", $headers);
+	    	//$this_mail = mail("dgskdj@gmail.com", "Se le ha transferido un servicio masivo", "Se ha Tansferido el Evento masivo $id_evento. 
+	    	//				<br>Comentarios: <br>", $headers);
 	    	echo "<script> alert('Cambio exitoso') </script>";
 	    	echo "<script> redireccionar1(); </script>";
 	    }

@@ -51,6 +51,8 @@
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
 
+<script src="plugins/alertify.min.js"></script>
+
 
  
 

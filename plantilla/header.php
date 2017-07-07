@@ -35,6 +35,9 @@
   <link rel="stylesheet" href="dist/css/pages/infobox.css">
   <link rel="stylesheet" href="dist/css/pages/style.css">
   
+  <link rel="stylesheet" href="plugins/alertify.default.css">
+  <link rel="stylesheet" href="plugins/alertify.core.css">
+  
   <!-- jQuery 2.2.3 -->
   <script src="plugins/jQuery/jquery-2.2.3.min.js"></script>
   

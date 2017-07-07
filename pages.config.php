@@ -323,6 +323,11 @@ $_PAGE_CONFIG = array(
 						"page5" => "021",
 						"page6" => "022",
 						"page7" => "030",
+						"page8" => "031",
+						"page9" => "032",
+						"page10"=> "033",
+						"page11"=> "034",
+						"page12"=> "035",
 				)
 		),
 		"003" => array(
@@ -401,6 +406,58 @@ $_PAGE_CONFIG = array(
 				"menu" => "Mensuales",
 				"menu_css_class" => "fa-file-pdf-o",
 				"link" => "pages/reportes/mensuales/body.php"
+		),
+		
+		
+		"031" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Eventos abiertos",
+				"small" => "Eventos abiertos ",
+				"menu" => "Eventos abiertos",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/evento_abierto_contrato/body.php"
+		),
+		
+		"032" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Eventos masivos abiertos",
+				"small" => "Eventos masivos abiertos",
+				"menu" => "Eventos masivos abiertos",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/evento_masivo_abierto/body.php"
+		),
+		
+		"033" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Eventos por responsable",
+				"small" => "Eventos por responsable",
+				"menu" => "Eventos por responsable",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/evento_responsable/body.php"
+		),
+		
+		"034" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Eventos, reporte general",
+				"small" => "Eventos, reporte general",
+				"menu" => "Eventos general",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/evento_general/body.php"
+		),
+		
+		
+		"035" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Eventos masivos,reporte general",
+				"small" => "Eventos masivos,reporte general",
+				"menu" => "Eventos masivos general",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/evento_masivo_general/body.php"
 		),
 		
 		

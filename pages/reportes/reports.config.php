@@ -95,10 +95,46 @@ from
 left join `new_usuario` `d` on((`d`.`cedula` = `r`.`cedula`))) where (`r`.`estado` = 'F')
 and (`r`.`fecha_inicio` > '<filtro1>' and `r`.`fecha_inicio` < '<filtro2>'   )
 and (d.area like '%<filtro3>%' )
-and (d.correo like '%<filtro4>%')
+and (d.correo like '%<filtro4>%') 
 order by `r`.`fecha_inicio` asc";
 
+//Reporte mensual de eventos abiertos por ci
+$consulta7 = "select a.id as 'ID del evento',b.nombre as 'CI',e.tipo as 'Servicio afectado', a.causa_evento as 'Causa del evento',d.nombre as
+'Responsable' from incidentecop a,hosts b,new_proyectos c,new_personas d,tipo_servicios e where a.estado='P' and a.id_host=b.id and
+b.id_contrato=c.codigo and a.responsable=d.cedula and a.servicio_afectado=e.id and a.id_host=b.id and c.codigo='<filtro1>' and a.fecha between '<filtro2>' and '<filtro3>'";
 
+
+$consulta8 = "select a.id_evento as 'ID del evento',b.nombre as 'CI' , b.ip as 'IP' ,a.descripcion as 'Descripcion', a.horas_actividad as 
+'Hora de actividad',a.tipo_evento as 'Tipo de evento', a.causa_evento as 'Causa del evento' ,d.nombre as 
+'Responsable' from registro_masivo a,hosts b,new_proyectos c,new_personas d where a.estado='P' and a.id_host=b.id 
+AND b.id_contrato=c.codigo and a.responsable=d.cedula and c.codigo='<filtro1>' and a.f_inicio between '<filtro2>' and '<filtro3>'";
+
+
+$consulta9 = "select 
+reponsable as 'Responsable', sum(cantidad) as 'Cantidad de eventos abiertos' from 
+(select a.nombre as reponsable, count(distinct b.id)as cantidad from 
+new_personas a, incidentecop b , hosts c where a.cedula=b.responsable and b.estado='P' and b.id_host=c.id 
+and c.id_contrato='<filtro1>' and b.fecha between'<filtro2>' and '<filtro3>' group by b.responsable
+union (select a.nombre as reponsable, count(distinct b.id_evento)as cantidad from new_personas a, registro_masivo b,hosts
+c where a.cedula=b.responsable and b.estado='P' and b.id_host=c.id and c.id_contrato='<filtro1>' and b.f_inicio  
+between '<filtro2>' and '<filtro3>' group by b.responsable)) k group by Responsable";
+
+
+$consulta10 = "select a.id as 'ID de evento',b.nombre as 'CI afectado', c.tipo as 'Servicio afectado',a.tipo_evento as 'Tipo de evento',
+ a.causa_evento as 'Causa del evento', a.tipo_actividad as 'Tipo de actividad', d.nombre as 'Persona que reporta',
+ a.fecha as 'Fecha del evento',a.horas as 'Horas de actividad', d.nombre as 'Responsable',a.estado as 
+'Estado del evento',a.mesa as 'Mesa de notificación' from incidentecop a, hosts b,tipo_servicios c,
+new_personas d where a.id_host=b.id and a.servicio_afectado=c.id and a.responsable=d.cedula
+and a.id_host=b.id and b.id_contrato='<filtro1>' and a.fecha between '<filtro2>' and '<filtro3>'";
+
+$consulta11 = "select a.id_evento as 'ID de evento',b.nombre as 'CI afectado',a.f_inicio as 'Fecha del evento',
+a.descripcion as 'Descripción', a.horas_actividad as 'Horas de actividad',a.tipo_evento as 'Tipo de evento',
+a.causa_evento as 'Causa del evento',a.tipo_actividad as 'Tipo de actividad',c.nombre as 'Responsable', 
+a.estado as 'Estado del evento', a.mesa as 'Mesa de notificación' from registro_masivo a,hosts b,
+new_personas c where a.id_host=b.id and a.responsable=c.cedula
+and a.id_host=b.id and b.id_contrato='<filtro1>' and a.f_inicio between '<filtro2>' and '<filtro3>'";
+
+   
 $_REPORTS_CONFIG = array(
 		"ejemplo" => array(
 			"tipo" => "tabla|grafico",
@@ -305,8 +341,196 @@ $_REPORTS_CONFIG = array(
 								"requerido" => false
 						),
 				)
-		)
+		),
 		
 		
+		"evento_abierto_contrato" => array(
+				"tipo" => "tabla",
+				"titulo" => "Reporte Mensual eventos abiertos por contrato",
+				"query" => $consulta7,
+				"columnas" => array(
+						"ID del evento"=>"ID del evento",
+						"CI" => "CI",
+						"Servicio afectado" => "Servicio afectado",					
+						"Causa del evento" => "Causa del evento",
+						"Responsable" => "Responsable",
+	
+				), 
+				"filtros" => array(
+						"filtro1" => array(
+								"nombre" => "Contrato",
+								"tipo" => "select",
+								"query_select" => "select codigo as value,nombre as display from new_proyectos where codigo='C-G075-01'",
+								"requerido" => false
+						),
+						"filtro2" => array(
+								"nombre" => "Fecha Inicio",
+								"tipo" => "date",
+						),
+						"filtro3" => array(
+								"nombre" => "Fecha Fin",
+								"tipo" => "date"
+						),
+			
+				
+				)
+		),
+		 
+		
+		
+		
+		"evento_masivo_abierto" => array(
+				"tipo" => "tabla",
+				"titulo" => "Reporte Mensual eventos masivos abiertos por contrato",
+				"query" => $consulta8,
+				"columnas" => array(
+						"ID del evento"=>"ID del evento",
+						"CI" => "CI",
+						"IP" => "IP",
+						"Descripcion" => "Descripcion",
+						"Hora de actividad" => "Hora de actividad",
+						"Tipo de evento" =>"Tipo de evento",
+						"Causa del evento"=>"Causa del evento",
+						"Responsable"=>"Responsable",
+						
+				),
+				"filtros" => array(
+						"filtro1" => array(
+								"nombre" => "Contrato",
+								"tipo" => "select",
+								"query_select" => "select codigo as value,nombre as display from new_proyectos where codigo='C-G075-01'",
+								"requerido" => false
+						),
+						"filtro2" => array(
+								"nombre" => "Fecha Inicio",
+								"tipo" => "date",
+						),
+						"filtro3" => array(
+								"nombre" => "Fecha Fin",
+								"tipo" => "date"
+						),
+						
+						
+				)
+		),
+		
+	 
+		
+		"evento_responsable" => array(
+				"tipo" => "tabla",
+				"titulo" => "Reporte eventos abiertos por cada responsable por contrato",
+				"query" => $consulta9,
+				"columnas" => array(
+						
+						"Responsable" => "reponsable",
+						"Cantidad de eventos abiertos" => "Cantidad de eventos abiertos",
+									
+				), 
+				"filtros" => array(
+						"filtro1" => array(
+								"nombre" => "Contrato",
+								"tipo" => "select",
+								"query_select" => "select codigo as value,nombre as display from new_proyectos where codigo='C-G075-01'",
+								"requerido" => false
+						),
+						"filtro2" => array(
+								"nombre" => "Fecha Inicio",
+								"tipo" => "date",
+						),
+						"filtro3" => array(
+								"nombre" => "Fecha Fin",
+								"tipo" => "date"
+						),
+						
+						
+				)
+		),
+		
+		
+		"evento_general" => array(
+				"tipo" => "tabla",
+				"titulo" => "Reporte eventos",
+				"query" => $consulta10,
+				"columnas" => array(
+						
+						"ID de evento" => "ID de evento",
+						"CI afectado" => "CI afectado",
+						"Servicio afectado" => "Servicio afectado",
+						"Tipo de evento" => "Tipo de evento",
+						"Causa del evento" => "Causa del evento",
+						"Tipo de actividad" => "Tipo de actividad",
+						"Persona que reporta" => "Persona que reporta",
+						"Fecha del evento" => "Fecha del evento",
+						"Horas de actividad" => "Horas de actividad",
+						"Responsable" => "Responsable",
+						"Estado del evento" => "Estado del evento",
+						"Mesa de notificación" => "Mesa de notificación",
+							
+				), 
+				"filtros" => array(
+						"filtro1" => array(
+								"nombre" => "Contrato",
+								"tipo" => "select",
+								"query_select" => "select codigo as value,nombre as display from new_proyectos where codigo='C-G075-01'",
+								"requerido" => false
+						),
+						"filtro2" => array(
+								"nombre" => "Fecha Inicio",
+								"tipo" => "date",
+						),
+						"filtro3" => array(
+								"nombre" => "Fecha Fin",
+								"tipo" => "date"
+						),
+						
+						
+				)
+		),
+		
+		
+		
+		"evento_masivo_general" => array(
+				"tipo" => "tabla",
+				"titulo" => "Reporte eventos masivos",
+				"query" => $consulta11,
+				"columnas" => array(
+						
+						"ID de evento" => "ID de evento",
+						"CI afectado" => "CI afectado",					
+						"Fecha del evento" => "Fecha del evento",						
+						"Descripción" => "Descripción",						
+						"Horas de actividad" => "Horas de actividad",						
+						"Tipo de evento" => "Tipo de evento",						
+						"Causa del evento" => "Causa del evento",						
+						"Tipo de actividad" => "Tipo de actividad",						
+						"Responsable" => "Responsable",					
+						"Estado del evento" => "Estado del evento",
+						"Mesa de notificación" => "Mesa de notificación",
+				
+						
+				),
+				"filtros" => array(
+						"filtro1" => array(
+								"nombre" => "Contrato",
+								"tipo" => "select",
+								"query_select" => "select codigo as value,nombre as display from new_proyectos where codigo='C-G075-01'",
+								"requerido" => false
+						),
+						"filtro2" => array(
+								"nombre" => "Fecha Inicio",
+								"tipo" => "date",
+						),
+						"filtro3" => array(
+								"nombre" => "Fecha Fin",
+								"tipo" => "date"
+						),
+						
+						
+						
+				)
+		),
+		
+		
+	
 		
 );
