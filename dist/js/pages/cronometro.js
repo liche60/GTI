@@ -1,122 +1,183 @@
-var _initialDate = null;
-var centesimas = null;
-var segundos = 0;
-var minutos = 0;
-var horas = 0;
-var counter = 0;
-var running = false;
 
-setInterval(cronometro_pausa,1000);
+var cronometro;
 
+function empezar(valor) {	
+		
+		
+		contador_m=0;
+		num=valor;
+		contador_s = $("#segundos"+num).text();
+		//contador_mm = $("#minutos"+num).text();		
+        contador_m =document.getElementById("endTime"+num).value;
+		contador_mm = contador_m;
+		h=0;
+		
+		
+			while(contador_mm > 60)
+			{
+				contador_mm = contador_mm - 60;
+				h=h+1;
+			}		
+		
+		if(contador_mm=="") {contador_mm=0;}
+		
+		
+		contador_h = $("#horas"+num).text();
+		var user_id = document.getElementById("user_id"+num).value;
+		
+        s = document.getElementById("segundos"+num);
+        m = document.getElementById("minutos"+num);
+		
+		hh = document.getElementById("horas"+num);
+		
+		
+		
+		m.innerHTML = contador_mm;		
+		contador_mm=m.innerHTML;
+		h="0"+h;
+		hh.innerHTML=h;
+		
+        cronometro = setInterval(
 
-function inicio() {
-    running = true;
-    _initialDate = new Date();
-	console.log("initial Date: "+_initialDate);
-	control = setInterval(cronometro,1000);
-	document.getElementById("inicio").disabled = true;
-	document.getElementById("parar").disabled = false;
-    var datetime = getFormattedDate();
-    document.getElementById("initDate").value = datetime;
-    var user_id = document.getElementById("user_id").value;
-    console.log("user: "+user_id);
-    realizaProceso(datetime,user_id);
-}
+            function(){
+				
+                if(contador_s==60)
 
-function inicioAutomatico (date) {
-    running = true;
-    console.log("Fecha Inicio Automatico: "+date);
-    _initialDate = date;
-	console.log("date: "+date);
-	control = setInterval(cronometro,1000);
-	document.getElementById("inicio").disabled = true;
-	document.getElementById("parar").disabled = false;
-    var datetime = getFormattedDate();
-    document.getElementById("initDate").value = datetime;
-    //realizaProceso(datetime);
-}
+                {
+					contador_s=0;                    					
+                    contador_m++;
+					
+					contador_mm++;
+					if(contador_mm<10){contador_mm="0"+contador_mm;}
+					//if(contador_s<10){contador_mm="0"+contador_mm;}
+                    m.innerHTML = contador_mm;
+					s.innerHTML = contador_mm;					
+                }
+				
+				if(contador_mm==60)
 
-function parar () {
-    running = false;
-	clearInterval(control);
-	document.getElementById("parar").disabled = true;
-    document.getElementById("stopForm").submit();
-}
+				{
+					
+					contador_mm=0;
+					contador_mm="0"+contador_mm;				
+					m.innerHTML = contador_mm;
+					h++;
+					//hh="0"+contador_h;
+					hh.innerHTML = h;
+				}
+								
+				if(contador_s<10){contador_s="0"+contador_s;}
+                s.innerHTML = contador_s;
+                 contador_m = document.getElementById("endTime"+num).value=contador_m;
 
-function cronometro () {
-    
-    var seconds = getTimeDifference();
-    // multiply by 1000 because Date() requires miliseconds
-    var date = new Date(seconds * 1000);
-    var hh = date.getUTCHours();
-    var mm = date.getUTCMinutes();
-    var ss = date.getSeconds();
-    // If you were building a timestamp instead of a duration, you would uncomment the following line to get 12-hour (not 24) time
-    // if (hh > 12) {hh = hh % 12;}
-    // These lines ensure you have two-digits
-    if (hh < 10) {hh = "0"+hh;}
-    if (mm < 10) {mm = "0"+mm;}
-    if (ss < 10) {ss = "0"+ss;}
-    // This formats your string to HH:MM:SS
-    
-    Segundos.innerHTML = ":"+ss;
-    Minutos.innerHTML = ":"+mm;
-    Horas.innerHTML = hh;
-    var hora = hh+":"+mm+":"+ss;
-    document.getElementById("endTime").value = hora;
-    
-        if(mm == "00" || mm == "30") {
-            if((ss == "00")  ){
-                notifyMe();
-            }
-        }
-}
-
-function cronometro_pausa () {
-    if(!running){
-        counter++;
-        if(counter == 1800){
-            notifyMeNotWorking();
-            counter = 0;
-        }
-    }
-}
-
-function getTimeDifference(){
-        var _current = new Date();
-        var seconds = (_current.getTime() - _initialDate.getTime())/1000;
-        seconds = Math.floor(seconds);
-    return seconds;
-}
-
-function getFormattedDate() {
+                contador_s++;
+				
+				if(s.innerHTML==59){refresh(user_id, contador_m, num);	}
+				 
+            } ,1000);
+     emp = new Date();	 
 	
-    var str = _initialDate.getFullYear() + "/" + (_initialDate.getMonth() + 1) + "/" + _initialDate.getDate() + " " +  _initialDate.getHours() + ":" + _initialDate.getMinutes() + ":" + _initialDate.getSeconds();
-    return str;
+	 if(contador_mm==0 && contador_s==0)
+	 {
+		nom=prompt("Introduzca una referencia para la actividad");			
+		nombre = document.getElementById("act"+num);
+		nombre.innerHTML = nom;	
+		
+		var datetime = getFormattedDate();	 
+		document.getElementById("initDate"+num).value = datetime;
+		
+		realizaProceso(datetime,user_id, contador_mm, num, nom);
+	 }
+	 
+	 document.getElementById("btn1").disabled = true;
+	 document.getElementById("btn2").disabled = true;
+	 document.getElementById("btn3").disabled = true;
+	 document.getElementById("btn4").disabled = true;
+	 document.getElementById("btn5").disabled = true;
+	 document.getElementById("btn6").disabled = true;
+	 document.getElementById("parar"+num).disabled = false; 
+	 document.getElementById("inicio"+num).disabled = true;
+	 document.getElementById("guardar"+num).disabled = true;	 
 }
 
 
-function realizaProceso(datetime,user){
+
+function refresh(user, contador_mm, num)
+{
+	var parametros = {
+                
+                "user" : user,
+				"minutos" : contador_mm,
+				"numero" : num,
+        };
+	
+	$.ajax({
+                data:  parametros,
+                url:   'pages/backend/act_reg.php',
+                type:  'post',                
+        });
+}
+	 
+function realizaProceso(datetime,user, minutos, num, nom){
         var parametros = {
                 "tiempo" : datetime,
-                "user" : user
+                "user" : user,
+				"minutos" : minutos,
+				"numero" : num,
+				"nombre" : nom,
         };
         $.ajax({
                 data:  parametros,
                 url:   'pages/backend/init_reg.php',
-                type:  'post',
-                beforeSend: function () {
-                        console.log("iniciando");
-                        $("#resultado").html("Procesando, espere por favor...");
-                },
-                success:  function (response) {
-                        console.log("finalizado");
-                        $("#resultado").html(response);
-                }
+                type:  'post',                
         });
 }
 
-// request permission on page load
+function parar(val) { 
+
+	
+	num=val;
+	clearInterval(cronometro);
+	document.getElementById("inicio"+num).disabled = false;
+	document.getElementById("guardar"+num).disabled = false;
+	document.getElementById("parar"+num).disabled = true;
+	
+    }		 
+	 
+	 function getTimeDifference(){
+        var _current = new Date();
+        var seconds = (_current.getTime() - emp.getTime())/1000;
+        seconds = Math.floor(seconds);
+    return seconds;
+}
+
+
+
+function guardar(valor) {   
+	//(clearInterval(elcrono);
+		num=valor;
+		document.getElementById("stopForm"+num).submit();
+}
+
+function getFormattedDate() {
+	
+    var str = emp.getFullYear() + "-" + (emp.getMonth() + 1) + "-" + emp.getDate() + " " +  emp.getHours() + ":" + emp.getMinutes() + ":" + emp.getSeconds();
+    return str;
+}
+//Volver al estado inicial
+/*function reiniciar() {
+     if (marcha==1) {  //si el cronómetro está en marcha:
+         clearInterval(elcrono); //parar el crono
+         marcha=0;	//indicar que está parado
+         }
+		     //en cualquier caso volvemos a los valores iniciales
+     cro=0; //tiempo transcurrido a cero
+     visor.innerHTML = "00:00:00"; //visor a cero
+     document.cron.boton1.value="Empezar"; //estado inicial primer botón
+     document.cron.boton2.value="Parar"; //estado inicial segundo botón
+     document.cron.boton2.disabled=true;  //segundo botón desactivado	 
+}*/
+
 document.addEventListener('DOMContentLoaded', function () {
   if (Notification.permission !== "granted")
     Notification.requestPermission();

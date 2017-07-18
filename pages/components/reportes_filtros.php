@@ -1,4 +1,9 @@
-<script>
+
+
+
+
+
+  <script>
 <?php
 if ($filtros != false) {
 	if (! isset ( $_POST ["filtered"] )) {
@@ -11,6 +16,7 @@ if ($filtros != false) {
 }
 ?>
         </script>
+
 
 
 
@@ -77,8 +83,12 @@ function printSelectFilter($filter, $nombre, $result, $requerido) {
 		<div class="input-group-addon">
 			<i class="fa fa-list"></i>
 		</div>
+		
+		
 
-		<select class="form-control select2" style="width: 100%;"
+ 
+
+		<select  class="form-control select2" id="select_item"  style="width: 100%;"
 			id="<?php echo $filter;?>" name="<?php echo $filter;?>"
 			<?php echo $requerido ?>>
 
@@ -89,10 +99,13 @@ function printSelectFilter($filter, $nombre, $result, $requerido) {
 					                   		<option value="<?php echo $row->value; ?>"><?php echo $row->display; ?></option>
 					                   <?php } ?>    
 					                </select>
+					
 	</div>
 	<!-- /.input group -->
 </div>
+
 <?php
+
 }
 function printFilterModal($filtros, $page, $conn) {
 	?>
@@ -110,10 +123,12 @@ function printFilterModal($filtros, $page, $conn) {
 			if ($val == '') {
 				$val = "NaN";
 			}
-			$nom = $value ["nombre"];
-			echo "<br><strong>$nom :</strong> $val";
+		
 		}
 		echo "</p>";
+		 
+
+	
 	}
 	
 	?>
@@ -198,3 +213,5 @@ function applyFilters($query, $filtros) {
 }
 
 ?>
+
+

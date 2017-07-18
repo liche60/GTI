@@ -1,9 +1,91 @@
+<style>
+
+		
+#cronometro { 
+	  padding:10px; 
+	  border: 5px #4CAF50 double;	  
+	  height: 230px;
+	  width: 215px;
+	  text-align: center;
+	  background-color: #FFFFFF;	  
+	  border-radius: 5px;
+	  float: right; 
+      margin: 0em 3em 1em 3em;
+}
+#reloj { 
+	padding: 5px 10px; 
+	width: 95%;
+	border: 1px solid black; 
+    font: normal 1em digital_dream, 
+	europa,
+	arial; 
+	text-align: center; 
+    margin: 4px; 
+	background-color: #FAFAFA;	
+	border-radius: 3px;
+	
+}
+#cronometro [type=button]  { 
+margin-bottom: 13px;
+ font: normal 9pt arial; 
+ width: 85px; 
+ }
+
+
+.boton
+{
+    padding: 5px 10px;	
+	
+	box-shadow: 0px 3px 0px 0px #E6E6E6;	
+    background-color: #f4f4f4;
+    color: #444;
+    border-color: #ddd;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    
+}
+
+.boton.disabled, .boton[disabled], fieldset[disabled] .boton {
+    cursor: not-allowed;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    opacity: .75;
+}
+
+.boton:hover {
+    color: #333;
+     background-color: #e6e6e6; 
+    border-color: #adadad;
+}
+
+@media ( max-width : 700px) {
+	
+	
+	
+	#cronometro
+	{
+		width: 40%;
+	}	
+}
+</style>
 <?php
 // Para los festivos
 $dias=array();
 $conn = $wish->conexion->query("SELECT fecha FROM festivo ");
 $horas = $wish->conexion->query("select sum(tiempoReal) as total from registro_actividad r 
-								where cedula = $userinfo->user_id and DATE(fecha_inicio) = DATE(NOW()) and estado = 'F';");
+								where cedula = $userinfo->user_id and DATE(fecha_inicio) = DATE(NOW()) and estado in ('F', 'R');");
+
+$min1 = $wish->conexion->query ( "select tiempoReal, descripcion, fecha_inicio from registro_actividad where id_contrato=1" );
+$valor1 = $min1->fetch_row();
+
+$min2 = $wish->conexion->query ( "select tiempoReal, descripcion, fecha_inicio from registro_actividad where id_contrato=2" );
+$valor2 = $min2->fetch_row();
+
+$min3 = $wish->conexion->query ( "select tiempoReal, descripcion, fecha_inicio from registro_actividad where id_contrato=3" );
+$valor3 = $min3->fetch_row();
+
+
 $total=$horas->fetch_row();
 $falta=510-$total[0];
 while ($row=$conn->fetch_assoc())
@@ -124,76 +206,167 @@ $initialDate = $row ['fecha_inicio'];
 
 <!-- /.row -->
 <!-- Main row -->
-<div class="row">
-	<!-- Left col -->
-	<section class="col-lg-12 connectedSortable">
+<div class="box box-success">
+			<div class="box-header with-border">
+				<h3 class="box-title">Actividades</h3>
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool"
+						data-widget="collapse">
+						<i class="fa fa-minus"></i>
+					</button>
+					<button type="button" class="btn btn-box-tool" data-widget="remove">
+						<i class="fa fa-times"></i>
+					</button>
+				</div>
+			</div>
+			<!-- /.box-header -->
+					<div class="box-body no-padding">
+				
+	<div class="pad">
+		<section class="col-lg-12 connectedSortable">
 
 		<!-- Custom tabs (Charts with tabs)-->
 		<div class="nav-tabs-custom">
-			<input type="hidden" id="user_id" value="<?php echo $user_id ?>">
+			
 			<!-- Tabs within a box -->
+			
 			<ul class="nav nav-tabs pull-right">
 
 				<li class="pull-left header"><i class="fa fa-clock-o"></i>
-					Registro de Actividades</li>
+					Cronometro</li>
 			</ul>
 			
 					<?php
 					if ($registros == 0) {
 						?>
 			
-						<div class="pad">
-						<!-- Map will be created here -->
-						<h3 class="box-title">Registros del día de hoy</h3>
-						<div class="col-md-offset-4">
-							<a href="index.php?page=004" class="btn btn-app"> <i
-								class="fa fa-edit"></i> Registro de Actividad
-							</a> <a href="index.php?page=014" class="btn btn-app"> <i
-								class="fa fa-plane"></i> Registro de ausentismo
-							</a>
-						</div>
-						<table id="pendientes" class="table table-striped table-bordered"
-							>
-							
-							<thead>
-								<tr>
-									<th>Hora</th>
-									<th>Actividad</th>
-									<th>Categoria</th>
-									<th>Descripción</th>
-									<th>Duración (min)</th>
-									<th>Editar</th>
-								</tr>
-							</thead>
-							<tbody>
-                               <?php
-						while ( $r = $reg_cur->fetch_object () ) {
-							
-								?>
-                                    <tr>
-                                    	<td><?php printf($r->hora);?></td>
-										<td><?php printf($r->actividad);?></td>
-										<td><?php printf($r->categoria);?></td>
-										<td><?php printf($r->descripcion);?></td>
-										<td><?php printf($r->tiempoReal);?></td>
-										<td> <a href="index.php?page=004&editar=<?php printf($r->id);?>">
-                                        <input type="image" src="dist/img/edit.svg"> </a></td>
-									</tr>
-                                            <?php
-						}
-						?>
-                                        
-                             <tr>
-                             	<td>
-                             		<label>Minutos Restantes</label>
-                             	</td>
-                             	<td> <?php echo $falta;?></td>
-                             </tr>
-                             </tbody>
-						</table>
-						
-					</div>
+						<!-- EPACIO DE BOTONES E INPUTS -->
+
+<!-- #1 -->
+	<div id="n1">
+		<div class="col-md-4">
+       	<div class="form-group">
+		
+			<form id="stopForm1" action="index.php?page=004" method="POST">
+				<input type="hidden" name="especifica" value="1">
 			
+				<input type="hidden" name="initDate1" id="initDate1" value="<?php echo $valor1[2];?>">
+				<input type="hidden" name="endTime1" id="endTime1" value="<?php echo $valor1[0];?>">
+				<input type="hidden" id="user_id1" value="<?php echo $user_id ?>">
+			</form>	<br><br>
+				
+				<div id="cronometro">
+				<label id="act1" style="color: black;"><?php echo $valor1[1];?></label> 
+					<div id="reloj">
+					   <span id="horas1">00</span>:<span id="minutos1">00</span>:<span id="segundos1">0</span>
+					</div><br>				
+							
+					
+					<div class="btns">
+						<button type="button" class="boton" id="inicio1" onclick="empezar(1);" >Iniciar &#9658;</button>
+						<button type="button" class="boton" id="continuar1" onclick="continuar(1);" disabled>Reiniciar &#9658;</button>
+						<button type="button" class="boton" id="parar1" onclick="parar(1);" disabled>Pausar &#8718;</button>					
+						<button type="button" class="boton" id="guardar1" onclick="guardar(1);" disabled>Guardar &#8631;</button>
+						<button type="button" class="boton" id="btn1">2</button>
+						<button type="button" class="boton" id="btn2">3</button>
+					</div>	
+					<div id="resultado"></div>
+				</div>
+		</div>
+		</div>
+	</div>
+<!-- FIN #1-->
+<!-- #2 -->
+	<div id="n2">
+		<div class="col-md-4">
+       	<div class="form-group">
+		
+			<form id="stopForm2" action="index.php?page=004" method="POST">
+				<input type="hidden" name="especifica" value="2">
+			
+				<input type="hidden" name="initDate2" id="initDate2" value="<?php echo $valor2[2];?>"> 
+				<input type="hidden" name="endTime2" id="endTime2" value="<?php echo $valor2[0];?>">
+				<input type="hidden" id="user_id2" value="<?php echo $user_id ?>">
+			</form>	<br><br>
+				
+				<div id="cronometro">
+				<label id="act2" style="color: black;"><?php echo $valor2[1];?></label>
+					<div id="reloj">
+				   <span id="horas2">00</span>:<span id="minutos2">00</span>:<span id="segundos2">0</span>
+				</div><br>			
+						
+				
+				<div class="btns">
+					<button type="button" class="boton" id="inicio2" onclick="empezar(2);" >Iniciar &#9658;</button>					
+					<button type="button" class="boton" id="continuar2" onclick="continuar(2);" disabled>Reiniciar &#9658;</button>
+					<button type="button" class="boton" id="parar2" onclick="parar(2);" disabled>Pausar &#8718;</button>					
+					<button type="button" class="boton" id="guardar2" onclick="guardar(2);" disabled>Guardar &#8631;</button>
+					<button type="button" class="boton" id="btn3" disabled>1</button>
+					<button type="button" class="boton" id="btn4" disabled>3</button>
+				</div>	
+				<div id="resultado"></div>
+				</div>
+		</div>
+		</div>
+	</div>
+<!-- FIN #2 -->
+<!-- #3 -->	
+	<div id="n3">
+		<div class="col-md-4">
+       	<div class="form-group">
+		
+			<form id="stopForm3" action="index.php?page=004" method="POST">
+				<input type="hidden" name="especifica" value="3">
+			
+				<input type="hidden" name="initDate3" id="initDate3" value="<?php echo $valor3[2];?>"> 
+				<input type="hidden" name="endTime3" id="endTime3" value="<?php echo $valor3[0];?>">
+				<input type="hidden" id="user_id3" value="<?php echo $user_id ?>">
+			</form>	<br><br>
+				
+				<div id="cronometro">
+				<label id="act3" style="color: black;"><?php echo $valor3[1];?></label>
+					<div id="reloj">
+				   <span id="horas3">00</span>:<span id="minutos3">00</span>:<span id="segundos3">0</span>
+				</div><br>				
+					
+				
+				<div class="btns">
+						<button type="button" class="boton" id="inicio3" onclick="empezar(3);" >Iniciar &#9658;</button>					
+						<button type="button" class="boton" id="continuar3" onclick="continuar(3);" disabled>Reiniciar &#9658;</button>
+						<button type="button" class="boton" id="parar3" onclick="parar(3);" disabled>Pausar &#8718;</button>						
+						<button type="button" class="boton" id="guardar3" onclick="guardar(3);" disabled>Guardar &#8631;</button>
+						<button type="button" class="boton" id="btn5" disabled>1</button>
+						<button type="button" class="boton" id="btn6" disabled>2</button>
+				</div>	
+				<div id="resultado"></div>
+				</div>	
+		</div>
+		</div>
+	</div>
+<!-- FIN #3 -->
+<table id="pendientes" class="table table-striped table-bordered">
+	
+	<tr>
+		<td>
+			<label>Minutos Restantes</label>
+		</td>
+		<td> <?php echo $falta;?></td>
+	</tr>
+ 
+</table>
+<!-- FIN DE EPACIO DE BOTONES E INPUTS -->
+						
+						
+							<!-- <a href="index.php?page=004" class="btn btn-app"> <i
+								class="fa fa-edit"></i> Registro de Actividad
+							</a> -->
+							<div style="text-align: center;">
+								<a href="index.php?page=014" class="btn btn-app"> <i
+									class="fa fa-plane"></i> Registro de ausentismo
+								</a>
+							</div>
+						
 			
 			<?php
 					} else {
@@ -283,11 +456,11 @@ $initialDate = $row ['fecha_inicio'];
 				if ($numero_filas > 0) {
 					?>
     <script>
-    
-        var d = <?php echo "'".$initialDate."'" ?>;
+    /*
+       // var d = <?php// echo "'".$initialDate."'" ?>;
         var date = new Date(d.substr(0, 4), d.substr(5, 2) - 1, d.substr(8, 2), d.substr(11, 2), d.substr(14, 2), d.substr(17, 2));
         console.log("date: "+date);
-        inicioAutomatico(date);
+        inicioAutomatico(date);*/
         
     </script>
     <?php
@@ -297,4 +470,61 @@ $initialDate = $row ['fecha_inicio'];
     </section>
 
 </div>
+</div>				
+</div>
+<script>
 
+	$(document).ready(function(){
+	    	 $("#n2").find("input,select,button").prop("disabled",true);
+			 $("#n3").find("input,select,button").prop("disabled",true); 
+	    	});
+
+	$("#btn1").on("click", function(){
+		$("#n2").find("input, #inicio2, #btn3, #btn4").prop("disabled",false);
+		$("#n1").find("input, button").prop("disabled",true);
+	});
+	$("#btn2").on("click", function(){
+		$("#n3").find("input, #inicio3, #btn5, #btn6").prop("disabled",false);
+		$("#n1").find("input, button").prop("disabled",true);
+		$("#n2").find("input, button").prop("disabled",true);
+	});
+	$("#btn3").on("click", function(){
+		$("#n1").find("input, #inicio1, #btn1, #btn2").prop("disabled",false);
+		$("#n2").find("input, button").prop("disabled",true);
+		$("#n3").find("input, button").prop("disabled",true);
+	});
+	$("#btn4").on("click", function(){
+		$("#n3").find("input, #inicio3, #btn5, #btn6").prop("disabled",false);
+		$("#n1").find("input, button").prop("disabled",true);
+		$("#n2").find("input, button").prop("disabled",true);
+	});
+	$("#btn5").on("click", function(){
+		$("#n1").find("input, #inicio1, #btn1, #btn2").prop("disabled",false);
+		$("#n2").find("input, button").prop("disabled",true);
+		$("#n3").find("input, button").prop("disabled",true);
+	});
+	$("#btn6").on("click", function(){
+		$("#n2").find("input, #inicio2, #btn3, #btn4").prop("disabled",false);
+		$("#n1").find("input, button").prop("disabled",true);
+		$("#n3").find("input, button").prop("disabled",true);
+	});
+	
+	
+	$("#parar1").on("click", function(){
+		document.getElementById("btn1").disabled = false;
+		document.getElementById("btn2").disabled = false;
+		document.getElementById("guardar1").disabled = false;		
+	});
+	
+	$("#parar2").on("click", function(){
+		document.getElementById("btn3").disabled = false;
+		document.getElementById("btn4").disabled = false;
+		document.getElementById("guardar2").disabled = false;
+	});
+	
+	$("#parar3").on("click", function(){
+		document.getElementById("btn5").disabled = false;
+		document.getElementById("btn6").disabled = false;
+		document.getElementById("guardar3").disabled = false;
+	});
+</script>

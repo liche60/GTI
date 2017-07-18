@@ -1,5 +1,5 @@
  
- <link rel="stylesheet" href="plugins/select2/select2.min.css"/>
+
 <style>
 .scrollbar
 {
@@ -142,10 +142,4 @@
         </div>
         </div>
 
-    <script src="plugins/select2/select2.full.min.js"></script>
-    <script>
-	     $(function () {
-	    $("select").select2();
-	     });
-    </script>
     

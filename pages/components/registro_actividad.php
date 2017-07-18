@@ -1,8 +1,4 @@
 
-<script src="dist/js/pages/registro_actividad.js"></script>
-<script src="dist/js/pages/jquery.js"></script>
-<script src="dist/js/pages/operaciones.js"></script>
-
 <?php
 $query = "select actividad from actividad";
 $res = $wish->conexion->query ( $query );
@@ -39,13 +35,53 @@ if (isset ( $_GET ['editar'] )) {
 	$query = "select * from registro_actividad where id = " . $id_editar . "";
 	$editar_res = $wish->conexion->query ( $query );
 }
+
+$comp = $_POST ["especifica"];
+switch($comp)
+{
+	case 1:
+		$tiempo = $_POST ["endTime1"];
+		$dato = $_POST ["initDate1"];
+		break;
+		
+	case 2:
+		$tiempo = $_POST ["endTime2"];
+		$dato = $_POST ["initDate2"];
+		break;
+		
+	case 3:
+		$tiempo = $_POST ["endTime3"];
+		$dato = $_POST ["initDate3"];
+		break;
+		
+}
 ?>
 
+<link rel="stylesheet" href="plugins/select2/select2.min.css"/>
+<style>
+    .scrollbar
+    {
+        margin-left: 30px;
+        float: left;
+        height: 300px;
+        width: 65px;
+        background: #F5F5F5;
+        overflow-y: scroll;
+        margin-bottom: 25px;
+    }
+    .select2-container--default .select2-selection--single
+    {
+        border-radius: 0;
+        border-color: #d2d6de;
+        width: 100%;
+        height: 34px;
+    }
+</style>
 <!-- Main content -->
 <div class="col-md-12">
 	<div class="box box-default">
 		<div class="box-body">
-			<form action="pages/backend/registrar_nueva_actividad.php"
+			<form action="pages/backend/actividad.php"
 				method="POST" onsubmit="return validacion(this)">
 				
 				<div class="row">
@@ -65,9 +101,8 @@ if (isset ( $_GET ['editar'] )) {
 						<input type="hidden" id="areaa" name="areaa" value="<?php echo $userinfo->area;?>">
 						<!-- /.form-group -->
 						<div class="form-group">
-							<label>Contrato</label> <select id="id_contrato"
-								name="id_contrato" class="form-control select2"
-								style="width: 100%;" required>
+							<label>Contrato</label> 
+							<select id="id_contrato" name="id_contrato" class="form-control" style="width: 100%;" required>
 								<option value="" id=""></option>            
                   <?php
 																		while ( $row = $rContratos->fetch_object () ) {
@@ -81,11 +116,7 @@ if (isset ( $_GET ['editar'] )) {
 
 
 
-						<div class="form-group">
-							<label>Descripción</label>
-							<textarea id="descripcion" name="descripcion"
-								class="form-control" rows="5" placeholder="Descripción" required></textarea>
-						</div>
+						
 						<!-- /.form-group -->
 					</div>
 					<!-- /.col -->
@@ -113,14 +144,14 @@ if (isset ( $_GET ['editar'] )) {
 						</div>
 
 <!-- fecha -->
-						<div class="form-group">
+						<!--<div class="form-group">
 							<i class="fa fa-calendar"></i> <label>Fecha y hora de inicio</label>
-							<input id="fecha_inicio" name="fecha_inicio" required value="<?php echo $fecha?>"
+							 <input id="fecha_inicio" name="fecha_inicio" required value="<?php// echo $fecha?>"  
 								type="datetime" class="form-control" >
-						</div>
-						<div class="form-group">
-							<label>Tiempo Real (minutos)</label> <input id="tiempoReal"
-								name="tiempoReal" type="number" class="form-control">
+						</div>-->
+						<div class="form-group">							
+							<input id="tiempoReal" readonly name="tiempoReal" type="hidden" class="form-control" value="<?php echo $tiempo; ?>">
+							<input type="hidden" value="<?php echo $dato;?>" name="dato">
 						</div>
 
 
@@ -176,7 +207,11 @@ if (isset ( $_GET ['editar'] )) {
 
 
 
-
+						<div class="form-group">
+							<label>Descripción</label>
+							<textarea id="descripcion" name="descripcion"
+								class="form-control" rows="5" placeholder="Descripción" required></textarea>
+						</div>
 
 						<br>
 						<button type="submit" class="btn btn-success"
@@ -189,3 +224,9 @@ if (isset ( $_GET ['editar'] )) {
 		</div>
 	</div>
 </div>
+<script src="plugins/select2/select2.full.min.js"></script>
+    <script>
+	     $(function () {
+	    $("select").select2();
+	     });
+    </script>

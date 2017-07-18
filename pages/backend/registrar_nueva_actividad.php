@@ -7,7 +7,7 @@ if ($_SESSION ['authenticated'] == 1) {
 	$editar=$_POST['editar'];
 	$id_actividad = $_POST ['id_actividad'];
 	$user_id = $_SESSION ['user_id'];
-	$fecha_inicio = $_POST ['fecha_inicio'];
+	//$fecha_inicio = $_POST ['fecha_inicio'];
 	$tiempoReal = $_POST ['tiempoReal'];
 	$numerotiquete = $_POST ['numerotiquete'];
 	$descripcion = $_POST ['descripcion'];
@@ -53,7 +53,7 @@ if ($_SESSION ['authenticated'] == 1) {
 	
 	$wish->cerrar ();
 	
-	//header ( "Location: ../../index.php" );
+	header ( "Location: ../../index.php" );
 }
 
 ?>

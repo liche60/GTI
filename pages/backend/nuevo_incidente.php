@@ -22,12 +22,14 @@ $hrs_actividad=$_POST['hrs_actividad'];
 $mesa=$_POST['mesa'];
 $responsable=$_POST['idresponsable'];
 $nombre_reporta=$_POST['nombre_reporta'];
-$correo_responsable=$_POST['corresponsable'];
+$nombre_responsable=$_POST['corresponsable'];
 $estado='P';
 $nombre_host=$_POST['nombre_host'];
 $ip=$_POST['ip'];
+$correo=$_POST['correo'];
 $id_host=$_POST['id_host'];
  
+echo $correo_responsable;
 //el estado lo mando directo
 
 $wish=new conexion();
@@ -38,11 +40,11 @@ $headers = "MIME-Version: 1.0\r\n";
 $headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 
 $headers .= "From: Bitacora de operaciones <bitacora@arus.com.co>" . "\r\n";
-$this_mail = mail("dgskdj@gmail.com", "Se ha generado un incidente", "Evento: $id_evento<br> Host: $nombre_host<br> IP: $ip<br> Servicio afectado: $servicio <br> Tipo Evento: $tipo_evento<br> 
+$this_mail = mail($correo , "Se ha generado un incidente", "Evento: $id_evento<br> Host: $nombre_host<br> IP: $ip<br> Servicio afectado: $servicio <br> Tipo Evento: $tipo_evento<br> 
 					Causa Evento: $causa_evento<br> Minutos de Actividad: $hrs_actividad<br> Tipo Actividad: $tipo_actividad<br> 
 					Persona que Reporta: $nombre_reporta<br> Fecha y Hora: $fecha", $headers);
 echo "<script> alert('Mensaje enviado') </script>";
-echo "<script> redireccionar1(); </script>";
+//echo "<script> redireccionar1(); </script>";
 
 $wish->cerrar(); 
  

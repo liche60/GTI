@@ -1,3 +1,4 @@
+
 <?php
 if (array_key_exists ( $report, $_REPORTS_CONFIG )) {
 	$res = $_REPORTS_CONFIG [$report];
@@ -15,9 +16,13 @@ if (array_key_exists ( $report, $_REPORTS_CONFIG )) {
 	}elseif ($tipo == "grafico"){
 		$grafico = $res ["grafico"];
 		include "pages/components/reportes_graficos_component.php";
+	}elseif($tipo == "grafico_linea"){
+		$grafico= $res ["grafico"];
+		include "pages/components/reportes_graficos_linea_component.php";
 	}
 } else {
 	include $vista->_PAGE_CONFIG ["500"] ["link"];
 }
 
 ?>
+

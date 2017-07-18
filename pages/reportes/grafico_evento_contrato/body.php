@@ -1,6 +1,6 @@
 <?php
 
-$report = "evento_abierto_contrato";
+$report = "grafico_evento_contrato";
 include "pages/reportes/body.php";
 
 

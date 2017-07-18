@@ -1,15 +1,6 @@
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-<!-- Estilo DataTable  -->
-<link
-	href="https://cdn.datatables.net/buttons/1.2.2/css/buttons.dataTables.min.css"
-	rel="stylesheet" />
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.css"
-	rel="stylesheet" />
-<link
-	href="https://cdn.datatables.net/1.10.12/css/dataTables.semanticui.min.css"
-	rel="stylesheet" />
+
+
+ <link rel="stylesheet" href="plugins/select2/select2.css"/>
 
 <?php 
 include 'pages/components/reportes_filtros.php';
@@ -56,10 +47,14 @@ include 'pages/components/reportes_filtros.php';
 																		?>
             	<?php $query = applyFilters($query,$filtros); ?>
             	
-            
+            	
+         
 				<div class="box-body">
-				<div style=" width: 100.5%; height:400px; overflow-y: scroll;">
-					<table id="dataTable-<?php echo $report;?>" class="table table-bordered table-striped">
+				
+				   <div style=" width: 100.5%; height:280px; overflow-y: scroll;">
+				   
+					<table id="dataTable-<?php echo $report;?>"
+						class="table table-bordered table-striped">
 						<thead>
 							<tr>
 							                <?php
@@ -95,7 +90,7 @@ include 'pages/components/reportes_filtros.php';
 																			}
 																			$consulta->close ();
 																		}
-																		?>
+						 												?>
 							                </tbody>
 
 					</table>
@@ -111,46 +106,11 @@ include 'pages/components/reportes_filtros.php';
 </div>
 
 
-<!-- DataTables -->
-<script
-	src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-<script
-	src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-<script
-	src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-<script
-	src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-<script
-	src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-<script
-	src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-<script
-	src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
 
-<script
-	src="https://cdn.datatables.net/1.10.12/js/dataTables.semanticui.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.1/semantic.min.js"></script>
 
-<!-- SlimScroll -->
-<script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="plugins/fastclick/fastclick.js"></script>
-<!-- AdminLTE App -->
-
-<script>
-        $(document).ready(function() {
-            $('#dataTable-<?php echo $report;?>').DataTable( {
-                dom: 'Bfrtip',
-                buttons: [
-                     'excel'
-                ]
-            } );
-        } );
-        
+<script src="plugins/select2/select2.full.min.js"></script>
+    <script>
+	     $(function () {
+	    $("select").select2();
+	     });
     </script>
-
-
-

@@ -170,8 +170,8 @@ $row2 = $query2->fetch_assoc();
 		<option value="capacidad">Capacidad</option>
 	</select>
 	
-	<label>Tipo de Actividad</label>
-	<select class="form-control" name="t_actividad">
+	<label>Tipo de Evento</label>
+	<select class="form-control" name="t_evento">
 		<option></option>
 		<option value="critival">Critical</option>
 		<option value="warning">Warning</option>
@@ -184,12 +184,12 @@ $row2 = $query2->fetch_assoc();
     <div class="input__row">
 	    <ul class="buttons">
 			<li>
-				<input id="radiobtn_1" class="radiobtn" name="t_evento" type="radio" value="Programada" tabindex="1" required>
+				<input id="radiobtn_1" class="radiobtn" name="t_actividad" type="radio" value="Programada" tabindex="1" required>
 				<span></span>
 				<label for="radiobtn_1" id="r1" >Programada</label>
 				</li>
 				<li>
-				<input id="radiobtn_2" class="radiobtn" name="t_evento" type="radio" value="No programada" tabindex="2" required>
+				<input id="radiobtn_2" class="radiobtn" name="t_actividad" type="radio" value="No programada" tabindex="2" required>
 				<span></span>
 				<label for="radiobtn_2" id="r2">No programada</label>
 			</li>

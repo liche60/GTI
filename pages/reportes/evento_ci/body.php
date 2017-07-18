@@ -1,6 +1,6 @@
 <?php
 
-$report = "contratos";
+$report = "evento_ci";
 include "pages/reportes/body.php";
 
 

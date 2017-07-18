@@ -314,7 +314,7 @@ $_PAGE_CONFIG = array(
 				"big" => "GTI",
 				"menu_css_class" => "fa-line-chart",
 				"small" => "Reportes",
-				"menu" => "Reportes",
+				"menu" => "Reportes bitacora",
 				"submenu" => array(
 						"page1" => "003",
 						"page2" => "008",
@@ -323,13 +323,52 @@ $_PAGE_CONFIG = array(
 						"page5" => "021",
 						"page6" => "022",
 						"page7" => "030",
+						
+			
+					
+				) 
+		),
+		
+		
+		"041" => array(
+				"show" => true,
+				"isSubmenu" => false,
+				"big" => "Reportes",
+				"small" => "Gestion de eventos",
+				"menu" => "Reportes eventos",
+				"menu_css_class" => "fa-line-chart",
+				"submenu" => array(
 						"page8" => "031",
 						"page9" => "032",
 						"page10"=> "033",
 						"page11"=> "034",
 						"page12"=> "035",
+						"page13"=> "036",
+						"page14"=> "037",
+						"page17"=> "040",
+						"page15"=> "038",
+						"page16"=> "039",
+						
+						
+						
 				)
+				
+				
 		),
+		
+		
+		"042" => array(
+				"show" => true,
+				"isSubmenu" => false,
+				"big" => "Indicadores de operación",
+				"small" => "Indicadores de operación",
+				"menu" => "Indicadores de operación",
+				"menu_css_class" => "fa-line-chart",
+				"link" => 'pages/components/indicadores_operacion.php',
+								
+		),
+		
+		
 		"003" => array(
 				"show" => true,
 				"isSubmenu" => true,
@@ -459,6 +498,60 @@ $_PAGE_CONFIG = array(
 				"menu_css_class" => "fa-file-pdf-o",
 				"link" => "pages/reportes/evento_masivo_general/body.php"
 		),
+		
+		"036" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Eventos por CI",
+				"small" => "Eventos por CI",
+				"menu" => "Eventos por CI",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/evento_ci/body.php"
+		),
+		
+		"037" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Eventos por servicio",
+				"small" => "Eventos por servicio",
+				"menu" => "Eventos por servicio",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/evento_servicio/body.php"
+		),
+		
+		"038" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Gráfico eventos por contrato",
+				"small" => "Gráfico Eventos por contrato",
+				"menu" => "Gráfico eventos por contrato",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/grafico_evento_contrato/body.php"
+		),
+		
+		"039" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Gráfico capacidad y disponbilidad",
+				"small" => "Gráfico Eventos",
+				"menu" => "Gráfico capacidad y disponbilidad",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/grafico_dispo_capa/body.php"
+		),
+		
+		"040" => array(
+				"show" => true,
+				"isSubmenu" => true,
+				"big" => "Reporte ,CI's por contrato",
+				"small" => "Cantidad de CI's por contrato",
+				"menu" => "Catidad de CI's por contrato",
+				"menu_css_class" => "fa-file-pdf-o",
+				"link" => "pages/reportes/ci_contrato/body.php"
+		),
+		
+		
+		
+		
 		
 		
 		

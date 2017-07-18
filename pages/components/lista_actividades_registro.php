@@ -1,7 +1,17 @@
 <script src="dist/js/pages/registro_actividad.js"></script>
 <script src="dist/js/pages/jquery.js"></script> 
 <script src="dist/js/pages/operaciones.js"></script>
+<link rel="stylesheet" href="plugins/select2/select2.min.css"/>
 
+<style>
+	.select2-container--default .select2-selection--single
+{
+	border-radius: 0;
+    border-color: #d2d6de;
+    width: 100%;
+    height: 34px;
+}
+</style>
 
     <script>
 			$(document).ready(function() {
@@ -157,6 +167,11 @@ if($editar){
      <!-- DataTables -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
-
+<script src="plugins/select2/select2.full.min.js"></script>
+    <script>
+	     $(function () {
+	    $("select").select2();
+	     });
+    </script>
 
     

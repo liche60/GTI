@@ -44,19 +44,25 @@ class conexion{
 		}
 		echo "index.php";
 	}
-	public function tiempo($tiempo, $user_id) {
-		$this->tiempo = $tiempo;
-		$query = "INSERT INTO registro_actividad (id_actividad,cedula,fecha_inicio,estado,id_contrato) VALUES ( '0','" . $user_id . "','" . $tiempo . "','R',76)";
+	public function tiempo($tiempo, $user_id, $minutos, $numero, $nombre) {
+		//$this->tiempo = $tiempo;
+		$query = "INSERT INTO registro_actividad (id_actividad,cedula,fecha_inicio,estado,id_contrato, tiempoReal, descripcion) VALUES ( '0','" . $user_id . "','" . $tiempo . "','R','" . $numero . "', " .$minutos.", '" .$nombre."')";
 		$consulta = $this->conexion->query ( $query );
 	}
-/*	public function registrarActividad($user_id, $id, $descripcion, $fecha_final, $tiempoReal, $numerotiquete, $id_contrato) 
+	
+	public function act_tiempo($user_id, $minutos, $numero) {
+		//$this->tiempo = $tiempo;
+		$query = "update registro_actividad set tiempoReal=".$minutos." where cedula=".$user_id." and id_contrato='" . $numero . "' and estado='R';";
+		$consulta = $this->conexion->query ( $query );
+	}
+	public function registrarActividad ($user_id,$id,$descripcion,$fecha_final,$tiempoReal,$numerotiquete,$id_contrato, $horaExtra)
 
 	{
-		$query = "update registro_actividad set id_actividad=" . $id . ", descripcion='" . $descripcion . "', id_contrato='" . $id_contrato . "', numerotiquete='" . $numerotiquete . "' ,tiempo_calculado='" . $fecha_final . "', fecha_fin=now(),tiempoReal='" . $tiempoReal . "', estado='F' where cedula=" . $user_id . " and estado='R';";
+		$query = "update registro_actividad set id_actividad=" . $id . ", descripcion='" . $descripcion . "', id_contrato='" . $id_contrato . "', numerotiquete='" . $numerotiquete . "' ,tiempo_calculado='" . $tiempoReal. "', fecha_fin=now(),tiempoReal='" . $tiempoReal . "', horaExtra='".$horaExtra."', estado='F' where cedula=" . $user_id . " and estado='R';";
 		echo $query;
 		$consulta = $this->conexion->query ( $query );
-	}*/
-	public function actualizarActividad($id_reg, $user_id, $id_actividad, $descripcion, $fecha_inicio, $fecha_fin, $tiempoReal, $numerotiquete, $id_contrato, $horaExtra, $estado) 
+	}
+	public function actualizarActividad($id_reg, $user_id, $id_actividad, $descripcion, $fecha_fin, $tiempoReal, $numerotiquete, $id_contrato, $horaExtra, $estado) 
 
 	{
 		$query = "update registro_actividad set id_actividad=" . $id_actividad. ", fecha_inicio='$fecha_inicio', fecha_fin='$fecha_fin', descripcion='" . $descripcion . "', id_contrato='" . $id_contrato . "', numerotiquete='" . $numerotiquete . "' , tiempoReal='" . $tiempoReal . "' where id=" . $id_reg . " and cedula=" . $user_id . " and estado='$estado' and horaExtra='$horaExtra' ;";
@@ -95,11 +101,11 @@ class conexion{
 		$query = "UPDATE new_usuario set password='" . $cambiopass . "'WHERE cedula='" . $user_id . "'";
 		$consulta = $this->conexion->query ( $query );
 	}
-	public function registrarNuevaActividad($id_actividad, $user_id, $fecha_inicio, $fecha_fin, $tiempoReal, $numerotiquete, $descripcion, $id_contrato, $horaExtra, $estado) {
+	/*public function registrarNuevaActividad($id_actividad, $user_id, $fecha_inicio, $fecha_fin, $tiempoReal, $numerotiquete, $descripcion, $id_contrato, $horaExtra, $estado) {
 		$query = "INSERT INTO registro_actividad (id_actividad,cedula,fecha_inicio, fecha_fin, estado,tiempoReal,numerotiquete,descripcion,id_contrato,horaExtra) VALUES ('" . $id_actividad . "','" . $user_id . "','" . $fecha_inicio . "','" . $fecha_fin . "','".$estado."','" . $tiempoReal . "','" . $numerotiquete . "','" . $descripcion . "','" . $id_contrato . "','" . $horaExtra. "')";
 		$consulta = $this->conexion->query ( $query );
 		
-	}
+	}*/
 	public function actualizarEstado($id, $nuevoEstado) {
 		$query = "update registro_actividad set estado='" . $nuevoEstado . "' where id=" . $id . ";";
 		

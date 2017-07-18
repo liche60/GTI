@@ -26,7 +26,7 @@ $conn = $oe->conexion->query("select a.id_detalle, b.nombre, b.ip, b.id as id_ho
 a.id_host=b.id and a.id_tipo_servicio=c.id and id_detalle='$id_detalle'");
 
 $num_evento = $oe->conexion->query("SELECT (max(id)+1) as Numero_de_evento FROM incidentecop");
-$query=$oe->conexion->query("select nombre from new_personas where cedula=$id_persona");
+$query=$oe->conexion->query("select nombre, correo from new_personas where cedula=$id_persona");
 
 $evento = $num_evento->fetch_assoc();
 $row = $conn->fetch_assoc();
@@ -160,6 +160,7 @@ $info=$query->fetch_assoc();
                     <label>Responsable</label>
                     <input  name="corresponsable" value="<?php echo $info['nombre'];?>" id="txtResponsable" class="form-control" readonly>
                     <input type="hidden" name="idresponsable" value="<?php echo $id_persona;?>" id="txtResponsable" class="form-control" readonly>
+                    <input type="hidden" name="correo" value="<?php echo $info['nombre'];?>">
   
                     <label>Persona que reporta</label><br>
                     <input name="nombre_reporta" value="<?php echo $userinfo->user_name = ucwords(strtolower($_SESSION['user_name']));?>" class="form-control" required readonly> 

@@ -28,10 +28,11 @@ if (isset ( $_POST ["filtered"] ) && $filtros != false) {
 
                 var data_<?php echo $report;?> = new google.visualization.DataTable();
                 data_<?php echo $report;?>.addColumn('string','columna');
-                data_<?php echo $report;?>.addColumn('number','valores');               
+                data_<?php echo $report;?>.addColumn('number','Disponibilidad');  
+                data_<?php echo $report;?>.addColumn('number','Capacidad');                
                 var dataArray_<?php echo $report;?> = [];
                 $.each(result_<?php echo $report;?>, function(i, obj_<?php echo $report;?>) {
-                    dataArray_<?php echo $report;?>.push([obj_<?php echo $report;?>.columna, parseInt(obj_<?php echo $report;?>.valores) ]);
+                    dataArray_<?php echo $report;?>.push([obj_<?php echo $report;?>.columna, parseInt(obj_<?php echo $report;?>.valores),parseInt(obj_<?php echo $report;?>.valores1) ]);
                 });
                 
                 data_<?php echo $report;?>.addRows(dataArray_<?php echo $report;?>);
@@ -43,14 +44,15 @@ if (isset ( $_POST ["filtered"] ) && $filtros != false) {
                     bars: 'horizontal', 
                     series: {
                         0: { axis: 'columna' }, // Bind series 0 to an axis named 'distance'.
-                        1: { axis: 'valores' } // Bind series 1 to an axis named 'brightness'.
-                      },
+                        1: { axis: 'valores' }, // Bind series 1 to an axis named 'brightness'.
+                        2: { axis: 'valores1' }, 
+                         },
                       axes: {
                           x: {
                             distance: {label: 'parsecs'}, // Bottom x-axis.
                             brightness: {side: 'top', label: 'apparent magnitude'} // Top x-axis.
                           }
-                        },
+                        }, 
                     is3D: true};
                 <?php 
                 if($grafico == "pie"){
@@ -60,23 +62,33 @@ if (isset ( $_POST ["filtered"] ) && $filtros != false) {
 	                ?>
 	                	var piechart_<?php echo $report;?> = new google.visualization.BarChart(document.getElementById('piechart_<?php echo $report;?>_div'));
 				<?php }?>
+				<?php if($grafico == "column"){
+	                ?>
+	                	var piechart_<?php echo $report;?> = new google.visualization.ColumnChart(document.getElementById('piechart_<?php echo $report;?>_div'));
+				<?php }?>
+				
+				
                 piechart_<?php echo $report;?>.draw(data_<?php echo $report;?>, piechart_options_<?php echo $report;?>);
                 }
 
         });
     </script>
-
-<?php }?>
-
-<!-- /.box -->
+ 
+<?php }?> 
+ 
+<!-- /.box --> 
 
 <div class='box box-success'>
 	<div class='box-header with-border'>
-		<h3 class='box-title'><?php echo $titulo;?></h3>
+		<h3 class='box-title'><?php echo $titulo;
+		?></h3>
+	
+                
 		<?php
 		if ($filtros != false) {
 			printFilterModal ( $filtros, $page, $wish );
 		}
+		
 		?>
 		<div class='box-tools pull-right'>
 			<button type='button' class='btn btn-box-tool' data-widget='collapse'>
@@ -85,6 +97,7 @@ if (isset ( $_POST ["filtered"] ) && $filtros != false) {
 			<button type='button' class='btn btn-box-tool' data-widget='remove'>
 				<i class='fa fa-times'></i>
 			</button>
+			<?php echo $report;?>
 		</div>
 	</div>
 	<div class='box-body'>
